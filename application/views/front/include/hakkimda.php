@@ -26,7 +26,7 @@
                   </div>
                 </div>
               </div>
-            <?php $this->load->view('front/include/ozellik.php'); ?>
+            <!--<?php $this->load->view('front/include/ozellik.php'); ?> -->
             </div>
             <div class="col-md-6">
               <div class="about-me pt-4 pt-md-0">
