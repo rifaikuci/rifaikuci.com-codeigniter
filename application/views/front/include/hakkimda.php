@@ -32,8 +32,9 @@
                 <p><span class="title-s">Bölüm: </span> <span><?php echo $siteayar['ozellik'];?></span></p>
                 <p><span class="title-s">Email: </span>  <a href="mailto:rfai0747@gmail.com?Subject=rifaikuci.com%20Adresinden" target="_top"> <span><?php echo $siteayar['mail'];?></span></a></p>
                 <div class="socials">
-                    <h2 >Sosyal Medya Hesapları</h2>
-                    <hr>
+                    <h2 class="title-left" >Sosyal Medya Hesapları</h2>
+                    <br>
+
                     <ul>
                         <?php $smedya=smedyaion();
                         foreach ($smedya as $smedya) {
