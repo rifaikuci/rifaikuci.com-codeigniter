@@ -21,14 +21,16 @@ class Anasayfa extends CI_Controller {
     'ip' => $ip = $this->input->post('ip')
 
   );
+
   $sonuc = $this->dtbs->ekle('tbliletisim',$data);
+
   if ($sonuc) {
     $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-check"></i>Mesaj Gönderimi Başarılı :) </h4>
                   Mesaj  başarılı bir  şekilde eklendi :)
                   </div>');
-    redirect('anasayfa');
+    redirect('anasayfa/#iletisim');
   }
   else {
     $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
@@ -36,7 +38,7 @@ class Anasayfa extends CI_Controller {
                     <h4><i class="icon fa fa-ban"></i>Mesajınız Gönderme Başarısız !!!</h4>
                     Mesajınız Gönderilirken bir hata oluştu. <b>TEKRAR DENEYİN!!</b>
                   </div>');
-    redirect('anasayfa');
+    redirect('anasayfa/#iletisim');
   }
 
     }
