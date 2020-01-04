@@ -3819,9 +3819,80 @@ $this->protect();
 
 
 
-    
-    
-    
+
+
+    // Projeler  Başlangıç
+    public function onlineSertifika()
+    {
+        $this->protect();
+        $sonuc =$this->dtbs->listele('tblOnlineSertifika');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/onlineSertifika/anasayfa',$data);
+    }
+
+// Projeler ekleme formunu yönlendirir
+    public function onlineSertifikaekle()
+    {$this->protect();
+        $this->load->view('back/onlineSertifika/ekle/anasayfa');
+    }
+
+
+
+    public function onlineSertifikaekleme()
+    {
+        $this->protect();
+        echo $this->input->post('tarih');
+        $data = array(
+            'adSoyad' => $adSoyad = $this->input->post('adSoyad'),
+            'eAdiSoyadi' => $eAdiSoyadi = $this->input->post('eAdiSoyadi'),
+
+            'tarih' => $tarih = $this->input->post('tarih'),
+
+            'kursAdi' => $kursAdi = $this->input->post('kursAdi')
+
+        );
+        $sonuc = $this->dtbs->ekle('tblOnlineSertifika',$data);
+        if ($sonuc) {
+            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
+                Online Sertika   başarılı bir  şekilde eklendi :)
+                </div>');
+            redirect('yonetim/onlineSertifika');
+        }
+        else {
+            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+                  Head Menü Listesine Eklerken Sorun Oluştu. <b>TEKRAR DENEYİN!!</b>
+                </div>');
+            redirect('yonetim/onlineSertifika');
+        }
+    }
+    public function onlineSertifikasil($id,$where,$from)
+    {
+        $this->protect();
+        $sonuc = $this->dtbs->sil($id,$where,$from);
+        if ($sonuc) {
+            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i>BAŞARILI :) </h4>
+                   Seçtiğiniz  Setifika Silindi
+                  </div>');
+            redirect('yonetim/onlineSertifika');
+        }
+        else {
+            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+                  Seçtiğiniz  Setifikayı Bir Hata Oluştu .<b> TEKRAR DENEYİN!!!</b>
+                  </div>');
+            redirect('yonetim/onlineSertifika');
+        }}
+
+
+
+
 }// son parantez
 
 

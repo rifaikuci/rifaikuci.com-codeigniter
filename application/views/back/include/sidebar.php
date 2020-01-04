@@ -66,6 +66,12 @@
         </a>
       </li>
 
+        <li>
+            <a href="<?php echo base_url('yonetim/onlineSertifika'); ?>">
+                <i class="fa fa-list-alt"></i> <span>Online Sertifika</span>
+            </a>
+        </li>
+
       <li>
         <a href="<?php echo base_url('yonetim/projeler'); ?>">
           <i class="fa fa-file-text"></i> <span>Projeler</span>
