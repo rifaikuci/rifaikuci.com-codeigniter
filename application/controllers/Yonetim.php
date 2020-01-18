@@ -1,7 +1,7 @@
 <?php
 
-class Yonetim extends CI_Controller {
 
+class Yonetim extends CI_Controller {
 
 // admine girişte güvenlik amacı ile yazılan kod
 	public function protect()

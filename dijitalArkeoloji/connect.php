@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect("localhost", "rifaikuc", "Gt36wwY2x7", "rifaikuc_rifaikuci");
+$conn = mysqli_connect("localhost", "root", "mardin47", "rifaikuc");
 $conn->set_charset("utf8");
 
 /*if ($conn) {
