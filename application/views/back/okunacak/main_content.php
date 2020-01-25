@@ -17,7 +17,6 @@
                  <th>Kitap Adı</th>
                  <th>Yazar Adı</th>
 
-                 <th style="width:160px;">Resim</th>
                  <th style="width:105px">İşlemler</th>
                </tr>
                </thead>
@@ -28,9 +27,7 @@
                     <td  style="font-weight:bold"><?php echo  $sayi++; ?></td>
                   <td>  <?php echo word_limiter($bilgi['kitapadi'],5); ?></td>
                   <td>  <?php echo $bilgi['yazaradi']; ?></td>
-                  <td style="padding-left:40px"><img  src="<?php  echo base_url('/'). $bilgi['resim'];?>"
-                     alt="<?php echo $bilgi['kitapadi'];?>"
-                       height="56" width="35"></td>
+
 
                        <td style="">
                            <a href="<?php echo base_url('yonetim/okunacakduzenle/'.$bilgi['id'].''); ?>">

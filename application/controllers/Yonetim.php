@@ -3036,59 +3036,31 @@ public function okunacakekleme()
 $this->protect();
 	$kitapadi =$this->input->post('kitapadi');
 	$yazaradi =$this->input->post('yazaradi');
-	$kitapresim=seflink($kitapadi);
 
-$config['upload_path'] = FCPATH.'assets/front/img/kitaplar/okunacak';
-$config['allowed_types'] ='gif|jpg|jgep|png';
-$config['encrypt_name'] = true;
-$this->load->library('upload',$config);
-if ($this->upload->do_upload('resim')) {
-  $resim =$this->upload->data();
-  $resimyolu= $resim['file_name'];
-  $resimkayit='assets/front/img/kitaplar/okunacak/'.$resimyolu.'';
-  $config['image_library'] ='gd2';
-  $config['source_image'] = 'assets/front/img/kitaplar/okunacak/'.$resimyolu.'';
-  $config['new_image'] =     'assets/front/img/kitaplar/okunacak/'.$resimyolu.'';
-  $config['create_thumb'] = false;
-  $config['maintain_ratio'] =false;
-  $config['quality'] ='100%';
-  $config['width'] =179;
-  $config['height'] =281;
-  $this->load->library('image_lib',$config);
-  $this->image_lib->initialize($config);
-  $this->image_lib->resize();
-  $this->image_lib->clear();
+
 
   $data = array(
 		'kitapadi'=>$kitapadi,
-		'yazaradi'=>$yazaradi,
-		'resim'=>$resimkayit
-		);
+		'yazaradi'=>$yazaradi
+  );
 
   $sonuc = $this->dtbs->ekle('tblokunacak',$data);
-  if ($sonuc) {
-    $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+    if ($sonuc) {
+        $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
                 Okunacak  Kitap Listesini  başarılı bir şekilde eklediniz.
                   </div>');
-    redirect('yonetim/okunacak');
-  }else {
-    $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+        redirect('yonetim/okunacak');
+    }else {
+        $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
                  Okunacak  Kitap Ekleme işlemi başarısız..
                   </div>');
-    redirect('yonetim/okunacak');
-        }
-}else {
-$this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
-      Okunacak    Kitabın Resmini Eklenirken Bir hata oluştu..
-        </div>');
-redirect('yonetim/okunacak');
-}
+        redirect('yonetim/okunacak');
+    }
+
 }
 
 public function okunacakduzenle($id)
@@ -3106,54 +3078,7 @@ public function okunacakguncelle()
 	$kitapadi =$this->input->post('kitapadi');
 	$yazaradi =$this->input->post('yazaradi');
 
-// resim işlemi başlangıç
-$config['upload_path'] = FCPATH.'assets/front/img/kitaplar/okunacak';
-$config['allowed_types'] ='gif|jpg|jgep|png';
-$config['encrypt_name'] = true;
-$this->load->library('upload',$config);
-if ($this->upload->do_upload('resim')) {
-  $resim =$this->upload->data();
-  $resimyolu= $resim['file_name'];
-  $resimkayit='assets/front/img/kitaplar/okunacak/'.$resimyolu.'';
-  $config['image_library'] ='gd2';
-  $config['source_image'] = 'assets/front/img/kitaplar/okunacak/'.$resimyolu.'';
-  $config['new_image'] =     'assets/front/img/kitaplar/okunacak/'.$resimyolu.'';
-  $config['create_thumb'] = false;
-  $config['maintain_ratio'] =false;
-  $config['quality'] ='100%';
-  $config['width'] =179;
-  $config['height'] =281;
-  $this->load->library('image_lib',$config);
-  $this->image_lib->initialize($config);
-  $this->image_lib->resize();
-  $this->image_lib->clear();
-$resimsil=okunacakresim($id);
-unlink($resimsil);
-//resim bitiş işlemleri
 
-$data = array(
-	'kitapadi'=>$kitapadi,
-	'yazaradi'=>$yazaradi,
-	'resim'=>$resimkayit
-	);
-
-  $sonuc =$this->dtbs->guncelle($data,$id,'id','tblokunacak');
-  if ($sonuc) {
-    $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
-                  Okunacak Kitaplar Listesini  başarılı bir şekilde Güncellediniz.
-                  </div>');
-    redirect('yonetim/okunacak');
-  }else {
-    $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
-                Okunacak  Kitaplar Güncelleme işlemi başarısız..
-                  </div>');
-    redirect('yonetim/okunacak');
-        }
-}else {
 	$data = array(
 		'kitapadi'=>$kitapadi,
 		'yazaradi'=>$yazaradi
@@ -3164,7 +3089,7 @@ if ($sonuc) {
   $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
-                Okunacak Kitaplar Listesine  başarılı bir şekilde Güncellediniz.
+                Okunacak Kitaplar Listesiness  başarılı bir şekilde Güncellediniz.
                 </div>');
   redirect('yonetim/okunacak');
 }else {
@@ -3175,13 +3100,12 @@ if ($sonuc) {
                 </div>');
   redirect('yonetim/okunacak');
       }
-}
+
 }
 public function okunacaksil($id,$where,$from)
 {
 	$this->protect();
-$resimsil=okunacakresim($id);
-unlink($resimsil);
+
 
 $sonuc = $this->dtbs->sil($id,$where,$from);
 if ($sonuc) {
