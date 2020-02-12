@@ -3097,7 +3097,7 @@ if ($sonuc) {
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
               Okunacak  Kitaplar Güncelleme işlemi başarısız..
-                </div>');
+                </div>');a
   redirect('yonetim/okunacak');
       }
 
