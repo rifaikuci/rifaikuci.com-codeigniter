@@ -166,5 +166,21 @@ function yoneticilerCek($id,$from)
   return $sonuc;
 }
 
+
+  function turlerListele($from)
+  {
+    $sonuc= $this->db->select('*')->from($from)
+        ->order_by('idTur','asc')->get()->result_array();
+    return $sonuc;
+
+  }
+
+
+  function turlerCek($id,$from)
+  {
+    $sonuc= $this->db->select('*')->from($from)
+        ->where('idTur',$id)->get()->row_array();
+    return $sonuc;
+  }
 }
 ?>

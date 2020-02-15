@@ -3097,7 +3097,7 @@ if ($sonuc) {
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
               Okunacak  Kitaplar Güncelleme işlemi başarısız..
-                </div>');a
+                </div>');
   redirect('yonetim/okunacak');
       }
 
@@ -3816,6 +3816,260 @@ $this->protect();
 
 
 
+
+    public function turler()
+    {
+        $this->protect();
+        $sonuc =$this->dtbs->turlerListele('turler');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/turler/anasayfa',$data);
+    }
+
+// Projeler ekleme formunu yönlendirir
+    public function turlerekle()
+    {$this->protect();
+        $this->load->view('back/turler/ekle/anasayfa');
+    }
+
+//Projeler ve resim formu ekleme işlemini tamamlar
+    public function turlerekleme()
+    {
+        $this->protect();
+        $turAd =$this->input->post('turAd');
+        $turDetay =$this->input->post('turDetay');
+        $turDurum =$this->input->post('turDurum');
+        $tur=$this->input->post('tur');
+        $turResim=$this->input->post('turResim');
+        $turEnlem=$this->input->post('turEnlem');
+        $turBoylam=$this->input->post('turBoylam');
+
+
+        $config['upload_path'] = FCPATH.'lisans/images';
+        $config['allowed_types'] ='gif|jpg|jgep|png';
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload',$config);
+        if ($this->upload->do_upload('turResim')) {
+            $resim =$this->upload->data();
+            $resimyolu= $resim['file_name'];
+            $resimkayit='lisans/images/'.$resimyolu.'';
+            $config['image_library'] ='gd2';
+            $config['source_image'] = 'lisans/images/'.$resimyolu.'';
+            $config['new_image'] =     'lisans/images/'.$resimyolu.'';
+
+
+            $config['create_thumb'] = false;
+            $config['maintain_ratio'] =false;
+            $config['quality'] ='60%';
+            $config['width'] =250;
+            $config['height'] =200;
+            $this->load->library('image_lib',$config);
+            $this->image_lib->initialize($config);
+            $this->image_lib->resize();
+            $this->image_lib->clear();
+
+            $resimkayit =base_url("/").$resimkayit;
+            
+            $data = array(
+                'turResim'=>$resimkayit,
+                'turAd'=>$turAd,
+                'turDetay'=>$turDetay,
+                'turEnlem'=>$turEnlem,
+                'turBoylam'=>$turBoylam,
+                'tur'=>$tur,
+                'turDurum'=>$turDurum
+            );
+
+            $sonuc = $this->dtbs->ekle('turler',$data);
+            if ($sonuc) {
+                $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
+                 Türler Listesine  başarılı bir şekilde eklediniz.
+                  </div>');
+                redirect('yonetim/turler');
+            }else {
+                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i>HATA !!!</h4>
+                  Tür  Ekleme işlemi başarısız..
+                  </div>');
+                redirect('yonetim/turler');
+            }
+
+
+        }else {
+            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+          Tür Resmi Eklenirken Bir hata oluştu..
+        </div>');
+            redirect('yonetim/turler');
+        }
+    }
+
+//Buraya dönülecek
+    public function turlerset()
+    {
+        $this->protect();
+        $idTur = $this->input->post('idTur');
+        $turDurum = ($this->input->post('turDurum')=="Aktif")?"Aktif":"Pasif";
+        $this->db->where('idTur',$idTur)->update('turler',array('turDurum'=>$turDurum));
+    }
+//Projerler guncelleme formunu yönlendirir.
+    public function turlerduzenle($idTur)
+    {
+        $this->protect();
+        $sonuc =$this->dtbs->turlerCek($idTur,'turler');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/turler/edit/anasayfa',$data);
+    }
+
+// Projeler ve resim işlemlerini kaydeder
+    public function turlerguncelle()
+    {
+        $this->protect();
+        $idTur =$this->input->post('idTur');
+        $turAd =$this->input->post('turAd');
+        $turDetay =$this->input->post('turDetay');
+        $turDurum =$this->input->post('turDurum');
+        $tur=$this->input->post('tur');
+        $turResim=$this->input->post('turResim');
+        $turEnlem=$this->input->post('turEnlem');
+        $turBoylam=$this->input->post('turBoylam');
+
+
+        $config['upload_path'] = FCPATH.'lisans/images';
+        $config['allowed_types'] ='gif|jpg|jgep|png';
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload',$config);
+        if ($this->upload->do_upload('turResim')) {
+            $resim =$this->upload->data();
+            $resimyolu= $resim['file_name'];
+            $resimkayit='lisans/images/'.$resimyolu.'';
+            $config['image_library'] ='gd2';
+            $config['source_image'] = 'lisans/images/'.$resimyolu.'';
+            $config['new_image'] =     'lisans/images/'.$resimyolu.'';
+
+
+            $config['create_thumb'] = false;
+            $config['maintain_ratio'] =false;
+            $config['quality'] ='60%';
+            $config['width'] =250;
+            $config['height'] =200;
+            $this->load->library('image_lib',$config);
+            $this->image_lib->initialize($config);
+            $this->image_lib->resize();
+            $this->image_lib->clear();
+
+            $resimkayit =base_url("/").$resimkayit;
+
+
+            $resimsil=turlerResim($idTur);
+            $dilimler = explode("/", $resimsil);
+            $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
+
+
+
+
+
+            unlink($silinecekResim);
+            //resim bitiş işlemleri
+
+
+            $data = array(
+                'turResim'=>$resimkayit,
+                'turAd'=>$turAd,
+                'turDetay'=>$turDetay,
+                'turEnlem'=>$turEnlem,
+                'turBoylam'=>$turBoylam,
+                'tur'=>$tur,
+                'turDurum'=>$turDurum
+
+            );
+
+            $sonuc =$this->dtbs->guncelle($data,$idTur,'idTur','turler');
+            if ($sonuc) {
+                $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
+                  Türler Listesine  başarılı bir şekilde Güncellediniz.
+                  </div>');
+                redirect('yonetim/turler');
+            }else {
+                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+                  Tür Güncelleme işlemi başarısız..
+                  </div>');
+                redirect('yonetim/turler');
+            }
+
+
+        }else {
+            $data = array(
+
+                'turAd'=>$turAd,
+                'turDetay'=>$turDetay,
+                'turEnlem'=>$turEnlem,
+                'turBoylam'=>$turBoylam,
+                'tur'=>$tur,
+                'turDurum'=>$turDurum
+
+            );
+
+            $sonuc =$this->dtbs->guncelle($data,$idTur,'idTur','turler');
+            if ($sonuc) {
+                $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
+                Türler Listesine  başarılı bir şekilde Güncellediniz.
+                </div>');
+                redirect('yonetim/turler');
+            }else {
+                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+                Tür Güncelleme işlemi başarısız..
+                </div>');
+                redirect('yonetim/turler');
+            }
+        }
+    }
+
+// Proje ve resim  silme işlemini yapar.
+    public function turlersil($id,$where,$from)
+    {
+        $this->protect();
+        $resimsil=turlerResim($id);
+
+        $resimsil=turlerResim($id);
+        $dilimler = explode("/", $resimsil);
+        $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
+
+
+
+
+
+        unlink($silinecekResim);
+
+        $sonuc = $this->dtbs->sil($id,$where,$from);
+        if ($sonuc) {
+            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
+                    Seçtiğiniz Tür Silindi :)
+                </div>');
+            redirect('yonetim/turler');
+        }
+        else {
+            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+                  Türü Silerken Bir Hata ile karşılaştı .<b> TEKRAR DENEYİN!!</b>
+                </div>');
+            redirect('yonetim/turler');
+        }}
+    /* Projeler bitiş -*/
 
 }// son parantez
 

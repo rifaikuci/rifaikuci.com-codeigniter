@@ -210,55 +210,79 @@
       
    
    <li class="treeview">
-        <a href="#">
-          <i class="fa fa-gears"></i> <span> Dijital Müze</span>
-          <span class="pull-right-container">
+            <a href="#">
+                <i class="fa fa-gears"></i> <span> Dijital Müze</span>
+                <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="<?php echo base_url('yonetim/dijitalYonetici'); ?>"><i class="fa fa-circle-o">
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?php echo base_url('yonetim/dijitalYonetici'); ?>"><i class="fa fa-circle-o">
 
-          </i> Yöneticiler <span class="pull-right-container">
+                        </i> Yöneticiler <span class="pull-right-container">
             <?php $dijitalMuzeSayisi=dijitalMuzeYoneticicek(); ?>
             <span class="label label-success pull-right"><?php echo $dijitalMuzeSayisi; ?></span>
           </span></a></li>
 
 
-          <li><a href="<?php echo base_url('yonetim/dijitalArkeolog'); ?>"><i class="fa fa-circle-o"></i> Arkeologlar
+                <li><a href="<?php echo base_url('yonetim/dijitalArkeolog'); ?>"><i class="fa fa-circle-o"></i> Arkeologlar
 
-            <span class="pull-right-container">
+                        <span class="pull-right-container">
                 <?php $arkeologActivecek=arkeologActivecek(); ?>
               <small class="label pull-right bg-green"><?php echo $arkeologActivecek; ?></small>
                 <?php $arkeologInActivecek=arkeologInActivecek(); ?>
               <small class="label pull-right bg-red"> <?php echo $arkeologInActivecek; ?></small>
             </span>
-          </a></li>
+                    </a></li>
 
-          <li><a href="<?php echo base_url('yonetim/dijitalKazi'); ?>"><i class="fa fa-circle-o"></i> Kazılar
-            <span class="pull-right-container">
+                <li><a href="<?php echo base_url('yonetim/dijitalKazi'); ?>"><i class="fa fa-circle-o"></i> Kazılar
+                        <span class="pull-right-container">
                 <?php $kazilarActivecek=kazilarActivecek(); ?>
               <small class="label pull-right bg-green"><?php echo $kazilarActivecek; ?></small>
                 <?php $kazilarInActivecek=kazilarInActivecek(); ?>
               <small class="label pull-right bg-red"><?php echo $kazilarInActivecek; ?></small>
             </span>
 
-          </a></li>
-          <li><a href="<?php echo base_url('yonetim/dijitalEser'); ?>"><i class="fa fa-circle-o"></i> Eserler
-            <span class="pull-right-container">
+                    </a></li>
+                <li><a href="<?php echo base_url('yonetim/dijitalEser'); ?>"><i class="fa fa-circle-o"></i> Eserler
+                        <span class="pull-right-container">
                 <?php $eserlerActivecek=eserlerActivecek(); ?>
               <small class="label pull-right bg-green"><?php echo $eserlerActivecek; ?></small>
                 <?php $eserlerInActivecek=eserlerInActivecek(); ?>
               <small class="label pull-right bg-red"><?php echo $eserlerInActivecek; ?></small>
             </span>
 
-          </a></li>
+                    </a></li>
 
 
-        </ul>
-      </li>
+            </ul>
+        </li>
 
-      
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-gears"></i> <span> Türlerin Yayılışı</span>
+                <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+            </a>
+            <ul class="treeview-menu">
+
+
+
+
+
+                <li><a href="<?php echo base_url('yonetim/turler'); ?>"><i class="fa fa-circle-o"></i> Türler
+                        <span class="pull-right-container">
+                <?php $kazilarActivecek=kazilarActivecek(); ?>
+              <small class="label pull-right bg-green"><?php echo $kazilarActivecek; ?></small>
+                <?php $kazilarInActivecek=kazilarInActivecek(); ?>
+              <small class="label pull-right bg-red"><?php echo $kazilarInActivecek; ?></small>
+            </span>
+
+                    </a></li>
+
+            </ul>
+        </li>
 
 
 

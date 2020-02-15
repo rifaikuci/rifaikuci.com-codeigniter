@@ -777,6 +777,14 @@ function arkeologActivecek()
  return $sonuc;
 }
 
+function turlerResim($idTur)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('idTur,turResim')->from('turler')
+        ->where('idTur',$idTur)->get()->row();
+    return $sonuc->turResim;
+}
+
 
 
 function kazilarInActivecek()
