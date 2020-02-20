@@ -3732,91 +3732,9 @@ $this->protect();
 
 	 $sonuc =$this->dtbs->guncelle($data,$eId,'eId','eserler');
 	 redirect('yonetim/dijitalEserduzenle/'.$eId.'');
-
-
-
-
-
-
-
  }
 
-
-
-
-
-    // Projeler  Başlangıç
-    public function onlineSertifika()
-    {
-        $this->protect();
-        $sonuc =$this->dtbs->listele('tblOnlineSertifika');
-        $data['bilgi'] = $sonuc;
-        $this->load->view('back/onlineSertifika/anasayfa',$data);
-    }
-
-// Projeler ekleme formunu yönlendirir
-    public function onlineSertifikaekle()
-    {$this->protect();
-        $this->load->view('back/onlineSertifika/ekle/anasayfa');
-    }
-
-
-
-    public function onlineSertifikaekleme()
-    {
-        $this->protect();
-        echo $this->input->post('tarih');
-        $data = array(
-            'adSoyad' => $adSoyad = $this->input->post('adSoyad'),
-            'eAdiSoyadi' => $eAdiSoyadi = $this->input->post('eAdiSoyadi'),
-
-            'tarih' => $tarih = $this->input->post('tarih'),
-
-            'kursAdi' => $kursAdi = $this->input->post('kursAdi')
-
-        );
-        $sonuc = $this->dtbs->ekle('tblOnlineSertifika',$data);
-        if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
-                Online Sertika   başarılı bir  şekilde eklendi :)
-                </div>');
-            redirect('yonetim/onlineSertifika');
-        }
-        else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
-                  Head Menü Listesine Eklerken Sorun Oluştu. <b>TEKRAR DENEYİN!!</b>
-                </div>');
-            redirect('yonetim/onlineSertifika');
-        }
-    }
-    public function onlineSertifikasil($id,$where,$from)
-    {
-        $this->protect();
-        $sonuc = $this->dtbs->sil($id,$where,$from);
-        if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i>BAŞARILI :) </h4>
-                   Seçtiğiniz  Setifika Silindi
-                  </div>');
-            redirect('yonetim/onlineSertifika');
-        }
-        else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
-                  Seçtiğiniz  Setifikayı Bir Hata Oluştu .<b> TEKRAR DENEYİN!!!</b>
-                  </div>');
-            redirect('yonetim/onlineSertifika');
-        }}
-
-
-
-
+// Türler Başlangıç
     public function turler()
     {
         $this->protect();
@@ -3825,18 +3743,19 @@ $this->protect();
         $this->load->view('back/turler/anasayfa',$data);
     }
 
-// Projeler ekleme formunu yönlendirir
+// Türler ekleme formunu yönlendirir
     public function turlerekle()
     {$this->protect();
         $this->load->view('back/turler/ekle/anasayfa');
     }
 
-//Projeler ve resim formu ekleme işlemini tamamlar
+//Türler ve resim formu ekleme işlemini tamamlar
     public function turlerekleme()
     {
         $this->protect();
         $turAd =$this->input->post('turAd');
         $turDetay =$this->input->post('turDetay');
+        $turDetay =trim($turDetay);
         $turDurum =$this->input->post('turDurum');
         $tur=$this->input->post('tur');
         $turResim=$this->input->post('turResim');
@@ -3896,7 +3815,6 @@ $this->protect();
                 redirect('yonetim/turler');
             }
 
-
         }else {
             $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -3915,7 +3833,7 @@ $this->protect();
         $turDurum = ($this->input->post('turDurum')=="Aktif")?"Aktif":"Pasif";
         $this->db->where('idTur',$idTur)->update('turler',array('turDurum'=>$turDurum));
     }
-//Projerler guncelleme formunu yönlendirir.
+//Türler guncelleme formunu yönlendirir.
     public function turlerduzenle($idTur)
     {
         $this->protect();
@@ -3931,6 +3849,8 @@ $this->protect();
         $idTur =$this->input->post('idTur');
         $turAd =$this->input->post('turAd');
         $turDetay =$this->input->post('turDetay');
+        $turDetay =trim($turDetay);
+
         $turDurum =$this->input->post('turDurum');
         $tur=$this->input->post('tur');
         $turResim=$this->input->post('turResim');
@@ -4041,12 +3961,8 @@ $this->protect();
     {
         $this->protect();
         $resimsil=turlerResim($id);
-
-        $resimsil=turlerResim($id);
         $dilimler = explode("/", $resimsil);
         $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
-
-
 
 
 
@@ -4069,7 +3985,266 @@ $this->protect();
                 </div>');
             redirect('yonetim/turler');
         }}
-    /* Projeler bitiş -*/
+    /* Türler Bitiş*/
+
+
+    // Dijital Yurt Başlangıç
+
+    //Duyurular Başlangıç
+    public function duyurular()
+    {
+        $this->protect();
+        $sonuc =$this->dtbs->listele('tblDuyurular');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/yurtDuyurular/anasayfa',$data);
+    }
+
+    // Türler ekleme formunu yönlendirir
+    public function duyurularekle()
+    {$this->protect();
+        $this->load->view('back/yurtDuyurular/ekle/anasayfa');
+    }
+
+//Duyurular ve resim formu ekleme işlemini tamamlar
+    public function duyurularekleme()
+    {
+        $this->protect();
+        $duyuruBaslik =$this->input->post('duyuruBaslik');
+        $duyuruDetay =$this->input->post('duyuruDetay');
+        $duyuruDetay =trim($duyuruDetay);
+        $duyuruResim =$this->input->post('duyuruResim');
+        $durum =$this->input->post('durum');
+
+
+        $config['upload_path'] = FCPATH.'akilliYurt/images';
+        $config['allowed_types'] ='gif|jpg|jgep|png';
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload',$config);
+        if ($this->upload->do_upload('duyuruResim')) {
+            $resim =$this->upload->data();
+            $resimyolu= $resim['file_name'];
+            $resimkayit='akilliYurt/images/'.$resimyolu.'';
+            $config['image_library'] ='gd2';
+            $config['source_image'] = 'akilliYurt/images/'.$resimyolu.'';
+            $config['new_image'] =     'akilliYurt/images/'.$resimyolu.'';
+
+            $config['create_thumb'] = false;
+            $config['maintain_ratio'] =false;
+            $config['quality'] ='60%';
+            $config['width'] =250;
+            $config['height'] =200;
+            $this->load->library('image_lib',$config);
+            $this->image_lib->initialize($config);
+            $this->image_lib->resize();
+            $this->image_lib->clear();
+
+            $resimkayit =base_url("/").$resimkayit;
+
+            $data = array(
+                'duyuruResim'=>$resimkayit,
+                'duyuruBaslik'=>$duyuruBaslik,
+                'duyuruDetay'=>$duyuruDetay,
+                'durum'=>$durum
+            );
+
+            $sonuc = $this->dtbs->ekle('tblDuyurular',$data);
+            if ($sonuc) {
+                $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
+                 Duyurular Listesine  başarılı bir şekilde eklediniz.
+                  </div>');
+                redirect('yonetim/duyurular');
+            }else {
+                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i>HATA !!!</h4>
+                  Duyuru  Ekleme işlemi başarısız..
+                  </div>');
+                redirect('yonetim/duyurular');
+            }
+
+        }
+
+
+
+        else {
+            $resimkayit = base_url("/akilliyurt/images/default.png");
+
+            $data = array(
+                'duyuruResim'=>$resimkayit,
+                'duyuruBaslik'=>$duyuruBaslik,
+                'duyuruDetay'=>$duyuruDetay,
+                'durum'=>$durum
+            );
+
+            $sonuc = $this->dtbs->ekle('tblDuyurular',$data);
+            if ($sonuc) {
+                $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<h4><i class="icon fa fa-check"></i>BAŞARILI :)</h4>
+									Duyurlar Listesine  başarılı bir şekilde Güncellediniz Resim default olarak seçildi.
+									</div>');
+                redirect('yonetim/duyurular');
+            }else {
+                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+									Duyurular Güncelleme  işlemi başarısız..
+									</div>');
+                redirect('yonetim/duyurular');
+            }
+        }
+    }
+
+    public function duyurularduzenle($id)
+    {
+        $this->protect();
+        $sonuc =$this->dtbs->cek($id,'tblDuyurular');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/yurtDuyurular/edit/anasayfa',$data);
+    }
+
+
+    // duyurular güncelleme işlemş
+    public function duyurularguncelle()
+    {
+        $this->protect();
+        $id =$this->input->post('id');
+        $duyuruBaslik =$this->input->post('duyuruBaslik');
+        $duyuruDetay =$this->input->post('duyuruDetay');
+        $duyuruDetay =trim($duyuruDetay);
+        $durum =$this->input->post('durum');
+
+
+// resim işlemi başlangıç
+
+        $config['upload_path'] = FCPATH.'akilliYurt/images';
+        $config['allowed_types'] ='gif|jpg|jgep|png';
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload',$config);
+        if ($this->upload->do_upload('duyuruResim')) {
+            $resim =$this->upload->data();
+            $resimyolu= $resim['file_name'];
+            $resimkayit='akilliYurt/images/'.$resimyolu.'';
+            $config['image_library'] ='gd2';
+            $config['source_image'] = 'akilliYurt/images/'.$resimyolu.'';
+            $config['new_image'] =     'akilliYurt/images/'.$resimyolu.'';
+
+            $config['create_thumb'] = false;
+            $config['maintain_ratio'] =false;
+            $config['quality'] ='60%';
+            $config['width'] =250;
+            $config['height'] =200;
+            $this->load->library('image_lib',$config);
+            $this->image_lib->initialize($config);
+            $this->image_lib->resize();
+            $this->image_lib->clear();
+
+            $resimkayit =base_url("/").$resimkayit;
+
+            $resim = explode("/",duyurularresim($id));
+            $resim = $resim[count($resim)-1];
+            if($resim!= "default.png"){
+                $resimsil=duyurularresim($id);
+                $dilimler = explode("/", $resimsil);
+                $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
+                unlink($silinecekResim);
+            }
+
+//resim bitiş işlemleri
+
+
+            $data = array(
+                'duyuruResim'=>$resimkayit,
+                'duyuruBaslik'=>$duyuruBaslik,
+                'duyuruDetay'=>$duyuruDetay,
+                'durum'=>$durum
+            );
+
+            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblDuyurular');
+            if ($sonuc) {
+                $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+											<h4><i class="icon fa fa-check"></i>BAŞARILI :) </h4>
+										Duyuru Listesine  başarılı bir şekilde Güncellediniz.
+										</div>');
+                redirect('yonetim/duyurular');
+            }else {
+                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+											<h4><i class="icon fa fa-ban"></i> BAŞARISIZ !!!</h4>
+										Duyuru Listesini Baiaroşo bir şekilde güncellediniz..
+										</div>');
+                redirect('yonetim/duyurular');
+            }
+
+
+        }else {
+            $data = array(
+                'duyuruBaslik'=>$duyuruBaslik,
+                'duyuruDetay'=>$duyuruDetay,
+                'durum'=>$durum
+
+            );
+
+            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblDuyurular');
+            if ($sonuc) {
+                $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<h4><i class="icon fa fa-check"></i>BAŞARILI :)</h4>
+									Duyuru Listesini  başarılı bir şekilde Güncellediniz.
+									</div>');
+                redirect('yonetim/duyurular');
+            }else {
+                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+										<h4><i class="icon fa fa-ban"></i> BAŞARISIZ !!!</h4>
+									Duyuru Güncelleme işlemi başarısız..
+									</div>');
+                redirect('yonetim/duyurular');
+            }
+        }
+    }
+
+    public function duyurularsil($id,$where,$from)
+    {
+        $this->protect();
+        $resim = explode("/",duyurularresim($id));
+        $resim = $resim[count($resim)-1];
+        if($resim!= "default.png"){
+            $resimsil=duyurularresim($id);
+            $dilimler = explode("/", $resimsil);
+            $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
+            unlink($silinecekResim);
+        }
+
+        $sonuc = $this->dtbs->sil($id,$where,$from);
+        if ($sonuc) {
+            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
+                    Seçtiğiniz Duyuru Silindi :)
+                </div>');
+            redirect('yonetim/duyurular');
+        }
+        else {
+            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
+                  Duyurunuzu Silerken Bir Hata ile karşılaştı .<b> TEKRAR DENEYİN!!</b>
+                </div>');
+            redirect('yonetim/duyurular');
+        }}
+
+    public function duyurularset()
+    {
+        $this->protect();
+        $id = $this->input->post('id');
+        $durum = ($this->input->post('durum')=="true")?1:0;
+        $this->db->where('id',$id)->update('tblDuyurular',array('durum'=>$durum));
+
+    }
 
 }// son parantez
 

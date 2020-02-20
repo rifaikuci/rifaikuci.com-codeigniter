@@ -26,17 +26,37 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="<?php echo base_url('yonetim/icon'); ?>"><i class="fa fa-circle-o"></i> Üst İcon Ayarları</a></li>
-          <li><a href="<?php echo base_url('yonetim/arkaplan'); ?>"><i class="fa fa-circle-o"></i> Arkaplan Ayarları</a></li>
-          <li><a href="<?php echo base_url('yonetim/genelayar'); ?>"><i class="fa fa-circle-o"></i> Genel  Ayarlar</a></li>
-          <li><a href="<?php echo base_url('yonetim/site'); ?>"><i class="fa fa-circle-o"></i> Site  Ayarları</a></li>
+          <li>
+              <a href="<?php echo base_url('yonetim/icon'); ?>"><i class="fa fa-circle-o"></i> Üst İcon Ayarları</a>
+          </li>
+
+          <li>
+              <a href="<?php echo base_url('yonetim/arkaplan'); ?>"><i class="fa fa-circle-o"></i> Arkaplan Ayarları</a>
+          </li>
+
+          <li>
+              <a href="<?php echo base_url('yonetim/genelayar'); ?>"><i class="fa fa-circle-o"></i> Genel  Ayarlar</a>
+          </li>
+
+          <li>
+              <a href="<?php echo base_url('yonetim/site'); ?>"><i class="fa fa-circle-o"></i> Site  Ayarları</a>
+          </li>
+
         <?php $smedyaSayisi=  smedyacek(); ?>
-          <li><a href="<?php echo base_url('yonetim/smedya'); ?>"><i class="fa fa-circle-o"></i>
-               <span class="label label-success pull-right"><?php echo $smedyaSayisi; ?></span>Sosyal Medya Ayarları</a></li>
-                 <li><a href="<?php echo base_url('yonetim/sifre'); ?>"><i class="fa fa-circle-o"></i> Şifre Ayarları</a></li>
+          <li>
+              <a href="<?php echo base_url('yonetim/smedya'); ?>"><i class="fa fa-circle-o"></i>
+                <span class="label label-success pull-right"><?php echo $smedyaSayisi; ?></span>Sosyal Medya Ayarları
+             </a>
+          </li>
+
+           <li>
+               <a href="<?php echo base_url('yonetim/sifre'); ?>"><i class="fa fa-circle-o"></i> Şifre Ayarları</a>
+           </li>
+
         </ul>
       </li>
-      <li >
+
+      <li>
         <a href="<?php echo base_url('yonetim/gununsozu'); ?>">
           <i class="fa fa-pencil"></i>
           <span>Güne Ait Sözler</span>
@@ -45,8 +65,8 @@
             <span class="label label-success pull-right"><?php echo $gununsozuSayisi; ?></span>
           </span>
         </a>
-
       </li>
+
       <li>
         <a href="<?php echo base_url('yonetim/headMenu'); ?>">
           <i class="fa fa-th"></i> <span>Head Menü Ayarları</span>
@@ -56,6 +76,7 @@
           </span>
         </a>
       </li>
+
       <li>
         <a href="<?php echo base_url('yonetim/kategoriler'); ?>">
           <i class="fa fa-list-alt"></i> <span>Kategori Ayarları</span>
@@ -65,12 +86,6 @@
           </span>
         </a>
       </li>
-
-        <li>
-            <a href="<?php echo base_url('yonetim/onlineSertifika'); ?>">
-                <i class="fa fa-list-alt"></i> <span>Online Sertifika</span>
-            </a>
-        </li>
 
       <li>
         <a href="<?php echo base_url('yonetim/projeler'); ?>">
@@ -82,7 +97,6 @@
         </a>
       </li>
 
-
       <li>
         <a href="<?php echo base_url('yonetim/yazilar'); ?>">
           <i class="fa fa-book"></i> <span>Yazılar</span>
@@ -93,29 +107,26 @@
         </a>
       </li>
 
-
-
       <li>
         <a href="#">
           <i class="fa fa-calendar"></i> <span>Takvim</span>
           <span class="pull-right-container">
               <small class="label pull-right bg-green"><?php echo date('Y'); ?></small>
               <small class="label pull-right bg-blue"><?php echo date('m'); ?></small>
-            <small class="label pull-right bg-red"><?php echo date('d'); ?></small>
-
-
+              <small class="label pull-right bg-red"><?php echo date('d'); ?></small>
           </span>
         </a>
       </li>
+
       <li>
         <a href="<?php echo  base_url('yonetim/iletisim'); ?>">
           <i class="fa fa-envelope"></i> <span>Mesajlar</span>
-          <span class="pull-right-container">
-              <?php $okunanSayisi=okunancek(); ?>
-            <small class="label pull-right bg-green"><?php echo $okunanSayisi; ?></small>
-              <?php $okunmayan=okunmayancek(); ?>
-            <small class="label pull-right bg-red"><?php echo $okunmayan; ?></small>
-          </span>
+            <span class="pull-right-container">
+            <?php $okunanSayisi=okunancek(); ?>
+                <small class="label pull-right bg-green"><?php echo $okunanSayisi; ?></small>
+                <?php $okunmayan=okunmayancek(); ?>
+                <small class="label pull-right bg-red"><?php echo $okunmayan; ?></small>
+             </span>
         </a>
       </li>
 
@@ -124,30 +135,27 @@
           <i class="fa fa-check"></i> <span>Özellik Ayarları</span>
           <span class="pull-right-container">
             <?php $ozellikSayisi=ozellikcek(); ?>
-            <span class="label label-success pull-right"><?php echo $ozellikSayisi; ?></span>
+              <span class="label label-success pull-right"><?php echo $ozellikSayisi; ?></span>
           </span>
         </a>
       </li>
-
 
       <li>
         <a href="<?php echo base_url('yonetim/sertifikalar'); ?>">
           <i class="fa fa-database"></i> <span>Sertifika Ayarları</span>
-          <span class="pull-right-container">
-            <?php $sertifikasayisi=sertifikacek(); ?>
-            <span class="label label-success pull-right"><?php echo $sertifikasayisi; ?></span>
+             <span class="pull-right-container">
+             <?php $sertifikasayisi=sertifikacek(); ?>
+                <span class="label label-success pull-right"><?php echo $sertifikasayisi; ?></span>
           </span>
         </a>
       </li>
 
-
       <li>
         <a href="<?php echo base_url('yonetim/admin'); ?>">
           <i class="fa fa-user"></i> <span>Admin Ayarları</span>
-          <span class="pull-right-container">
-
-            <span class="label label-success pull-right"></span>
-          </span>
+            <span class="pull-right-container">
+                <span class="label label-success pull-right"></span>
+            </span>
         </a>
       </li>
 
@@ -155,8 +163,7 @@
         <a href="<?php echo base_url('yonetim/egitim'); ?>">
           <i class="glyphicon glyphicon-education"></i> <span>Eğitim Ayarları</span>
           <span class="pull-right-container">
-
-            <span class="label label-success pull-right"></span>
+              <span class="label label-success pull-right"></span>
           </span>
         </a>
       </li>
@@ -165,8 +172,7 @@
         <a href="<?php echo base_url('yonetim/dil'); ?>">
           <i class="fa fa-language"></i> <span>Dil Ayarları</span>
           <span class="pull-right-container">
-
-            <span class="label label-success pull-right"></span>
+              <span class="label label-success pull-right"></span>
           </span>
         </a>
       </li>
@@ -175,111 +181,153 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-book"></i> <span> Kitaplığım</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
+            <span class="pull-right-container">
+                 <i class="fa fa-angle-left pull-right"></i>
+            </span>
         </a>
+
+
         <ul class="treeview-menu">
           <?php $okunacaksayi=okunacakkitapcek() ; ?>
           <?php $okunansayi=okunankitapcek() ; ?>
-          <li><a href="<?php echo base_url('yonetim/okunan'); ?>"><i class="fa fa-circle-o"></i>
-   <span class="label label-success pull-right"><?php echo $okunansayi; ?>
-   </span>Okuduğum Kitaplar</a></li>
-          <li><a href="<?php echo base_url('yonetim/okunacak'); ?>"><i class="fa fa-circle-o"></i>
-   <span class="label label-danger pull-right"><?php echo $okunacaksayi; ?></span>
-             Okunacak Kitaplar</a></li>
 
+          <li>
+              <a href="<?php echo base_url('yonetim/okunan'); ?>"><i class="fa fa-circle-o"></i>
+                  <span class="label label-success pull-right"><?php echo $okunansayi; ?></span>Okuduğum Kitaplar
+              </a>
+          </li>
+
+          <li>
+              <a href="<?php echo base_url('yonetim/okunacak'); ?>"><i class="fa fa-circle-o"></i>
+                   <span class="label label-danger pull-right"><?php echo $okunacaksayi; ?></span>Okunacak Kitaplar
+              </a>
+          </li>
 
         </ul>
       </li>
-      
-      
-      
 
       <li>
         <a href="<?php echo base_url('yonetim/resimler'); ?>">
           <i class="fa fa-image"></i> <span>Resimler</span>
-          <span class="pull-right-container">
-
-            <span class="label label-success pull-right"></span>
-          </span>
+            <span class="pull-right-container">
+                <span class="label label-success pull-right"></span>
+            </span>
         </a>
       </li>
-      
-      
-      
-   
-   <li class="treeview">
+
+       <li class="treeview">
             <a href="#">
-                <i class="fa fa-gears"></i> <span> Dijital Müze</span>
-                <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
+                <i class="fa fa-gears"></i>
+                    <span> Dijital Müze</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
             </a>
+
             <ul class="treeview-menu">
-                <li><a href="<?php echo base_url('yonetim/dijitalYonetici'); ?>"><i class="fa fa-circle-o">
-
+                <li>
+                    <a href="<?php echo base_url('yonetim/dijitalYonetici'); ?>"><i class="fa fa-circle-o">
                         </i> Yöneticiler <span class="pull-right-container">
-            <?php $dijitalMuzeSayisi=dijitalMuzeYoneticicek(); ?>
-            <span class="label label-success pull-right"><?php echo $dijitalMuzeSayisi; ?></span>
-          </span></a></li>
+                            <?php $dijitalMuzeSayisi=dijitalMuzeYoneticicek(); ?>
+                                <span class="label label-success pull-right"><?php echo $dijitalMuzeSayisi; ?></span>
+                </span>
+                    </a>
+                </li>
 
-
-                <li><a href="<?php echo base_url('yonetim/dijitalArkeolog'); ?>"><i class="fa fa-circle-o"></i> Arkeologlar
-
+                <li>
+                    <a href="<?php echo base_url('yonetim/dijitalArkeolog'); ?>"><i class="fa fa-circle-o"></i> Arkeologlar
                         <span class="pull-right-container">
                 <?php $arkeologActivecek=arkeologActivecek(); ?>
-              <small class="label pull-right bg-green"><?php echo $arkeologActivecek; ?></small>
+                        <small class="label pull-right bg-green"><?php echo $arkeologActivecek; ?></small>
                 <?php $arkeologInActivecek=arkeologInActivecek(); ?>
-              <small class="label pull-right bg-red"> <?php echo $arkeologInActivecek; ?></small>
-            </span>
-                    </a></li>
+                        <small class="label pull-right bg-red"> <?php echo $arkeologInActivecek; ?></small>
+                        </span>
+                    </a>
+                </li>
 
-                <li><a href="<?php echo base_url('yonetim/dijitalKazi'); ?>"><i class="fa fa-circle-o"></i> Kazılar
+                <li>
+                    <a href="<?php echo base_url('yonetim/dijitalKazi'); ?>"><i class="fa fa-circle-o"></i> Kazılar
                         <span class="pull-right-container">
                 <?php $kazilarActivecek=kazilarActivecek(); ?>
-              <small class="label pull-right bg-green"><?php echo $kazilarActivecek; ?></small>
+                            <small class="label pull-right bg-green"><?php echo $kazilarActivecek; ?></small>
                 <?php $kazilarInActivecek=kazilarInActivecek(); ?>
-              <small class="label pull-right bg-red"><?php echo $kazilarInActivecek; ?></small>
-            </span>
+                            <small class="label pull-right bg-red"><?php echo $kazilarInActivecek; ?></small>
+                        </span>
+                    </a>
+                </li>
 
-                    </a></li>
-                <li><a href="<?php echo base_url('yonetim/dijitalEser'); ?>"><i class="fa fa-circle-o"></i> Eserler
+                <li>
+                    <a href="<?php echo base_url('yonetim/dijitalEser'); ?>"><i class="fa fa-circle-o"></i> Eserler
                         <span class="pull-right-container">
                 <?php $eserlerActivecek=eserlerActivecek(); ?>
-              <small class="label pull-right bg-green"><?php echo $eserlerActivecek; ?></small>
+                            <small class="label pull-right bg-green"><?php echo $eserlerActivecek; ?></small>
                 <?php $eserlerInActivecek=eserlerInActivecek(); ?>
-              <small class="label pull-right bg-red"><?php echo $eserlerInActivecek; ?></small>
-            </span>
-
-                    </a></li>
-
+                            <small class="label pull-right bg-red"><?php echo $eserlerInActivecek; ?></small>
+                        </span>
+                    </a>
+                </li>
 
             </ul>
         </li>
 
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-gears"></i> <span> Türlerin Yayılışı</span>
+                <i class="fa fa-book"></i> <span> Türlerin Yayılışı</span>
                 <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-            </a>
-            <ul class="treeview-menu">
-
-
-
-
-
-                <li><a href="<?php echo base_url('yonetim/turler'); ?>"><i class="fa fa-circle-o"></i> Türler
-                        <span class="pull-right-container">
-                <?php $kazilarActivecek=kazilarActivecek(); ?>
-              <small class="label pull-right bg-green"><?php echo $kazilarActivecek; ?></small>
-                <?php $kazilarInActivecek=kazilarInActivecek(); ?>
-              <small class="label pull-right bg-red"><?php echo $kazilarInActivecek; ?></small>
+                 <i class="fa fa-angle-left pull-right"></i>
             </span>
+            </a>
 
-                    </a></li>
+            <ul class="treeview-menu">
+                <?php $okunansayi=okunankitapcek() ; ?>
+                <li>
+                    <a href="<?php echo base_url('yonetim/turler'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-success pull-right"><?php echo $okunansayi; ?></span>Türler
+                    </a>
+                </li>
+            </ul>
+
+        </li>
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-book"></i> <span> Akıllı Yurt</span>
+                <span class="pull-right-container">
+                 <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+
+
+            <ul class="treeview-menu">
+                <li>
+                    <a href="<?php echo base_url('yonetim/duyurular'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-success pull-right"><?php echo $okunansayi; ?></span>Duyurular
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?php echo base_url('yonetim/okunacak'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-danger pull-right"><?php echo $okunacaksayi; ?></span>Anketler
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?php echo base_url('yonetim/okunacak'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-danger pull-right"><?php echo $okunacaksayi; ?></span>Yemek Listesi
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?php echo base_url('yonetim/okunacak'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-danger pull-right"><?php echo $okunacaksayi; ?></span>Temizlik Personelleri
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?php echo base_url('yonetim/okunacak'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-danger pull-right"><?php echo $okunacaksayi; ?></span>Güvenlik Personelleri
+                    </a>
+                </li>
 
             </ul>
         </li>

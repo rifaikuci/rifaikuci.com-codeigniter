@@ -7,7 +7,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
-<title>Online Sertifika Oluşturma</title>
+<title>RifaiKuçi | Akıllı Yurt & Duyurular Ekleme</title>
 <?php $this->load->view('back/include/header.php'); ?>
 
   <!-- =============================================== -->
@@ -20,10 +20,10 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-<?php $this->load->view('back/onlineSertifika/ekle/breadcrumb.php'); ?>
+<?php $this->load->view('back/yurtDuyurular/ekle/breadcrumb.php'); ?>
 
     <!-- Main content -->
-<?php $this->load->view('back/onlineSertifika/ekle/main_content.php'); ?>
+<?php $this->load->view('back/yurtDuyurular/ekle/main_content.php'); ?>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

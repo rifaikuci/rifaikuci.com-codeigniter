@@ -21,9 +21,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label">Açıklama </label>
                       <div class="col-sm-10">
-                        <textarea name="turDetay" id="editor1" rows="8" cols="80">
-                      <?php echo $bilgi['turDetay']; ?>
-                        </textarea>
+                        <textarea name="turDetay"  rows="8" cols="80"><?php echo $bilgi['turDetay']; ?></textarea>
                     </div>
                   </div>
                 </div>

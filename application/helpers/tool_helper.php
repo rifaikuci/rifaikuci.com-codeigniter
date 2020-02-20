@@ -852,4 +852,12 @@ function QRresim($eId)
   ->where('eId',$eId)->get()->row();
   return $sonuc->eQR;
 }
+
+function duyurularresim($id)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,duyuruResim')->from('tblDuyurular')
+        ->where('id',$id)->get()->row();
+    return $sonuc->duyuruResim;
+}
  ?>

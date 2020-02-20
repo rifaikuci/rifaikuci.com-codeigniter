@@ -21,7 +21,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label">Açıklama </label>
                       <div class="col-sm-10">
-                        <textarea name="turDetay" id="editor1" rows="8" cols="80"></textarea>
+                        <textarea name="turDetay" rows="8" cols="80"></textarea>
                     </div>
                   </div>
                 </div>
@@ -36,13 +36,13 @@
                   <div class="form-group" >
                       <label class="col-sm-2 control-label">Enlem </label>
                       <div class="col-sm-4">
-                          <input required type="number" name="turEnlem" class="form-control"  placeholder="Enlem Bilgisi Giriniz..." ">
+                          <input required type="text" name="turEnlem" class="form-control"  placeholder="Enlem Bilgisi Giriniz..." ">
 
                       </div>
 
                       <label class="col-sm-2 control-label">Boylam </label>
                       <div class="col-sm-4">
-                          <input required type="number" name="turBoylam" class="form-control"  placeholder="Boylam Bilgisi Giriniz..." ">
+                          <input required type="text" name="turBoylam" class="form-control"  placeholder="Boylam Bilgisi Giriniz..." ">
                       </div>
                   </div>
 

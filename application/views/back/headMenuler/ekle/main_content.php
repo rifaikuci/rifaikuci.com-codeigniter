@@ -22,11 +22,8 @@
                   <label class="col-sm-2 control-label">Header Menü Durum </label>
                     <div class="col-sm-6">
                       <select  class="form-control" required name="durum">
-
-
                         <option  value="1">Aktif  </option>
                         <option  value="2">Pasif</option>
-
                       </select>
                   </div>
                 </div>

@@ -7,7 +7,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
-<title>RifaiKuçi | Online Sertifka</title>
+<title>RifaiKuçi | Akıllı Yurt & Duyurular</title>
 <?php $this->load->view('back/include/header.php'); ?>
 
   <!-- =============================================== -->
@@ -20,10 +20,10 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-<?php $this->load->view('back/onlineSertifika/breadcrumb.php'); ?>
+<?php $this->load->view('back/yurtDuyurular/breadcrumb.php'); ?>
 
     <!-- Main content -->
-<?php $this->load->view('back/onlineSertifika/main_content.php'); ?>
+<?php $this->load->view('back/yurtDuyurular/main_content.php'); ?>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
