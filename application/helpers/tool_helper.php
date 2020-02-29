@@ -777,11 +777,11 @@ function arkeologActivecek()
  return $sonuc;
 }
 
-function turlerResim($idTur)
+function turlerResim($id)
 {
     $ci =&get_instance();
-    $sonuc=$ci->db->select('idTur,turResim')->from('turler')
-        ->where('idTur',$idTur)->get()->row();
+    $sonuc=$ci->db->select('id,turResim')->from('turler')
+        ->where('id',$id)->get()->row();
     return $sonuc->turResim;
 }
 
@@ -856,8 +856,40 @@ function QRresim($eId)
 function duyurularresim($id)
 {
     $ci =&get_instance();
-    $sonuc=$ci->db->select('id,duyuruResim')->from('tblDuyurular')
+    $sonuc=$ci->db->select('id,duyuruResim')->from('tblduyurular')
         ->where('id',$id)->get()->row();
     return $sonuc->duyuruResim;
+}
+
+function aktifTurKullanici()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('turKullanici')->where('durum',1)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function pasifTurKullanici()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('turKullanici')->where('durum',0)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function aktifTur()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('turler')->where('durum',1)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function pasifTur()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('turler')->where('durum',0)
+        ->count_all_results();
+    return $sonuc;
 }
  ?>

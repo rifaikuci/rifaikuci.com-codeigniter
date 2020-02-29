@@ -59,11 +59,11 @@
 
                   <label class="col-sm-2 control-label">Durum </label>
                     <div class="col-sm-4">
-                      <select  class="form-control" required name="turDurum">
+                      <select  class="form-control" required name="durum">
 
 
-                        <option  value="Aktif">Aktif  </option>
-                        <option  value="Pasif">Pasif</option>
+                        <option  value="1">Aktif  </option>
+                        <option  value="2">Pasif</option>
 
                       </select>
                   </div>

@@ -279,13 +279,26 @@
             </a>
 
             <ul class="treeview-menu">
-                <?php $okunansayi=okunankitapcek() ; ?>
+                <?php $aktifTur=aktifTur() ; ?>
+                <?php $pasifTur=pasifTur() ; ?>
                 <li>
                     <a href="<?php echo base_url('yonetim/turler'); ?>"><i class="fa fa-circle-o"></i>
-                        <span class="label label-success pull-right"><?php echo $okunansayi; ?></span>Türler
+                        <span class="label label-success pull-right"><?php echo $aktifTur; ?></span>Türler
+                        <span class="label label-danger pull-right"><?php echo $pasifTur; ?></span>
+                    </a>
+                </li>
+
+                <li>
+                    <?php $aktifTurKullanici=aktifTurKullanici() ; ?>
+                    <?php $pasifTurKullanici=pasifTurKullanici() ; ?>
+                    <a href="<?php echo base_url('yonetim/turKullanici'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-success pull-right"><?php echo $aktifTurKullanici; ?></span>
+                        <span class="label label-danger pull-right"><?php echo $pasifTurKullanici; ?></span>Kullanıcılar
                     </a>
                 </li>
             </ul>
+
+
 
         </li>
 

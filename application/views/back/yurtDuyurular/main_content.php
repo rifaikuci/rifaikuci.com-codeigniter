@@ -27,7 +27,13 @@
                    <td  style="font-weight:bold"><?php echo  $sayi++; ?></td>
                   <td>  <?php echo word_limiter($bilgi['duyuruBaslik'],10); ?></td>
                   <td>  <?php echo $bilgi['duyuruDetay']; ?></td>
-                  <td>  <?php echo $bilgi['duyuruTarih']; ?></td>
+                  <td>
+
+                      <?php $tarih =$bilgi['duyuruTarih'];
+                      $tarih = explode(" ", $tarih);
+                      $tarihDuyuru= tarih($tarih[0]);
+                      ?>
+                      <?php echo $tarihDuyuru; ?></td>
 
                   <td>
                     <input

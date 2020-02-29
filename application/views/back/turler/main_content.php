@@ -28,7 +28,7 @@
                   <td>  <?php echo word_limiter($bilgi['turAd'],10); ?></td>
                   <td>  <?php echo $bilgi['tur']; ?></td>
 
-                  <td style="padding-left:40px"><img  src="<?php echo $bilgi['turResim'];?>" alt="<?php echo $bilgi['idTur'];?>"   height="100" width="66"></td>
+                  <td style="padding-left:40px"><img  src="<?php echo $bilgi['turResim'];?>" alt="<?php echo $bilgi['id'];?>"   height="100" width="66"></td>
                   <td>
                     <input
                     class="toggle_check"
@@ -37,17 +37,17 @@
                     data-off="Pasif"
                     data-offstyle="danger"
                     type="checkbox"
-                    dataID="<?php echo $bilgi['idTur']; ?>"
+                    dataID="<?php echo $bilgi['id']; ?>"
                     dataURL="<?php echo base_url('yonetim/turlerset'); ?>"
-                        <?php echo ($bilgi['turDurum']=="Aktif") ? "checked" : ""; ?>
+                        <?php echo ($bilgi['durum']=="1") ? "checked" : ""; ?>
 
                     >
                     </td>
                     <td>
-                      <a href="<?php echo base_url('yonetim/turlerduzenle/'.$bilgi['idTur'].''); ?>">
+                      <a href="<?php echo base_url('yonetim/turlerduzenle/'.$bilgi['id'].''); ?>">
                       <button  type="button" name='button' class="btn btn-info">Düzenle</button></a>
 
-                        <a href="<?php echo base_url('yonetim/turlersil/'.$bilgi['idTur'].'/idTur/turler'); ?>">
+                        <a href="<?php echo base_url('yonetim/turlersil/'.$bilgi['id'].'/id/turler'); ?>">
                         <button  type="button" name='button' class="btn btn-danger ">Sil</button></a>
 
 

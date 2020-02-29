@@ -13,7 +13,7 @@
                   <label class="col-sm-2 control-label">Tür Adı </label>
                     <div class="col-sm-10">
                     <input required type="text" name="turAd" class="form-control"  value="<?php echo $bilgi['turAd']; ?>">
-                    <input  type="hidden" name="idTur" class="form-control"  value="<?php echo $bilgi['idTur']; ?>">
+                    <input  type="hidden" name="id" class="form-control"  value="<?php echo $bilgi['id']; ?>">
                   </div>
                 </div>
 
@@ -77,8 +77,8 @@
 
                       <label class="col-sm-2 control-label">Durum </label>
                       <div class="col-sm-4">
-                          <select  class="form-control" required name="turDurum">
-                              <?php if(( $bilgi['turDurum'])=="Aktif"){ ?>
+                          <select  class="form-control" required name="durum">
+                              <?php if(( $bilgi['durum'])==1){ ?>
                                   <option selected  value="Aktif">Aktif  </option>
                                   <option  value="Pasif">Pasif</option>
                               <?php }else {?>
