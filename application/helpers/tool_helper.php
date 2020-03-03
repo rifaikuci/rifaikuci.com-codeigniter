@@ -907,7 +907,7 @@ function aktifTurKullanici()
     $ci =&get_instance();
     $sonuc=$ci->db->select('id')->from('turKullanici')->where('durum',1)
         ->count_all_results();
-    return $sonuc;
+    return $sonuc;a
 }
 
 function pasifTurKullanici()
