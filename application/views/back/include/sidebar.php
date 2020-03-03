@@ -313,14 +313,22 @@
 
             <ul class="treeview-menu">
                 <li>
+                    <?php $duyuruAktif=duyuruAktif() ; ?>
+                    <?php $duyuruPasif=duyuruPasif() ; ?>
                     <a href="<?php echo base_url('yonetim/duyurular'); ?>"><i class="fa fa-circle-o"></i>
-                        <span class="label label-success pull-right"><?php echo $okunansayi; ?></span>Duyurular
+                        <span class="label label-success pull-right"><?php echo $duyuruAktif; ?></span>
+                        <span class="label label-danger pull-right"><?php echo $duyuruPasif; ?></span>Duyurular
                     </a>
                 </li>
 
                 <li>
-                    <a href="<?php echo base_url('yonetim/okunacak'); ?>"><i class="fa fa-circle-o"></i>
-                        <span class="label label-danger pull-right"><?php echo $okunacaksayi; ?></span>Anketler
+
+                    <?php $dilekSayi=dilekSayi() ; ?>
+                    <?php $sikayetSayi=sikayetSayi() ; ?>
+
+                    <a href="<?php echo base_url('yonetim/istekler'); ?>"><i class="fa fa-circle-o"></i>
+                        <span class="label label-success pull-right"><?php echo $dilekSayi; ?></span>
+                        <span class="label label-danger pull-right"><?php echo $sikayetSayi; ?></span>Dilek & Şikayetler
                     </a>
                 </li>
 

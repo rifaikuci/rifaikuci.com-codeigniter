@@ -4246,6 +4246,51 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
     }
 
+    // istek ve şikayetler
+    public function istekler()
+    {
+        $this->protect();
+        $sonuc =$this->dtbs->listele('tblistekler');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/yurtistekler/anasayfa',$data);
+    }
+
+//gelen mesajı okumaya  yönlendirir.
+    public function istekleroku($id)
+    {
+        $this->protect();
+        $sonuc =$this->dtbs->cek($id,'tblistekler');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/yurtistekler/oku/anasayfa',$data);
+    }
+
+// gelen mesajı  silme işlemini yapar.
+
+    public function isteklersil($id,$where,$from)
+    {
+        $this->protect();
+        $sonuc = $this->dtbs->sil($id,$where,$from);
+        if ($sonuc) {
+            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i> BAŞARILI :)</h4>
+                    Seçtiğiniz dilek ve şikayet  Silindi
+                  </div>');
+            redirect('yonetim/istekler');
+        }
+        else {
+            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i> BAŞARISIZ:) </h4>
+                    Seçtiğiniz dilek ve şikayeti Bir Hata ile karşılaştı <b> TEKRAR DENEYİN!!</b>
+                  </div>');
+            redirect('yonetim/istekler');
+        }}
+    /* iletisim başlıkları bitiş -*/
+
+
+    //
+
     // tur Kullanıcılar
     public function turKullanici()
     {
@@ -4265,6 +4310,8 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
     public function turKullaniciekleme()
     {
         $this->protect();
+
+
         $data = array(
             'adSoyad' => $adSoyad = $this->input->post('adSoyad'),
             'mail' => $mail = $this->input->post('mail'),

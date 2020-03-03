@@ -130,6 +130,14 @@ function mesajlar()
  return $sonuc;
 }
 
+function istekdurum($id)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->set('durum','1')
+        ->where('id',$id)->update('tblistekler');
+
+}
+
 function okunmayancek()
 {
  $ci =&get_instance();
@@ -859,6 +867,39 @@ function duyurularresim($id)
     $sonuc=$ci->db->select('id,duyuruResim')->from('tblduyurular')
         ->where('id',$id)->get()->row();
     return $sonuc->duyuruResim;
+}
+
+function duyuruAktif()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblDuyurular')->where('durum',1)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function duyuruPasif()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblDuyurular')->where('durum',0)
+        ->count_all_results();
+    return $sonuc;
+}
+
+
+function dilekSayi()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblistekler')->where('durum',1)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function sikayetSayi()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblistekler')->where('durum',0)
+        ->count_all_results();
+    return $sonuc;
 }
 
 function aktifTurKullanici()
