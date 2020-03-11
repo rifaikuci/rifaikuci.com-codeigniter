@@ -668,74 +668,49 @@ function hakkimdaegitim()
 //tarih baslangic
 function tarih($ayirilacak)
 {
-$tarih=explode("-",$ayirilacak);
-if($tarih[2][0]=='0')
-{
-$tarih[2]= substr($tarih[2] , -1);
-}
-$ay="";
-if($tarih[1]==1)
-{
-  $ay=" Ocak ";
-}
-
-if($tarih[1]==2)
-{
-  $ay=" Şubat ";
-}
-
-if($tarih[1]==3)
-{
-  $ay=" Mart ";
-}
-
-if($tarih[1]==4)
-{
-  $ay=" Nisan ";
-}
-
-if($tarih[1]==5)
-{
-  $ay=" Mayıs ";
-}
-
-if($tarih[1]==6)
-{
-  $ay=" Haziran ";
-}
+$tarih=explode(" ",$ayirilacak);
+$ayBul =explode("-",$tarih[0]);
 
 
-if($tarih[1]==7)
-{
-  $ay=" Temmuz ";
+if($ayBul[1]==1){$ay= "Ocak"; }
+else if($ayBul[1] ==2){$ay = "Şubat";}
+else if($ayBul[1] ==3){$ay = "Mart";}
+else if($ayBul[1] ==4){$ay = "Nisan";}
+else if($ayBul[1] ==5){$ay = "Mayıs";}
+else if($ayBul[1] ==6){$ay = "Haziran";}
+else if($ayBul[1] ==7){$ay = "Temmuz";}
+else if($ayBul[1] ==8){$ay = "Ağustos";}
+else if($ayBul[1] ==9){$ay = "Eylül";}
+else if($ayBul[1] ==10){$ay = "Ekim";}
+else if($ayBul[1] ==11){$ay = "Kasım";}
+else {$ay="Aralık";}
+
+$yazilacak =$ayBul[2] ." " .$ay . " ". $ayBul[0] ;
+ return $yazilacak;
+
 }
 
-if($tarih[1]==8)
+function tarihSaat($ayirilacak)
 {
-  $ay=" Ağustos ";
-}
+    $tarih=explode(" ",$ayirilacak);
+    $ayBul =explode("-",$tarih[0]);
 
-if($tarih[1]==9)
-{
-  $ay=" Eylül ";
-}
 
-if($tarih[1]==10)
-{
-  $ay=" Ekim ";
-}
+    if($ayBul[1]==1){$ay= "Ocak"; }
+    else if($ayBul[1] ==2){$ay = "Şubat";}
+    else if($ayBul[1] ==3){$ay = "Mart";}
+    else if($ayBul[1] ==4){$ay = "Nisan";}
+    else if($ayBul[1] ==5){$ay = "Mayıs";}
+    else if($ayBul[1] ==6){$ay = "Haziran";}
+    else if($ayBul[1] ==7){$ay = "Temmuz";}
+    else if($ayBul[1] ==8){$ay = "Ağustos";}
+    else if($ayBul[1] ==9){$ay = "Eylül";}
+    else if($ayBul[1] ==10){$ay = "Ekim";}
+    else if($ayBul[1] ==11){$ay = "Kasım";}
+    else {$ay="Aralık";}
 
-if($tarih[1]==11)
-{
-  $ay=" Kasım ";
-}
-
-if($tarih[1]==12)
-{
-  $ay=" Aralık ";
-}
-$yazdirilacak= $tarih[2] . "   ". $ay ." ".$tarih[0] ;
-return $yazdirilacak;
+    $yazilacak =$ayBul[2] ." " .$ay . " ". $ayBul[0] ."\t" .$tarih[1];
+    return $yazilacak;
 
 }
 
@@ -907,7 +882,7 @@ function aktifTurKullanici()
     $ci =&get_instance();
     $sonuc=$ci->db->select('id')->from('turKullanici')->where('durum',1)
         ->count_all_results();
-    return $sonuc;a
+    return $sonuc;
 }
 
 function pasifTurKullanici()

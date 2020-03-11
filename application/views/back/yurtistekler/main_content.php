@@ -15,6 +15,7 @@
                  <th style="text-align:center">Sıra No </th>
                  <th style="text-align:center"> Ad Soyad</th>
                  <th style="text-align:center">Mail</th>
+                 <th style="text-align:center">Oda</th>
                  <th style="text-align:center">İstek türü</th>
                  <th style="text-align:center">İstek ve Şikayet</th>
                  <th style="text-align:center">Durum</th>
@@ -25,9 +26,10 @@
 <?php $sayi=1; foreach ($bilgi as $bilgi) {?>
                <tr>
 
-                  <td  style="font-weight:bold">#<?php echo  $sayi++; ?></td>
+                  <td  style="font-weight:bold"><?php echo  $sayi++; ?></td>
                   <td style=""><?php echo word_limiter($bilgi['adSoyad'],4);?></td>
                   <td style=""><?php echo word_limiter($bilgi['mail'],3);?></td>
+                  <td style=""><?php echo $bilgi['odaNumara'];?></td>
                    <td style=""><?php $tur= $bilgi['tur'];
                        if($tur==1)
                        {?>
@@ -41,7 +43,7 @@
 
                        <?php } ?>
                    </td>
-                  <td style=""><?php echo word_limiter($bilgi['istek'],5);?></td>
+                  <td style=""><?php echo word_limiter($bilgi['istek'],4);?></td>
                   <td style=""><?php $aktar= $bilgi['durum'];
                   if($aktar==1)
                   {?>

@@ -17,15 +17,14 @@
                 </div>
 
 
-                <div class="box-body">
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Detay </label>
-                      <div class="col-sm-10">
-                        <textarea name="duyuruDetay" rows="8" style="width: 100%"></textarea>
-                    </div>
+                  <div class="box-body">
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Detay </label>
+                          <div class="col-sm-10">
+                              <textarea name="duyuruDetay" rows="8" style="width: 100%" id="editor1" ></textarea>
+                          </div>
+                      </div>
                   </div>
-                </div>
-
                   <div class="form-group">
                       <label class="col-sm-2 control-label">Resim</label>
                       <div class="col-sm-10">

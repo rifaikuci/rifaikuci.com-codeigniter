@@ -17,11 +17,12 @@
                   </div>
                 </div>
 
+
                 <div class="box-body">
                   <div class="form-group">
-                    <label class="col-sm-2 control-label">Açıklama </label>
+                    <label class="col-sm-2 control-label">Detay </label>
                       <div class="col-sm-10">
-                        <textarea name="duyuruDetay"  rows="8" cols="80"><?php echo $bilgi['duyuruDetay']; ?></textarea>
+                        <textarea name="duyuruDetay" id="editor1"  rows="8" style="width: 100%"><?php echo $bilgi['duyuruDetay']; ?></textarea>
                     </div>
                   </div>
                 </div>

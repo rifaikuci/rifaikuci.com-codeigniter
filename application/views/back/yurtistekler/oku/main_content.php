@@ -29,6 +29,15 @@
                 </div>
               </div>
 
+                <div class="box-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Oda Numara</label>
+                        <div class="col-sm-6">
+                            <input required type="number" name="odaNumara" class="form-control" value="<?php echo $bilgi['odaNumara']; ?>" disabled>
+                        </div>
+                    </div>
+                </div>
+
 
 
               <div class="box-body">
@@ -45,10 +54,8 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">İstek & Şikayet Tarihi</label>
                     <div class="col-sm-6">
-                    <input required type="text" name="istekTarih" class="form-control" value="<?php echo tarih($bilgi['istekTarih']);
+                    <input required type="text" name="istekTarih" class="form-control" value="<?php echo tarihSaat($bilgi['istekTarih']);
 
-                    $saat=explode(" ",$bilgi['istekTarih']);
-                     echo  "\t\t".$saat[1];
                     ?>" disabled>
 
                   </div>

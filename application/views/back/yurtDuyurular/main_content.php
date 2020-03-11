@@ -25,8 +25,8 @@
 <?php $sayi=1; foreach ($bilgi as $bilgi) {?>
                <tr>
                    <td  style="font-weight:bold"><?php echo  $sayi++; ?></td>
-                  <td>  <?php echo word_limiter($bilgi['duyuruBaslik'],10); ?></td>
-                  <td>  <?php echo $bilgi['duyuruDetay']; ?></td>
+                  <td>  <?php echo word_limiter($bilgi['duyuruBaslik'],3); ?></td>
+                  <td>  <?php echo word_limiter($bilgi['duyuruDetay'],5); ?></td>
                   <td>
 
                       <?php $tarih =$bilgi['duyuruTarih'];
