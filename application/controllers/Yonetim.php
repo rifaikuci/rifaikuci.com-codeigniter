@@ -4010,6 +4010,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
     {
         $this->protect();
         $duyuruBaslik =$this->input->post('duyuruBaslik');
+        $duyuruVideo =$this->input->post('duyuruVideo');
         $duyuruDetay =$this->input->post('duyuruDetay');
         $duyuruDetay =trim($duyuruDetay);
         $duyuruResim =$this->input->post('duyuruResim');
@@ -4044,6 +4045,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                 'duyuruResim'=>$resimkayit,
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruDetay'=>$duyuruDetay,
+                'duyuruVideo'=>$duyuruVideo,
                 'durum'=>$durum
             );
 
@@ -4075,6 +4077,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                 'duyuruResim'=>$resimkayit,
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruDetay'=>$duyuruDetay,
+                'duyuruVideo'=>$duyuruVideo,
                 'durum'=>$durum
             );
 
@@ -4112,6 +4115,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
         $this->protect();
         $id =$this->input->post('id');
         $duyuruBaslik =$this->input->post('duyuruBaslik');
+        $duyuruVideo =$this->input->post('$duyuruVideo');
         $duyuruDetay =$this->input->post('duyuruDetay');
         $duyuruDetay =trim($duyuruDetay);
         $durum =$this->input->post('durum');
@@ -4158,6 +4162,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
             $data = array(
                 'duyuruResim'=>$resimkayit,
                 'duyuruBaslik'=>$duyuruBaslik,
+                'duyuruVideo'=>$duyuruVideo,
                 'duyuruDetay'=>$duyuruDetay,
                 'durum'=>$durum
             );
@@ -4184,6 +4189,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
             $data = array(
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruDetay'=>$duyuruDetay,
+                'duyuruVideo'=>$duyuruVideo,
                 'durum'=>$durum
 
             );
