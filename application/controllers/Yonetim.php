@@ -4051,6 +4051,18 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
             $sonuc = $this->dtbs->ekle('tblDuyurular',$data);
             if ($sonuc) {
+                if($durum==1){
+                    $to = "/topics/dispositivos";
+                    $dataNotif = array(
+                        'duyuruResim'=>$resimkayit,
+                        'duyuruBaslik'=>$duyuruBaslik,
+                        'duyuruDetay'=>strip_tags($duyuruDetay),
+                        'duyuruVideo'=>$duyuruVideo
+                    );
+                    sendPushNotification($to,  $dataNotif);
+
+                }
+
                 $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
@@ -4074,6 +4086,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
             $resimkayit = base_url("/akilliYurt/images/default.png");
 
             $data = array(
+
                 'duyuruResim'=>$resimkayit,
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruDetay'=>$duyuruDetay,
@@ -4083,6 +4096,18 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
             $sonuc = $this->dtbs->ekle('tblDuyurular',$data);
             if ($sonuc) {
+
+                if($durum==1){
+                    $to = "/topics/dispositivos";
+                    $dataNotif = array(
+                        'duyuruResim'=>$resimkayit,
+                        'duyuruBaslik'=>$duyuruBaslik,
+                        'duyuruDetay'=>strip_tags($duyuruDetay),
+                        'duyuruVideo'=>$duyuruVideo
+                    );
+                    sendPushNotification($to,  $dataNotif);
+
+                }
                 $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 										<h4><i class="icon fa fa-check"></i>BAŞARILI :)</h4>
@@ -4115,11 +4140,11 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
         $this->protect();
         $id =$this->input->post('id');
         $duyuruBaslik =$this->input->post('duyuruBaslik');
-        $duyuruVideo =$this->input->post('$duyuruVideo');
+        $duyuruVideo =$this->input->post('duyuruVideo');
         $duyuruDetay =$this->input->post('duyuruDetay');
         $duyuruDetay =trim($duyuruDetay);
         $durum =$this->input->post('durum');
-
+        echo $duyuruVideo;
 
 // resim işlemi başlangıç
 
@@ -4416,5 +4441,39 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
 
 }// son parantez
+
+function sendPushNotification($to = '', $data = array()) {
+
+    $apiKey = 'AAAA1ku8mGM:APA91bGsUYr9ksKP_eSmRQImuAZgdFkNv1Cld0IYU9RH7Xflh2B1N6R4xWkFMdIPwjGsBCQUmxRL2SGJ85DQ5gAax9XNG8MxEnY77YaYM1E-PopRJXWGwSp1ROwroqX0U43dptWL8Wl2';
+
+    $fields = array(
+        'to' => $to,
+        'data' => $data,
+    );
+
+    $headers = array('Authorization: key='.$apiKey, 'Content-Type: application/json');
+
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+    echo json_encode($fields);
+    echo "<br><br>RESPUESTA SERVIDOR: ";
+
+    $result = curl_exec($ch);
+
+    curl_close($ch);
+
+    return json_decode($result, true);
+}
+
+
 
 
