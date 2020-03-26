@@ -9,7 +9,7 @@
   <?php } ?>
 
   <li  style="margin-top:20px">
-  <a target="_blank" href="mailto:rfai0747@gmail.com?Subject=rifaikuci.com%20Adresinden">
+  <a target="_blank" href="mailto:rifaikuci@gmail.com?Subject=rifaikuci.com%20Adresinden">
     <span class="ico-circle"><i class="ion-email"></i></span></a></li>
   </ul>
 </div>

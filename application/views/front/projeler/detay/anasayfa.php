@@ -8,15 +8,9 @@ $bak=sayfahitcek();
 
 
 
-if(@$_COOKIE[ 'deneme'])
-{
- @$_COOKIE[ 'deneme'];
-}
-else {
-set_cookie( 'deneme','deneme',time(15));
+
 sayfahitarttir($bak);
 
-}
 
 
  ?>

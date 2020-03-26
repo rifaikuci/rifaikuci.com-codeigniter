@@ -13,7 +13,6 @@ $cookie=$bilgi['seobaslik'];
 
  }
  else {
-   set_cookie( $cookie,$cookie,time(15));
    projehitarttir($bilgi['id'],$bilgi['hit']);
 
 
@@ -59,7 +58,7 @@ $cookie=$bilgi['seobaslik'];
       </ul>
     </div>
     <div class="article-content">
-      <?php echo $bilgi['icerik'] ?>
+      <?php echo  $bilgi['icerik']; ?>
 
 
 

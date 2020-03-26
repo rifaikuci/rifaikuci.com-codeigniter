@@ -30,7 +30,7 @@
 
                 <p><span class="title-s">Ad Soyad: </span> <span><?php echo $siteayar['adsoyad'];?></span></p>
                 <p><span class="title-s">Bölüm: </span> <span><?php echo $siteayar['ozellik'];?></span></p>
-                <p><span class="title-s">Email: </span>  <a href="mailto:rfai0747@gmail.com?Subject=rifaikuci.com%20Adresinden" target="_top"> <span><?php echo $siteayar['mail'];?></span></a></p>
+                <p><span class="title-s">Email: </span>  <a href="mailto:rifaikuci@gmail.com?Subject=rifaikuci.com%20Adresinden" target="_top"> <span><?php echo $siteayar['mail'];?></span></a></p>
                 <div class="socials">
                     <h2 class="title-left" >Sosyal Medya Hesapları</h2>
                     <br>
@@ -45,7 +45,7 @@
                         <?php } ?>
 
                         <li  style="margin-top:20px">
-                            <a target="_blank" href="mailto:rfai0747@gmail.com?Subject=rifaikuci.com%20Adresinden">
+                            <a target="_blank" href="mailto:rifaikuci@gmail.com?Subject=rifaikuci.com%20Adresinden">
                                 <span class="ico-circle"><i class="ion-email"></i></span></a></li>
                     </ul>
                 </div>

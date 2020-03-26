@@ -13,7 +13,12 @@
 <script src="<?php echo base_url('assets/back'); ?>/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/back'); ?>/dist/js/adminlte.min.js"></script>
+
+
 <script src="<?php echo base_url(''); ?>/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url(''); ?>/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" type="text/javascript"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
 
 
 
