@@ -43,6 +43,5 @@
 <!-- ./wrapper -->
 <?php $this->load->view('back/include/script.php'); ?>
 
-</script>
 </body>
 </html>

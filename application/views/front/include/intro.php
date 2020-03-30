@@ -21,7 +21,7 @@ foreach ($anaayar as  $anaayar) {
                [   { "JSON" : "Restful Servisleri" } ] |
             
             </span><strong class="text-slider"></strong></p>
-         <!--  <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="https://rifaikuci.com/anasayfa/hakkimda" role="button">Hakkımda</a></p> -->
+           <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="<?php echo base_url('anasayfa/fereli'); ?>" role="button"> Burdur Fereli Sinan Efendi KYK</a></p>
         </div>
       </div>
     </div>

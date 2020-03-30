@@ -3159,9 +3159,8 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
             $config['create_thumb'] = false;
             $config['maintain_ratio'] =false;
-            $config['quality'] ='60%';
-            $config['width'] =960;
-            $config['height'] =600;
+            $config['quality'] ='100%';
+
             $this->load->library('image_lib',$config);
             $this->image_lib->initialize($config);
             $this->image_lib->resize();
@@ -3223,9 +3222,8 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
             $config['new_image'] =     'assets/front/img/resimler/'.$resimyolu.'';
             $config['create_thumb'] = false;
             $config['maintain_ratio'] =false;
-            $config['quality'] ='60%';
-            $config['width'] =960;
-            $config['height'] =600;
+            $config['quality'] ='100%';
+
             $this->load->library('image_lib',$config);
             $this->image_lib->initialize($config);
             $this->image_lib->resize();
@@ -4014,6 +4012,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
         $duyuruDetay =$this->input->post('duyuruDetay');
         $duyuruDetay =trim($duyuruDetay);
         $duyuruResim =$this->input->post('duyuruResim');
+        $seoBaslik =seflink($duyuruBaslik);
         $durum =$this->input->post('durum');
 
 
@@ -4031,9 +4030,8 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
             $config['create_thumb'] = false;
             $config['maintain_ratio'] =false;
-            $config['quality'] ='60%';
-            $config['width'] =250;
-            $config['height'] =200;
+            $config['quality'] ='100%';
+-
             $this->load->library('image_lib',$config);
             $this->image_lib->initialize($config);
             $this->image_lib->resize();
@@ -4046,6 +4044,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruDetay'=>$duyuruDetay,
                 'duyuruVideo'=>$duyuruVideo,
+                'seobaslik' =>$seoBaslik,
                 'durum'=>$durum
             );
 
@@ -4059,7 +4058,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                         'duyuruDetay'=>strip_tags($duyuruDetay),
                         'duyuruVideo'=>$duyuruVideo
                     );
-                    sendPushNotification($to,  $dataNotif);
+                    //sendPushNotification($to,  $dataNotif);
 
                 }
 
@@ -4091,12 +4090,13 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruDetay'=>$duyuruDetay,
                 'duyuruVideo'=>$duyuruVideo,
+                'seobaslik' =>$seoBaslik,
                 'durum'=>$durum
             );
 
             $sonuc = $this->dtbs->ekle('tblDuyurular',$data);
             if ($sonuc) {
-
+/*
                 if($durum==1){
                     $to = "/topics/dispositivos";
                     $dataNotif = array(
@@ -4108,6 +4108,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                     sendPushNotification($to,  $dataNotif);
 
                 }
+*/
                 $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 										<h4><i class="icon fa fa-check"></i>BAŞARILI :)</h4>
@@ -4143,6 +4144,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
         $duyuruVideo =$this->input->post('duyuruVideo');
         $duyuruDetay =$this->input->post('duyuruDetay');
         $duyuruDetay =trim($duyuruDetay);
+        $seoBaslik = seflink($duyuruBaslik);
         $durum =$this->input->post('durum');
         echo $duyuruVideo;
 
@@ -4162,9 +4164,8 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
             $config['create_thumb'] = false;
             $config['maintain_ratio'] =false;
-            $config['quality'] ='60%';
-            $config['width'] =250;
-            $config['height'] =200;
+            $config['quality'] ='100%';
+
             $this->load->library('image_lib',$config);
             $this->image_lib->initialize($config);
             $this->image_lib->resize();
@@ -4189,6 +4190,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruVideo'=>$duyuruVideo,
                 'duyuruDetay'=>$duyuruDetay,
+                'seobaslik' =>$seoBaslik,
                 'durum'=>$durum
             );
 
@@ -4215,6 +4217,7 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
                 'duyuruBaslik'=>$duyuruBaslik,
                 'duyuruDetay'=>$duyuruDetay,
                 'duyuruVideo'=>$duyuruVideo,
+                'seobaslik' =>$seoBaslik,
                 'durum'=>$durum
 
             );

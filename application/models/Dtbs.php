@@ -182,5 +182,21 @@ function yoneticilerCek($id,$from)
         ->where('idTur',$id)->get()->row_array();
     return $sonuc;
   }
+
+
+  function ferelicek($per,$segment)
+  {
+    $sonuc=$this->db->select('*')->from('tblduyurular')->where('durum','1')->order_by('id','desc')->limit($per,$segment)->get()->result_array();
+    return $sonuc;
+
+  }
+
+
+  function ferelimdetay($seobaslik)
+  {
+    $sonuc=$this->db->select('*')->from('tblduyurular')->where('durum','1')->where('seobaslik',$seobaslik)->get()->row_array();
+
+    return $sonuc;
+  }
 }
 ?>

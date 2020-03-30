@@ -346,6 +346,14 @@ function projecek()
  return $sonuc;
 }
 
+function ferelicek()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,durum')->from('tblduyurular')->where('durum','1')
+        ->count_all_results();
+    return $sonuc;
+}
+
 function projelerresim($id)
 {
  $ci =&get_instance();
@@ -417,10 +425,10 @@ function anayazilar()
 
 function yazilarliste()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('id,resim,baslik,seobaslik,icerik,tarih,tur')->from('tblyazilar')->where('durum','1')->order_by('tarih','desc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id,resim,baslik,seobaslik,icerik,tarih,tur')->from('tblyazilar')->where('durum','1')->order_by('tarih','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 
@@ -857,6 +865,14 @@ function duyuruPasif()
     $ci =&get_instance();
     $sonuc=$ci->db->select('id')->from('tblDuyurular')->where('durum',0)
         ->count_all_results();
+    return $sonuc;
+}
+
+function sonDuyurular()
+{
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id,duyuruBaslik,seobaslik,durum,duyuruTarih')->from('tblDuyurular')->where('durum','1')->order_by('duyuruTarih','desc')->limit(5)
+        ->get()->result_array();
     return $sonuc;
 }
 

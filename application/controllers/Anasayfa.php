@@ -167,4 +167,58 @@ class Anasayfa extends CI_Controller {
         $this->load->view('front/arama/detay/anasayfa',$data);
       }
 
+
+    function fereli()
+    {
+
+        $fereli=ferelicek();
+
+        $this->load->library('pagination');
+        $config['base_url']=base_url().'anasayfa/fereli';
+        $config['total_rows']=$fereli;
+        $config['per_page']=7;
+
+        $config['full_tag_open']='<ul class="pagination">';
+        $config['full_tag_close']='</ul>';
+        $config['first_link']='&laquo';
+        $config['first_tag_open']='<li class="page-item"><span class="page-link">';
+        $config['first_tag_close']='</span></li>';
+        $config['last_link']='&raquo';
+        $config['last_tag_open']='<li class="page-item"><span class="page-link">';
+        $config['last_tag_close']='</span></li>';
+        $config['next_link']='Next';
+
+
+        $config['next_tag_open']= '<span class="page-link"> <li class="page-item">';
+        $config['next_tag_close']='</li></span>';
+        $config['prev_link']='Previous';
+        $config['prev_tag_open']='<li class="page-item"><span class="page-link">';
+        $config['prev_tag_close']='</span></li>';
+
+
+        $config['cur_tag_open']='<a class="page-link"><li class="page-item active">';
+        $config['cur_tag_close']='</li></a>';
+        $config['num_tag_open']='<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']='</span></li>';
+        $this->pagination->initialize($config);
+        $data['linkler']=$this->pagination->create_links();
+
+
+        $data['bilgi'] =$this->dtbs->ferelicek($config['per_page'],$this->uri->segment(3,0));
+
+
+        $this->load->view('front/fereli/anasayfa',$data);
+    }
+
+    function ferelidetay($seobaslik)
+    {
+
+        $sonuc=$this->dtbs-> ferelimdetay($seobaslik);
+
+        $data['bilgi']=$sonuc;
+        $this->load->view('front/fereli/detay/anasayfa',$data);
+    }
+
+
+
 }
