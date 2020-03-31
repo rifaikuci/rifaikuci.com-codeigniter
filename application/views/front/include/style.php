@@ -2,8 +2,6 @@
 <?php $icon=icon();
 ?>
 
-
-
   <link href="<?php echo base_url('assets/front/'); ?>img/apple-touch-icon.png" rel="apple-touch-icon">
   <link href="<?php echo base_url('assets/front/'); ?>lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo base_url('assets/front/'); ?>lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">

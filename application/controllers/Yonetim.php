@@ -4289,6 +4289,10 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
         $this->load->view('back/yurtistekler/anasayfa',$data);
     }
 
+    public function  istekgonder(){
+
+    }
+
 //gelen mesajı okumaya  yönlendirir.
     public function istekleroku($id)
     {

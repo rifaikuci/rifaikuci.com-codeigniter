@@ -10,8 +10,11 @@
 <script src="<?php echo base_url('assets/front/'); ?>lib/typed/typed.min.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>contactform/contactform.js"></script>
 <script src="<?php echo base_url('assets/front/'); ?>js/main.js"></script>
+<!--    Vue js -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/front/'); ?>js/app.js"></script>
+
 <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-<script src="<?php echo base_url('assets/front/'); ?>js/custom.js"></script>
 <script src="<?php echo base_url(''); ?>/ckeditor/ckeditor.js"></script>
 <script src="<?php echo base_url(''); ?>/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" type="text/javascript"></script>
 <script src="<?php echo base_url(''); ?>/ckeditor/plugins/prism/lib/prism/prism_patched.min.js" type="text/javascript"></script>

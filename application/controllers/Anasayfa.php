@@ -30,16 +30,15 @@ class Anasayfa extends CI_Controller {
                     <h4><i class="icon fa fa-check"></i>Mesaj Gönderimi Başarılı :) </h4>
                   Mesaj  başarılı bir  şekilde eklendi :)
                   </div>');
-    redirect('anasayfa/#iletisim');
-  }
+
+      redirect($this->load->view('anasayfa')."/#iletisim");  }
   else {
     $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-ban"></i>Mesajınız Gönderme Başarısız !!!</h4>
                     Mesajınız Gönderilirken bir hata oluştu. <b>TEKRAR DENEYİN!!</b>
                   </div>');
-    redirect('anasayfa/#iletisim');
-  }
+      redirect($this->load->view('anasayfa')."/#iletisim");  }
 
     }
 
@@ -219,6 +218,39 @@ class Anasayfa extends CI_Controller {
         $this->load->view('front/fereli/detay/anasayfa',$data);
     }
 
+
+    function istekgonder()
+    {
+        $data = array(
+            'adSoyad' => $adsoyad = $this->input->post('adsoyad'),
+            'mail' => $mail = $this->input->post('mail'),
+            'odaNumara' => $odaNumara = $this->input->post('odaNumara'),
+            'tur' => $tur= $this->input->post('tur'),
+            'durum' => 2,
+            'istek' => $mesaj = $this->input->post('mesaj')
+        );
+
+
+
+        $sonuc = $this->dtbs->ekle('tblistekler',$data);
+
+        if ($sonuc) {
+            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i>Talep & Şikayetiniz Alınmıştır :) </h4>
+                  Mesaj  başarılı bir  şekilde eklendi :)
+                  </div>');
+        redirect(base_url('anasayfa/fereli/anasayfa/#iletisim'));         }
+        else {
+            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>Talep & Şikayet Gönderimi Başarısız !!!</h4>
+                    Talep & Şikayet Gönderilirken bir hata oluştu. <b>TEKRAR DENEYİN!!</b>
+                  </div>');
+            redirect(base_url('anasayfa/fereli/anasayfa/#iletisim'));
+        }
+
+    }
 
 
 }
