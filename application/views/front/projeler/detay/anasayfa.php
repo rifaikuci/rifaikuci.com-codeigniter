@@ -15,7 +15,24 @@ sayfahitarttir($bak);
 
  ?>
 
-  <?php $this->load->view('front/include/headpagedetay.php'); ?>
+<head>
+    <meta charset="utf-8">
+    <?php $icon=icon();?>
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url(); echo $icon; ?>">
+    <?php
+    $sitedurum=sitedurum();
+    if($sitedurum==0)
+    {?>
+
+        <img style="max-width: 100%;"  src="<?php echo base_url('assets/front/img/build.jpg'); ?>" alt="">
+        <?php exit; ?>
+    <?php }?>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="<?php  echo $bilgi['keywords']; ?>" name="keywords">
+    <meta content="<?php  echo $bilgi['aciklama']; ?>" name="description">
+    <?php $this->load->view('front/include/style.php'); ?>
+
+</head>
   <body id="page-top">
 
       <title><?php  echo $bilgi['baslik']; ?></title>

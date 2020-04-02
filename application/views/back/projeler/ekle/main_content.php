@@ -36,6 +36,12 @@
                   </div>
                 </div>
 
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">Video Linki </label>
+                  <div class="col-sm-10">
+                      <input type="text" name="video" class="form-control"  placeholder="Video Link kodu giriniz... örnek (CMc46v0Q2zM)">
+                  </div>
+              </div>
 
                 <?php
                 $sonuc =$this->dtbs->listele('tblkategoriler');
@@ -52,12 +58,20 @@
                       </select>
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Anahtar Kelimeler </label>
                     <div class="col-sm-10">
-                    <input required type="text" name="keywords" class="form-control"  placeholder="Anahtar Kelimeler arasında virgül olacak şekilde yazınız. ">
+                    <input required type="text" name="keywords"  class="form-control"  placeholder="Anahtar Kelimeler arasında virgül olacak şekilde yazınız. ">
                   </div>
                 </div>
+
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Açıklama </label>
+                      <div class="col-sm-10">
+                          <textarea required type="text" rows="3" name="aciklama" class="form-control"  placeholder="Sitenin dinamik olması için açıklama giriniz. "></textarea>
+                      </div>
+                  </div>
 
 
 

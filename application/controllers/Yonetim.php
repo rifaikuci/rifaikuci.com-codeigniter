@@ -3,25 +3,26 @@
 
 class Yonetim extends CI_Controller {
 
-// admine girişte güvenlik amacı ile yazılan kod
+    // admine girişte güvenlik amacı ile yazılan kod
     public function protect()
     {
         $giris = $this->session->userdata('giris');
-        if (!$giris) {
-            redirect('yonetim');
-        }
+
+        if (!$giris) { redirect('yonetim');}
     }
 
-//rifaikuci.com'a girerken ilk ulaşılacak yer
+    //rifaikuci.com'a girerken ilk ulaşılacak yer
     function index()
     {
         $giris= $this->session->userdata('giris'); // eğer giriş yapmadan yapmaya çalışılırsa
-        if ($giris) {
-            redirect('yonetim/anasayfa');
-        }
+
+        if ($giris) { redirect('yonetim/anasayfa'); }
+
         $this->load->view('back/giris');
     }
 
+
+    //şifre ve mail bilgilerinin kontrolünü sağlar
     public function girisyap()
     {
 
@@ -31,27 +32,26 @@ class Yonetim extends CI_Controller {
 
         $kontrol = $this->dtbs->kontrol($email,$sifre);
 
-        if ($kontrol)
-        {
+        if ($kontrol) {
             $this->session->set_userdata('giris',true);
             redirect('yonetim/anasayfa');
-        }else
-        {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	  <h4><i class="icon fa fa-ban"></i> Uyarı!</h4>
-	  Şifre yada mail de hatalı giriş yaptınız!!!
-	  </div>');
+
+        }else {
+            durum("Uyarı !","Şifre veya mail bilgileri hatalı girilmiştir.",0);
             redirect('yonetim');
-        }
+              }
     }
 
+
+    // anasayfaya yönlendirme işlemi yapar
     public function anasayfa()
     {
         $this->protect();
         $this->load->view('back/anasayfa');
     }
-// admin panelinden çıkış işlemleri yapılır.
+
+
+    // admin panelinden çıkış işlemleri yapılır.
     public function cikis()
     {
         $this->session->sess_destroy();
@@ -59,14 +59,13 @@ class Yonetim extends CI_Controller {
     }
 
 
-//Şifre Ayarları
+    //Şifre işlemleri başlangıç
     public function sifre()
     {
         $this->protect();
         $this->load->view('back/sifre/anasayfa');
     }
 
-    //Şifre Güncelleme İşlemleri
     function sifreguncelle()
     {
         $email = $this->input->post('email');
@@ -77,10 +76,12 @@ class Yonetim extends CI_Controller {
         $sonuc =$this->dtbs->listele('tblyoneticiler');
         $tsifre="";
         $tmail="";
+
         foreach ($sonuc as $sonuc) {
             $tmail= $sonuc['email'];
             $tsifre=$sonuc['sifre'];
         }
+
         $sifre=  sha1(md5($sifre));
         $sifre1= sha1(md5($sifre1));
         $sifre2= sha1(md5($sifre2));
@@ -97,48 +98,28 @@ class Yonetim extends CI_Controller {
                     );
 
                     $sonuc =$this->dtbs->guncelle($data,$id,'id','tblyoneticiler');
+
                     if ($sonuc) {
-                        $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-				  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				  <h4><i class="icon fa fa-check"></i> BAŞARILI :)</h4>
-				Şifreniz Başarılı Bir Şekilde Güncellendi  :) </div>');
+                        $this->durum("Başarılı :)","Şifreniz başarılı bir şekilde güncellendi",1);
                         redirect('yonetim/sifre');
                     }
-                }
-                else {
-                    $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h4><i class="icon fa fa-ban"></i> HATA!!!</h4>
-				Şifreniz En Az 6 Karakter Olmalıdır <b> TEKRAR DENEYİN!!</b>
-				</div>');
+                } else {
+                    $this->durum("Hata!!!","Şifreniz en az 6 karakter olmalıdır",0);
                     redirect('yonetim/sifre');
                 }
-            }
-            else {
-                $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h4><i class="icon fa fa-ban"></i> HATA !!!</h4>
-				Şifrelerin Aynı Olduğundan Emin Olunuz... <b> TEKRAR DENEYİN!!</b>
-				</div>');
+            } else {
+                $this->durum("Hata!!!", "Şifrelerin aynı olduğundan emin olunuz",0);
                 redirect('yonetim/sifre');
             }
         }else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<h4><i class="icon fa fa-ban"></i> HATA !!!</h4>
-			Şifre İle Maili doğru girdiğinizden  Emin Olunuz  <b> TEKRAR DENEYİN!!</b>
-			</div>');
+            $this->durum("Hata!!!","Şifre ile maili doğru girdiğinden emin olunuz.",0);
             redirect('yonetim/sifre');
         }
-
-
     }
-//Şifre bitiş
+    //Şifre işlemleri bitiş
 
 
-
-// head menü başlıkları başlanguçı
-// head menüdekileri liste şeklinde görme işlemi
+    // Headmenü işlemleri başlangıç
     public function headMenu()
     {
         $this->protect();
@@ -147,14 +128,12 @@ class Yonetim extends CI_Controller {
         $this->load->view('back/headMenuler/anasayfa',$data);
     }
 
-// head menü ekleme formunu yönlendirir
     public function headMenuekle()
     {
         $this->protect();
         $this->load->view('back/headMenuler/ekle/anasayfa');
     }
 
-//head menü formu ekleme işlemini tamamlar
     public function headMenuekleme()
     {
         $this->protect();
@@ -165,24 +144,14 @@ class Yonetim extends CI_Controller {
         );
         $sonuc = $this->dtbs->ekle('tblHeadmenu',$data);
         if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h4><i class="icon fa fa-check"></i> BAŞARILI :) </h4>
-                Head Menü Listesine   başarılı bir  şekilde eklendi :)
-                </div>');
+            $this->durum("Başarılı :)","Headmenüsüne başarılı bir şekilde eklendi",1);
             redirect('yonetim/headMenu');
-        }
-        else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
-                  Head Menü Listesine Eklerken Sorun Oluştu. <b>TEKRAR DENEYİN!!</b>
-                </div>');
+        } else {
+            $this->durum("Hata!!!","Headmenüsüne eklerken bir hata oluştu",0);
             redirect('yonetim/headMenu');
         }
     }
 
-//head menunu durumunu toggle button yardımı ile aktif yada inaktif yapar
     public function headset()
     {
         $this->protect();
@@ -191,7 +160,6 @@ class Yonetim extends CI_Controller {
         $this->db->where('id',$id)->update('tblheadmenu',array('durum'=>$durum));
     }
 
-//head menu guncelleme formunu yönlendirir.
     public function headMenuduzenle($id)
     {
         $this->protect();
@@ -200,8 +168,6 @@ class Yonetim extends CI_Controller {
         $this->load->view('back/headMenuler/edit/anasayfa',$data);
     }
 
-
-// head menu güncelleme işlemlerini kaydeder
     public function headguncelle()
     {
         $this->protect();
@@ -214,46 +180,30 @@ class Yonetim extends CI_Controller {
 
         $sonuc =$this->dtbs->guncelle($data,$id,'id','tblheadmenu');
         if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <h4><i class="icon fa fa-check"></i> BAŞARILI :)</h4>
-Head Menüler Listesi Başarılı Bir Şekilde Güncellendi </div>');
+            $this->durum("Başarılı :)","Head menüsü güncelleme işlemi tamamlandı",1);
             redirect('yonetim/headMenu');
         }
         else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <h4><i class="icon fa fa-ban"></i> HATA !!!</h4>
-  Head Menüler Listesi Güncellerken Bir Hata Oluştu <b> TEKRAR DENEYİN !!!</b>
-  </div>');
+            $this->durum("Hata!!!", "Head menüsü güncelleme işleminde hata oluştu",0);
             redirect('yonetim/headMenu');}
     }
-// head menu silme işlemini yapar.
+
     public function headMenusil($id,$where,$from)
     {
         $this->protect();
         $sonuc = $this->dtbs->sil($id,$where,$from);
         if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i>BAŞARILI :) </h4>
-                   Seçtiğiniz   Head Menü  Başlığı Silindi
-                  </div>');
+            $this->durum("Başarılı :)","Seçtiğiniz head menü silindi.",1);
+            redirect('yonetim/headMenu');
+        } else {
+            $this->durum("Hata!!!","Head menü silinirken bir hata oluştu",0);
             redirect('yonetim/headMenu');
         }
-        else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
-                  Seçtiğiniz  Head Menü Başlığının Silerken Bir Hata Oluştu .<b> TEKRAR DENEYİN!!!</b>
-                  </div>');
-            redirect('yonetim/headMenu');
-        }}
-    /* head menü başlıkları bitiş -*/
+    }
+    //Headmenü işlemleri bitiş
 
 
-// kategoriler menü başlıkları başlanguçı
-// Kategoriler  liste şeklinde görme işlemi
+    //Kategori işlemleri başlangıç
     public function kategoriler()
     {
         $this->protect();
@@ -262,14 +212,12 @@ Head Menüler Listesi Başarılı Bir Şekilde Güncellendi </div>');
         $this->load->view('back/kategoriler/anasayfa',$data);
     }
 
-// Kategoriler ekleme formunu yönlendirir
     public function kategorilerekle()
     {
         $this->protect();
         $this->load->view('back/kategoriler/ekle/anasayfa');
     }
 
-//kategoriler formu ekleme işlemini tamamlar
     public function kategorilerekleme()
     {
         $this->protect();
@@ -277,26 +225,18 @@ Head Menüler Listesi Başarılı Bir Şekilde Güncellendi </div>');
             'ad' => $ad = $this->input->post('ad'),
             'seoAd' =>seflink($ad)
         );
+
         $sonuc = $this->dtbs->ekle('tblkategoriler',$data);
+
         if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h4><i class="icon fa fa-check"></i> BAŞARILI :)</h4>
-                		Kategori Listesine  başarılı bir  şekilde eklendi.
-                </div>');
+            $this->durum("Başarılı :)","Kategori başarılı bir şekilde eklendi",1);
             redirect('yonetim/kategoriler');
-        }
-        else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h4><i class="icon fa fa-ban"></i> HATA!!!</h4>
-                  Kategoriyi  Eklerken bir Hata Oluştu. <b>TEKRAR DENEYİN!!!</b>
-                </div>');
+        } else {
+            $this->durum("Hata!!!","Kategori eklenirken bir hata oluştu",0);
             redirect('yonetim/kategoriler');
         }
     }
 
-//kategoriler guncelleme formunu yönlendirir.
     public function kategorilerduzenle($id)
     {
         $this->protect();
@@ -305,7 +245,6 @@ Head Menüler Listesi Başarılı Bir Şekilde Güncellendi </div>');
         $this->load->view('back/kategoriler/edit/anasayfa',$data);
     }
 
-// kategoriler güncelleme işlemlerini kaydeder
     public function kategorilerguncelle()
     {
         $this->protect();
@@ -316,45 +255,31 @@ Head Menüler Listesi Başarılı Bir Şekilde Güncellendi </div>');
         );
 
         $sonuc =$this->dtbs->guncelle($data,$id,'id','tblkategoriler');
+
         if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <h4><i class="icon fa fa-check"></i>BAŞARILI :)</h4>
-Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
+            $this->durum("Başarılı :)","Kategori başarılı bir şekilde güncellendi",1);
             redirect('yonetim/kategoriler');
-        }
-        else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-  <h4><i class="icon fa fa-check"></i> HATA !!!</h4>
-  Seçtiğiniz Kategoriyi Güncellerken Bir Hata Oluştu <b> TEKRAR DENEYİN !!!</b>
-  </div>');
+        } else {
+            $this->durum("Hata!!!","Kategori güncellenirken bir hata oluştu",0);
             redirect('yonetim/kategoriler');}
     }
-// Kategoriler silme işlemini yapar.
+
     public function kategorilersil($id,$where,$from)
     {
         $this->protect();
         $sonuc = $this->dtbs->sil($id,$where,$from);
         if ($sonuc) {
-            $this->session->set_flashdata('durum','<div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i> BAŞARILI :)</h4>
-                    Seçtiğiniz Kategori  Silindi
-                  </div>');
+            $this->durum("Başarılı :)","Seçtiğiniz kategori silindi",1);
+            redirect('yonetim/kategoriler');
+        } else {
+            $this->durum("Hata!!!","Seçtiğiniz kategori silinirken bir hata oluştu",0);
             redirect('yonetim/kategoriler');
         }
-        else {
-            $this->session->set_flashdata('durum','<div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i>HATA !!!</h4>
-                    Seçtiğiniz Kategori Silerken Bir Hata oluştu <b> TEKRAR DENEYİN !!! </b>
-                  </div>');
-            redirect('yonetim/kategoriler');
-        }}
-    /* kategoriler başlıkları bitiş -*/
+    }
+    //Kategori işlemleri bitiş
 
-// Günün Sözü liste şeklinde görme işlemi
+
+    // Günün sözü işlemleri başlangıç
     public function gununsozu()
     {	$this->protect();
         $sonuc =$this->dtbs->listele('tblgununsozu');
@@ -362,14 +287,12 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
         $this->load->view('back/gununsozu/anasayfa',$data);
     }
 
-// günün sözü ekleme formunu yönlendirir
     public function gununsozuekle()
     {
         $this->protect();
         $this->load->view('back/gununsozu/ekle/anasayfa');
     }
 
-//günün sözü ve resim formu ekleme işlemini tamamlar
     public function gununsozuekleme()
     {
         $this->protect();
@@ -1723,6 +1646,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
         $durum =$this->input->post('durum');
         $hit=0;
         $keywords=$this->input->post('keywords');
+        $aciklama=$this->input->post('aciklama');
+        $video=$this->input->post('video');
         $icerik=$this->input->post('icerik');
         $seoicerik=seflink($icerik);
         $seobaslik=seflink($baslik);
@@ -1759,6 +1684,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
                 'resim'=>$resimkayit,
                 'baslik'=>$baslik,
                 'idkategori'=>$idkategori,
+                'aciklama'=>$aciklama,
+                'video'=>$video,
                 'durum'=>$durum,
                 'seobaslik'=>$seobaslik,
                 'icerik'=>$icerik,
@@ -1819,6 +1746,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
         $id =$this->input->post('id');
         $baslik =$this->input->post('baslik');
         $idkategori =$this->input->post('idkategori');
+        $aciklama =$this->input->post('aciklama');
+        $video =$this->input->post('video');
         $durum =$this->input->post('durum');
         $keywords=$this->input->post('keywords');
         $icerik=$this->input->post('icerik');
@@ -1859,6 +1788,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
                 'resim'=>$resimkayit,
                 'baslik'=>$baslik,
                 'idkategori'=>$idkategori,
+                'aciklama'=>$aciklama,
+                'video'=>$video,
                 'durum'=>$durum,
                 'seobaslik'=>$seobaslik,
                 'icerik'=>$icerik,
@@ -1889,6 +1820,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
 
                 'baslik'=>$baslik,
                 'idkategori'=>$idkategori,
+                'aciklama'=>$aciklama,
+                'video'=>$video,
                 'durum'=>$durum,
                 'seobaslik'=>$seobaslik,
                 'icerik'=>$icerik,
@@ -1966,6 +1899,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
         $baslik =$this->input->post('baslik');
         $tur =$this->input->post('tur');
         $durum =$this->input->post('durum');
+        $aciklama=$this->input->post('aciklama');
+        $video=$this->input->post('video');
         $hit=0;
         $keywords=$this->input->post('keywords');
         $icerik=$this->input->post('icerik');
@@ -2005,6 +1940,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
                 'resim'=>$resimkayit,
                 'baslik'=>$baslik,
                 'tur'=>$tur,
+                'aciklama'=>$aciklama,
+                'video'=>$video,
                 'durum'=>$durum,
                 'seobaslik'=>$seobaslik,
                 'icerik'=>$icerik,
@@ -2065,7 +2002,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
         $baslik =$this->input->post('baslik');
         $tur =$this->input->post('tur');
         $durum =$this->input->post('durum');
-
+        $aciklama=$this->input->post('aciklama');
+        $video=$this->input->post('video');
         $keywords=$this->input->post('keywords');
         $icerik=$this->input->post('icerik');
         $seobaslik=seflink($baslik);
@@ -2105,6 +2043,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
                 'resim'=>$resimkayit,
                 'baslik'=>$baslik,
                 'tur'=>$tur,
+                'aciklama'=>$aciklama,
+                'video'=>$video,
                 'durum'=>$durum,
                 'seobaslik'=>$seobaslik,
                 'icerik'=>$icerik,
@@ -2135,6 +2075,8 @@ Kategori Başarılı Bir Şekilde Güncellendi  :) </div>');
                 'tur'=>$tur,
                 'durum'=>$durum,
                 'seobaslik'=>$seobaslik,
+                'aciklama'=>$aciklama,
+                'video'=>$video,
                 'icerik'=>$icerik,
                 'seogenel'=>$seogenel,
                 'keywords'=>$keywords,
@@ -4446,7 +4388,23 @@ Dil Bilgileri Başarılı Bir Şekilde Güncellendi   </div>');
 
     // turKullaniciBitiş
 
-
+//karşı tarafa işlemin başarılı mı başarısız mı olduğunu döndüreceğimiz durum
+    function durum($gonderimBaslik, $gonderimIcerik, $durum)
+    {
+        if ($durum == 1) {
+            $this->session->set_flashdata('durum', '<div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-check"></i>' . $gonderimBaslik . ' </h4>' .
+                $gonderimIcerik .
+                '</div>');
+        } else {
+            $this->session->set_flashdata('durum', '<div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>' . $gonderimBaslik . ' </h4>' .
+                $gonderimIcerik .
+                '</div>');
+        }
+    }
 }// son parantez
 
 function sendPushNotification($to = '', $data = array()) {
@@ -4480,6 +4438,8 @@ function sendPushNotification($to = '', $data = array()) {
 
     return json_decode($result, true);
 }
+
+
 
 
 

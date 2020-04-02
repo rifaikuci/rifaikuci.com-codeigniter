@@ -28,6 +28,13 @@
                   </div>
                 </div>
 
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Video Linki </label>
+                      <div class="col-sm-10">
+                          <input type="text" name="video" class="form-control" value="<?php echo $bilgi['video']; ?>" >
+                      </div>
+                  </div>
+
 
                 <div class="form-group">
                   <label class="col-sm-2 control-label"> Mevcud Resim</label>
@@ -68,6 +75,12 @@
                   </div>
                 </div>
 
+                  <div class="form-group">
+                      <label class="col-sm-2 control-label">Açıklama </label>
+                      <div class="col-sm-10">
+                          <textarea type="text" rows="3" name="aciklama" class="form-control"  placeholder="Sitenin dinamik olması için açıklama giriniz. "><?php echo $bilgi['aciklama']; ?></textarea>
+                      </div>
+                  </div>
 
 
                 <div class="form-group">
