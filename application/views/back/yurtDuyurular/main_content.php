@@ -53,7 +53,7 @@
                       <a href="<?php echo base_url('yonetim/duyurularduzenle/'.$bilgi['id'].''); ?>">
                       <button  type="button" name='button' class="btn btn-info">Düzenle</button></a>
 
-                        <a href="<?php echo base_url('yonetim/duyurularsil/'.$bilgi['id'].'/id/tblDuyurular'); ?>">
+                        <a href="<?php echo base_url('yonetim/duyurularsil/'.$bilgi['id'].'/id/tblduyurular'); ?>">
                         <button  type="button" name='button' class="btn btn-danger ">Sil</button></a>
 
 

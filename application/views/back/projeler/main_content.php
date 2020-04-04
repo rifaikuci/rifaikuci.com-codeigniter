@@ -1,4 +1,4 @@
-<section class="content">
+projeliste<section class="content">
      <div class="row">
        <div class="col-xs-12">
 <?php echo $this->session->flashdata('durum'); ?>

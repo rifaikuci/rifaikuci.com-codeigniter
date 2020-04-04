@@ -28,7 +28,7 @@
                   <td>  <?php echo word_limiter($bilgi['turAd'],10); ?></td>
                   <td>  <?php echo $bilgi['tur']; ?></td>
 
-                  <td style="padding-left:40px"><img  src="<?php echo $bilgi['turResim'];?>" alt="<?php echo $bilgi['id'];?>"   height="100" width="66"></td>
+                  <td style="padding-left:40px"><img  src="<?php echo base_url().$bilgi['turResim'];?>" alt="<?php echo $bilgi['id'];?>"   height="100" width="66"></td>
                   <td>
                     <input
                     class="toggle_check"

@@ -3,6 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dtbs extends CI_Model{
 
+  function databasename(){
+    return new deneme('localhost','rifaikuc_rifaikuci','root', 'mardin47');
+  }
+
 
 function kontrol($email,$sifre){
 $sonuc = $this->db->select('*')
@@ -35,6 +39,7 @@ function cek($id,$from)
   ->where('id',$id)->get()->row_array();
   return $sonuc;
 }
+
 function guncelle($data = array(),$id,$where,$from)
 {
   $sonuc= $this->db->where($where,$id)->update($from,$data);
@@ -56,29 +61,26 @@ public function sil($id,$where,$from)
 
 function projecek($per,$segment)
 {
-$sonuc=$this->db->select('*')->from('tblprojeler')->where('durum','1')->order_by('id','desc')->limit($per,$segment)->get()->result_array();
-return $sonuc;
-
+  $sonuc=$this->db->select('*')->from('tblprojeler')->where('durum','1')->order_by('id','desc')->limit($per,$segment)->get()->result_array();
+  return $sonuc;
 }
 
 function yazicek($per,$segment)
 {
-$sonuc=$this->db->select('*')->from('tblyazilar')->where('durum','1')->order_by('id','desc')->limit($per,$segment)->get()->result_array();
-return $sonuc;
+  $sonuc=$this->db->select('*')->from('tblyazilar')->where('durum','1')->order_by('id','desc')->limit($per,$segment)->get()->result_array();
+  return $sonuc;
 
 }
 
 function projemdetay($seobaslik)
 {
   $sonuc=$this->db->select('*')->from('tblprojeler')->where('durum','1')->where('seobaslik',$seobaslik)->get()->row_array();
-
   return $sonuc;
 }
 
 function yazilarimdetay($seobaslik)
 {
   $sonuc=$this->db->select('*')->from('tblyazilar')->where('durum','1')->where('seobaslik',$seobaslik)->get()->row_array();
-
   return $sonuc;
 }
 
@@ -87,8 +89,7 @@ function aramalarimdetay($seobaslik)
 {
   require_once (__DIR__.'/deneme.php');
 
-
-    $dc=new deneme('localhost','rifaikuc_rifaikuci','root', 'mardin47');
+    $dc=$this->databasename();
 
     $sonuc= $dc->from('tblyazilar')->
     select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
@@ -105,9 +106,7 @@ function arkeologListele($from)
   $sonuc= $this->db->select('*')->from($from)
   ->order_by('aId','asc')->get()->result_array();
   return $sonuc;
-
 }
-
 
 function arkeologCek($id,$from)
 {
@@ -115,7 +114,6 @@ function arkeologCek($id,$from)
   ->where('aId',$id)->get()->row_array();
   return $sonuc;
 }
-
 
 function eserlerListele($from)
 {
@@ -125,14 +123,12 @@ function eserlerListele($from)
 
 }
 
-
 function eserlerCek($id,$from)
 {
   $sonuc= $this->db->select('*')->from($from)
   ->where('eId',$id)->get()->row_array();
   return $sonuc;
 }
-
 
 function kazilarListele($from)
 {
@@ -141,7 +137,6 @@ function kazilarListele($from)
   return $sonuc;
 
 }
-
 
 function kazilarCek($id,$from)
 {
@@ -158,7 +153,6 @@ function yoneticilerListele($from)
 
 }
 
-
 function yoneticilerCek($id,$from)
 {
   $sonuc= $this->db->select('*')->from($from)
@@ -166,33 +160,28 @@ function yoneticilerCek($id,$from)
   return $sonuc;
 }
 
-
-  function turlerListele($from)
-  {
+function turlerListele($from)
+{
     $sonuc= $this->db->select('*')->from($from)
         ->order_by('idTur','asc')->get()->result_array();
     return $sonuc;
-
   }
 
-
-  function turlerCek($id,$from)
+function turlerCek($id,$from)
   {
     $sonuc= $this->db->select('*')->from($from)
         ->where('idTur',$id)->get()->row_array();
     return $sonuc;
   }
 
-
-  function ferelicek($per,$segment)
+function ferelicek($per,$segment)
   {
     $sonuc=$this->db->select('*')->from('tblduyurular')->where('durum','1')->order_by('id','desc')->limit($per,$segment)->get()->result_array();
     return $sonuc;
 
   }
 
-
-  function ferelimdetay($seobaslik)
+function ferelimdetay($seobaslik)
   {
     $sonuc=$this->db->select('*')->from('tblduyurular')->where('durum','1')->where('seobaslik',$seobaslik)->get()->row_array();
 

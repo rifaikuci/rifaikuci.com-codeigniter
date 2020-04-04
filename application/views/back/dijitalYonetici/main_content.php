@@ -28,7 +28,7 @@
                   <td>  <?php echo word_limiter($bilgi['yRfid'],15); ?></td>
                   <td>  <?php echo word_limiter($bilgi['yName'],15); ?></td>
                   <td>  <?php echo word_limiter($bilgi['yEmail'],15); ?></td>
-                  <td><img style="margin-left:30px" src="<?php  echo  $bilgi['yFoto'];?>" alt="<?php echo $bilgi['yName'];?>"   height="100" width="120"></td>
+                  <td><img style="margin-left:30px" src="<?php  echo base_url(""). $bilgi['yFoto'];?>" alt="<?php echo $bilgi['yName'];?>"   height="100" width="120"></td>
 
                   <td>
                       <a href="<?php echo base_url('yonetim/dijitalYoneticiduzenle/'.$bilgi['yId'].''); ?>">

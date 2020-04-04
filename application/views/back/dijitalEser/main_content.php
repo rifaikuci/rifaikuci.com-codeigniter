@@ -33,7 +33,7 @@
                     {
                       echo "QR Oluşturulmadı";
                     }else {?>
-                      <img style="margin-left:30px" src="<?php echo base_url('/').$bilgi['eQR']; ?>" alt="<?php echo "Qr Code resim";?>"   height="100" width="120">
+                      <img style="margin-left:30px" src="<?php echo base_url('').$bilgi['eQR']; ?>" alt="<?php echo "Qr Code resim";?>"   height="100" width="120">
                     <?php }?>
                   </td>
 
@@ -51,7 +51,7 @@
 
                     >
                     </td>
-                  <td><img style="margin-left:30px" src="<?php echo   $bilgi['eFoto'];?>" alt="<?php echo $bilgi['eBaslik'];?>"   height="100" width="120"></td>
+                  <td><img style="margin-left:30px" src="<?php echo base_url('').  $bilgi['eFoto'];?>" alt="<?php echo $bilgi['eBaslik'];?>"   height="100" width="120"></td>
 
                   <td>
                       <a href="<?php echo base_url('yonetim/dijitalEserduzenle/'.$bilgi['eId'].''); ?>">

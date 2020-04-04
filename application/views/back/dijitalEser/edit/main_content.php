@@ -88,7 +88,7 @@
                 <div class="form-group">
                   <label style="margin-top:50px;" class="col-sm-2 control-label"> Mevcud Resim</label>
                     <div class="col-sm-4">
-                    <img style="width:160px; height:160px; margin-left:50px;" src="<?php echo $bilgi['eFoto']; ?>" alt="Eserler Resmi" name="eFoto">
+                    <img style="width:160px; height:160px; margin-left:50px;" src="<?php echo base_url("/"). $bilgi['eFoto']; ?>" alt="Eserler Resmi" name="eFoto">
                   </div>
                   <div class="" >
                   <label  style="margin-top:50px;" class="col-sm-2 control-label"> QR Kod  </label>

@@ -17,7 +17,6 @@
                  <th>Kazı Yeri</th>
                  <th>Başlangıç Tarihi</th>
                  <th>Bitiş Tarihi</th>
-                 <th>Durum</th>
                  <th style="width:105px">İşlemler</th>
                </tr>
                </thead>
@@ -36,22 +35,6 @@
                   $tarih2 = explode(" ", $tarih2);
                   echo tarih($tarih2[0]);
                    ?></td>
-
-                   <td>
-                     <input
-                     class="toggle_check"
-                     data-on="Aktif"
-                     data-onstyle="success"
-                     data-off="Pasif"
-                     data-offstyle="danger"
-                     type="checkbox"
-                     dataID="<?php echo $bilgi['kId']; ?>"
-                     dataURL="<?php echo base_url('yonetim/dijitalKaziset'); ?>"
-                     <?php echo ($bilgi['kDurum']==1) ? "checked" : ""; ?>
-
-                     >
-                     </td>
-
 
                        <td style="">
                            <a href="<?php echo base_url('yonetim/dijitalKaziduzenle/'.$bilgi['kId'].''); ?>">

@@ -43,7 +43,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label"> Mevcud Resim</label>
                     <div class="col-sm-4">
-                    <img style="width:160px; height:160px; margin-left:50px;" src="<?php echo $bilgi['yFoto']; ?>" alt="Yönetici Resmi" name="yFoto">
+                    <img style="width:160px; height:160px; margin-left:50px;" src="<?php  echo base_url(""). $bilgi['yFoto']; ?>" alt="Yönetici Resmi" name="yFoto">
                   </div>
                   <div class="" style="margin-top: 50px ;">
                   <label  class="col-sm-2 control-label"> Yeni Resim</label>

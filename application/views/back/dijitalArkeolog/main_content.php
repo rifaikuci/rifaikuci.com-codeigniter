@@ -35,7 +35,7 @@
 
 
 
-                  <td style="padding-left:40px"><img  src="<?php  echo  $bilgi['aPhoto'];?>" alt="<?php echo $bilgi['aName'];?>"   height="100" width="100"></td>
+                  <td style="padding-left:40px"><img  src="<?php echo  base_url("/").$bilgi['aPhoto']; ?>" alt="<?php echo $bilgi['aName'];?>"   height="100" width="100"></td>
                   <td>
                     <input
                     class="toggle_check"

@@ -1,4 +1,120 @@
 <?php
+
+
+function database(){
+    return new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
+}
+
+//Basicdb kullanılanlar başlangıç
+function etiketproje()
+{
+    require_once __DIR__. '/basicdb.php';
+
+    $da = database();
+
+    $querry=$da->from('tblprojeler')->select('keywords,seobaslik,id,durum,hit')->limit(0,3)->where('durum','1')->orderBy('hit','desc')->all();
+    return $querry;
+}
+
+function etiketyazilar()
+{
+    require_once __DIR__. '/basicdb.php';
+
+    $dk=database();
+
+    $querry=$dk->from('tblyazilar')->select('keywords,seobaslik,id,durum,hit')->limit(0,3)->where('durum','1')->orderBy('hit','desc')->all();
+    return $querry;
+}
+
+function genelyazilarokunan()
+{
+    require_once __DIR__. '/basicdb.php';
+    $de=database();
+
+    $sonuc= $de->from('tblyazilar')->
+    select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
+  ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type ,tur as idkategori
+  ')->
+    union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
+    ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
+    ')->limit('0','5')->where('durum','1')->orderBy('hit','desc')->all();
+    return $sonuc;
+}
+
+function keywords()
+{
+    require_once __DIR__. '/basicdb.php';
+    $de=database();
+    $sonuc= $de->from('tblyazilar')->
+    select(' baslik as baslik , id as id, durum as durum')->
+    union()->from('tblprojeler')->select('baslik as baslik , id as id, durum as durum')->limit(0,3)
+        ->where('durum','1')->all();
+    return $sonuc;
+}
+
+function genelyazilartarih()
+{
+    require_once __DIR__. '/basicdb.php';
+    $dc=database();
+    $querry=$dc->from('tblprojeler')->select('tarih,baslik,seobaslik,type')->union()->from('tblyazilar')
+        ->select('tarih,baslik,seobaslik,type')->where('durum','1')->limit('0','5')->orderBy('tarih','desc')->all();
+
+    return $querry;
+}
+
+function arama($arama)
+{
+    require_once (__DIR__.'/basicdb.php');
+    $dc=database();
+    $sonuc= $dc->from('tblyazilar')->
+    select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
+ ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type ,tur as idkategori
+ ')->
+    union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
+   ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
+   ')->where('durum','1')->
+    LIKE('seogenel ',$arama)->orderBy('tarih','desc')->limit(0,10)->all();
+    return $sonuc;
+}
+
+function anayaziprojelerhit()
+{
+    require_once __DIR__. '/basicdb.php';
+    $dy=database();
+    $querry=$dy->from('tblprojeler')->select('baslik,resim,icerik,seobaslik,tarih,type,hit')->union()->from('tblyazilar')
+        ->select('baslik,resim,icerik,seobaslik,tarih,type,hit')->where('durum','1')->limit('0','6')->orderBy('hit','desc')->all();
+    return $querry;
+}
+
+function hakkimdakeywords()
+{
+    require_once __DIR__. '/basicdb.php';
+    $de=database();
+    $sonuc= $de->from('tblyazilar')->
+    select('durum,id,seobaslik,keywords,type,hit
+    ')->
+    union()->from('tblprojeler')->select('durum,id,seobaslik,keywords,type,hit
+      ')->limit('0','5')->where('durum','1')->orderBy('hit','desc')->all();
+    return $sonuc;
+}
+
+function adminhit()
+{
+    require_once __DIR__. '/basicdb.php';
+    $de=database();
+    $sonuc= $de->from('tblyazilar')->
+    select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
+  ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type ,tur as idkategori
+  ')->
+    union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
+    ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
+    ')->limit('0','4')->where('durum','4')->orderBy('hit','desc')->all();
+    return $sonuc;
+}
+//Basicdb kullanılanlar bitiş
+
+
+//seflink - seo ayarları
 function seflink($str, $options = array())
 {
     $str = mb_convert_encoding((string)$str, 'UTF-8', mb_list_encodings());
@@ -78,350 +194,316 @@ function seflink($str, $options = array())
     $str = trim($str, $options['delimiter']);
     return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
 }
-//headmenu baslangic
- function headmenucek()
+//seflink - seo ayarları
+
+//tblheadmenu işlemleri başlangıç
+function headmenucek()
 {
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('id,durum')->from('tblheadmenu')->where('durum','1')
-  ->count_all_results();
-  return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,durum')->from('tblheadmenu')->where('durum','1')
+        ->count_all_results();
+    return $sonuc;
 }
 
 function menucek()
 {
-   $ci =& get_instance();
-   $sonuc = $ci->db->select('*')->from('tblheadmenu')->where('durum','1')
-   ->get()->result_array();
-   return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tblheadmenu')->where('durum','1')
+        ->get()->result_array();
+    return $sonuc;
 }
+//tblheadmenu işlemleri bitiş
 
-//headmenu bitiş
 
-//tbliletisim ayarları
+//tbliletisim işlemleri başlangıç
 function okunancek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,durum')->from('tbliletisim')->where('durum','1')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,durum')->from('tbliletisim')->where('durum','1')
+        ->count_all_results();
+    return $sonuc;
 }
 
 function headiletisim()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('*')->from('tbliletisim')->limit('4')->where('durum','0')->order_by('tarih','desc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tbliletisim')->limit('4')->where('durum','0')->order_by('tarih','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 function mesajdurum($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->set('durum','1')
- ->where('id',$id)->update('tbliletisim');
-
-}
-
-function mesajlar()
-{
- $ci =&get_instance();
- $sonuc=$ci->db->select('id')->from('tbliletisim')
- ->count_all_results();
- return $sonuc;
-}
-
-function istekdurum($id)
-{
     $ci =&get_instance();
     $sonuc=$ci->db->set('durum','1')
-        ->where('id',$id)->update('tblistekler');
+        ->where('id',$id)->update('tbliletisim');
 
 }
 
 function okunmayancek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,durum')->from('tbliletisim')->where('durum','0')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,durum')->from('tbliletisim')->where('durum','0')
+        ->count_all_results();
+    return $sonuc;
 }
 
-//tbliletisim bitis
+function mesajlar()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tbliletisim')
+        ->count_all_results();
+    return $sonuc;
+}
+//tbliletisim işlemleri bitiş
 
-//tbladmin baslangıc
- function admincek(){
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('*')->from('tbladmin')->order_by('id','desc')->get()->row();
-  return $sonuc;
+
+//tbladmin işlemleri başlangıç
+function admincek(){
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tbladmin')->order_by('id','desc')->get()->row();
+    return $sonuc;
 }
 
 function adminresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tbladmin')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tbladmin')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
+//tbladmin işlemleri bitiş
 
-//tbladmin bitis
 
-
-//tblsmedya baslangic
+//tblsmedya işlemleri başlangıç
 function smedyacek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id')->from('tblsmedya')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblsmedya')
+        ->count_all_results();
+    return $sonuc;
 }
 
 function smedyaion()
 {
-   $ci =& get_instance();
-   $sonuc = $ci->db->select('*')->from('tblsmedya')
-   ->get()->result_array();
-   return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tblsmedya')
+        ->get()->result_array();
+    return $sonuc;
 }
+//tblsmedya işlemleri bitiş
 
-//tblsmedya bitis
 
-//tblokunan baslangic
+//tblokunan işlemleri başlangıç
 function okunankitapcek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id')->from('tblokunan')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblokunan')
+        ->count_all_results();
+    return $sonuc;
 }
-
 
 function okunanresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblokunan')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblokunan')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
+//tblokunan işlemleri bitiş
 
-//tblokunan bitis
 
-
-//tblokunacak  baslangic
+//tblokunacak  işlemleri başlangıç
 function okunacakkitapcek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id')->from('tblokunacak')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblokunacak')
+        ->count_all_results();
+    return $sonuc;
 }
-
-function okunacakresim($id)
-{
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblokunacak')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
-}
-
-//tblokunacak bitis
+//tblokunacak  işlemleri bitiş
 
 
-//tblozellikler balangic
+//tblozellikler işlemleri başlangıç
 function ozellikcek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id')->from('tblozellikler')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblozellikler')
+        ->count_all_results();
+    return $sonuc;
 }
 
 function ozellik4()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('*')->from('tblozellikler')->limit('5')->order_by('id','desc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tblozellikler')->limit('5')->order_by('id','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 function ozellikresimler()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('resim,id,ozellik')->from('tblozellikler')->order_by('id','desc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('resim,id,ozellik')->from('tblozellikler')->order_by('id','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 function ozellikbasliklar()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('id,ozellik')->from('tblozellikler')->order_by('id','desc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id,ozellik')->from('tblozellikler')->order_by('id','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 function ozellikresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblozellikler')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblozellikler')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
-//tblozellikler bitis
+//tblozellikler işlemleri bitiş
 
-//tblsertifikalar baslangic
+
+//tblsertifikalar işlemleri baslangic
 function sertifikacek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id')->from('tblsertifikalar')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblsertifikalar')
+        ->count_all_results();
+    return $sonuc;
 }
 
 function sertifikaresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblsertifikalar')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblsertifikalar')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
 
 function hakkimdasertifika()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('*')->from('tblsertifikalar')
- ->get()->result_array();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('*')->from('tblsertifikalar')
+        ->get()->result_array();
+    return $sonuc;
 }
+//tblsertifikalar işlemleri bitiş
 
-//tblsertifikalar bitis
 
-//tblgununsozu baslangic
+//tblgununsozu işlemleri başlangıç
 function gununsozuresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblgununsozu')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblgununsozu')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
 
 function randomsoz()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('*')->from('tblgununsozu')->where('durum','1')->limit('1')->order_by('RAND()')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tblgununsozu')->where('durum','1')->limit('1')->order_by('RAND()')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 function gununsozucek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,durum')->from('tblgununsozu')->where('durum','1')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,durum')->from('tblgununsozu')->where('durum','1')
+        ->count_all_results();
+    return $sonuc;
 }
-//tblgununsozu bitis
+//tblgununsozu işlemleri bitiş
 
-//tblkategoriler baslangic
+
+//tblkategoriler işlemleri baslangic
 function kategoricek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id')->from('tblkategoriler')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblkategoriler')
+        ->count_all_results();
+    return $sonuc;
 }
 
 function kategoriliste(){
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('*')->from('tblkategoriler')->order_by('id','desc')->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tblkategoriler')->order_by('id','desc')->get()->result_array();
+    return $sonuc;
 }
+//tblkategoriler işlemleri bitiş
 
-//tblkategoriler bitis
-//tblprojeler baslangic
+
+
+//tblprojeler işlemleri baslangic
 function projecek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,durum')->from('tblprojeler')->where('durum','1')
- ->count_all_results();
- return $sonuc;
-}
-
-function ferelicek()
-{
     $ci =&get_instance();
-    $sonuc=$ci->db->select('id,durum')->from('tblduyurular')->where('durum','1')
+    $sonuc=$ci->db->select('id,durum')->from('tblprojeler')->where('durum','1')
         ->count_all_results();
     return $sonuc;
 }
 
 function projelerresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblprojeler')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblprojeler')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
 
 function anaproje()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('id,resim,baslik,seobaslik,icerik,tarih,hit,idkategori,durum')->from('tblprojeler')->where('durum','1')->limit('3')->order_by('id','desc')
-  ->get()->result_array();
-  return $sonuc;
-}
-
-
-function etiketproje()
-{
-require_once __DIR__. '/basicdb.php';
-
-  $da=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-
-  $querry=$da->from('tblprojeler')->select('keywords,seobaslik,id,durum,hit')->limit(0,3)->where('durum','1')->orderBy('hit','desc')->all();
-return $querry;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id,resim,baslik,seobaslik,icerik,tarih,hit,idkategori,durum')->from('tblprojeler')->where('durum','1')->limit('3')->order_by('id','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 function   projehitarttir($id,$hit)
 {
-  $ci =& get_instance();
-  $sonuc=$ci->db->where('id',$id)->update('tblprojeler',array('hit'=>$hit+1));
+    $ci =& get_instance();
+    $sonuc=$ci->db->where('id',$id)->update('tblprojeler',array('hit'=>$hit+1));
 }
 
 function projeliste()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('id,resim,baslik,seobaslik,icerik,tarih,idkategori')->from('tblprojeler')->where('durum','1')->order_by('tarih','desc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id,resim,baslik,seobaslik,icerik,tarih,idkategori')->from('tblprojeler')->where('durum','1')->order_by('tarih','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
+//tblprojeler işlemleri bitiş
 
-//tblprojeler bitis
-//tblyazilar baslangic
+
+//tblyazilar işlemleri başlangıç
 function yazicek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,durum')->from('tblyazilar')->where('durum','1')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,durum')->from('tblyazilar')->where('durum','1')
+        ->count_all_results();
+    return $sonuc;
 }
-
 
 function yazilarresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblyazilar')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblyazilar')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
 
 function anayazilar()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('id,resim,baslik,seobaslik,tarih,tur,hit')->from('tblyazilar')->where('durum','1')->limit('3')->order_by('id','desc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id,resim,baslik,seobaslik,tarih,tur,hit')->from('tblyazilar')->where('durum','1')->limit('3')->order_by('id','desc')
+        ->get()->result_array();
+    return $sonuc;
 }
-
 
 function yazilarliste()
 {
@@ -431,273 +513,182 @@ function yazilarliste()
     return $sonuc;
 }
 
-
-function etiketyazilar()
-{
-require_once __DIR__. '/basicdb.php';
-
-  $dk=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-
-  $querry=$dk->from('tblyazilar')->select('keywords,seobaslik,id,durum,hit')->limit(0,3)->where('durum','1')->orderBy('hit','desc')->all();
-return $querry;
-}
-
 function   yazihitarttir($id,$hit)
 {
-  $ci =& get_instance();
-  $sonuc=$ci->db->where('id',$id)->update('tblyazilar',array('hit'=>$hit+1));
+    $ci =& get_instance();
+    $sonuc=$ci->db->where('id',$id)->update('tblyazilar',array('hit'=>$hit+1));
 }
-//tblyazilar bitis
+//tblyazilar işlemleri bitiş
 
-//tblsite baslangic
+
+// tblsite işlemleri başlangıç
 function sitedurum()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('durum')->from('tblsite')
- ->limit(1)->get()->row();
- return $sonuc->durum;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('durum')->from('tblsite')
+        ->limit(1)->get()->row();
+    return $sonuc->durum;
 }
 
 function siteayar()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('*')->from('tblsite')->limit('1')->order_by('id','desc')->where('durum','1')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tblsite')->limit('1')->order_by('id','desc')->where('durum','1')
+        ->get()->result_array();
+    return $sonuc;
 }
 
 function   sayfahitarttir($hit)
 {
-  $ci =& get_instance();
-  $sonuc=$ci->db->update('tblsite',array('hit'=>$hit+1));
+    $ci =& get_instance();
+    $sonuc=$ci->db->update('tblsite',array('hit'=>$hit+1));
 }
 
 function sayfahitcek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,hit')->from('tblsite')->get()->row();
- return $sonuc->hit;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,hit')->from('tblsite')->get()->row();
+    return $sonuc->hit;
 }
 
 function siteresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblsite')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblsite')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
+// tblsite işlemleri bitiş
 
-//tblsite bitis
 
-//tblresimler baslangic
+//tblresimler işlemi başlangıç
 function resimlerresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblresimler')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblresimler')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
-//tblresimler bitis
+//tblresimler işlemi bitiş
 
-//tblgenelayar baslangic
+
+//tblgenelayar işlemleri baslangic
 function genelayarresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblgenelayar')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblgenelayar')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
 
 function anaayar()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('*')->from('tblgenelayar')->limit('1')->order_by('id','asc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('*')->from('tblgenelayar')->limit('1')->order_by('id','asc')
+        ->get()->result_array();
+    return $sonuc;
 }
-//tblgenelayar bitis
+//tblgenelayar işlemleri bitiş
 
-//tblicon baslangic
+
+//tblicon işlemleri başlangıç
 function iconresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblicon')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblicon')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
+
 function icon()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('resim')->from('tblicon')
- ->limit(1)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('resim')->from('tblicon')
+        ->limit(1)->get()->row();
+    return $sonuc->resim;
 }
-//tblicon bitis
+//tblicon işlemleri bitiş
 
-//tblarkaplan baslangic
+
+//tblarkaplan işlemleri başlangıç
 function arkaplanresim($id)
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('id,resim')->from('tblarkaplan')
- ->where('id',$id)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,resim')->from('tblarkaplan')
+        ->where('id',$id)->get()->row();
+    return $sonuc->resim;
 }
-
 
 function arkaplan()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('resim')->from('tblarkaplan')
- ->limit(1)->get()->row();
- return $sonuc->resim;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('resim')->from('tblarkaplan')
+        ->limit(1)->get()->row();
+    return $sonuc->resim;
 }
 //tblarkaplan bitis
 
-//tblyoneticiler baslangic
+
+//tblyoneticiler işlem başlangıç
 function adminid()
 {
-  $ci =& get_instance();
-  $sonuc = $ci->db->select('id')->from('tblyoneticiler')->limit('1')->order_by('id','asc')
-  ->get()->result_array();
-  return $sonuc;
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id')->from('tblyoneticiler')->limit('1')->order_by('id','asc')
+        ->get()->result_array();
+    return $sonuc;
 }
+//tblyoneticiler işlem bitiş
 
-//tblyoneticiler bitis
-
-// union islemleri
-function genelyazilarokunan()
-{
-require_once __DIR__. '/basicdb.php';
-  $de=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-  $sonuc= $de->from('tblyazilar')->
-  select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
-  ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type ,tur as idkategori
-  ')->
-    union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
-    ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
-    ')->limit('0','5')->where('durum','1')->orderBy('hit','desc')->all();
-return $sonuc;
-}
-
-
-function keywords()
-{
-require_once __DIR__. '/basicdb.php';
-  $de=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-  $sonuc= $de->from('tblyazilar')->
-  select(' baslik as baslik , id as id, durum as durum')->
-    union()->from('tblprojeler')->select('baslik as baslik , id as id, durum as durum')->limit(0,3)
-    ->where('durum','1')->all();
-return $sonuc;
-}
-
-
-function genelyazilartarih()
-{
-require_once __DIR__. '/basicdb.php';
-  $dc=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-  $querry=$dc->from('tblprojeler')->select('tarih,baslik,seobaslik,type')->union()->from('tblyazilar')
-  ->select('tarih,baslik,seobaslik,type')->where('durum','1')->limit('0','5')->orderBy('tarih','desc')->all();
-
-return $querry;
-}
-
-function arama($arama)
-{
-require_once (__DIR__.'/basicdb.php');
- $dc=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
- $sonuc= $dc->from('tblyazilar')->
- select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
- ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type ,tur as idkategori
- ')->
-   union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
-   ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
-   ')->where('durum','1')->
-   LIKE('seogenel ',$arama)->orderBy('tarih','desc')->limit(0,10)->all();
-return $sonuc;
-}
-
-function anayaziprojelerhit()
-{
-require_once __DIR__. '/basicdb.php';
-  $dy=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-  $querry=$dy->from('tblprojeler')->select('baslik,resim,icerik,seobaslik,tarih,type,hit')->union()->from('tblyazilar')
-  ->select('baslik,resim,icerik,seobaslik,tarih,type,hit')->where('durum','1')->limit('0','6')->orderBy('hit','desc')->all();
-return $querry;
-}
-
-function hakkimdakeywords()
-{
-  require_once __DIR__. '/basicdb.php';
-    $de=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-    $sonuc= $de->from('tblyazilar')->
-    select('durum,id,seobaslik,keywords,type,hit
-    ')->
-      union()->from('tblprojeler')->select('durum,id,seobaslik,keywords,type,hit
-      ')->limit('0','3')->where('durum','1')->orderBy('hit','desc')->all();
-      return $sonuc;
-}
-
-function adminhit()
-{
-require_once __DIR__. '/basicdb.php';
-  $de=new basicdb('localhost','rifaikuc_rifaikuci','root', 'mardin47');
-  $sonuc= $de->from('tblyazilar')->
-  select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
-  ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type ,tur as idkategori
-  ')->
-    union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
-    ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
-    ')->limit('0','3')->where('durum','1')->orderBy('hit','desc')->all();
-return $sonuc;
-}
-//union bitis
 
 //tbldil baslangic
 function hakkimdadil()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('*')->from('tbldil')
- ->get()->result_array();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('*')->from('tbldil')
+        ->get()->result_array();
+    return $sonuc;
 }
 //tbldil bitis
+
 
 //tblegitim baslangic
 function hakkimdaegitim()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('*')->from('tblegitim')
- ->get()->result_array();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('*')->from('tblegitim')
+        ->get()->result_array();
+    return $sonuc;
 }
 //tblegitim bitis
 
-//tarih baslangic
+
+//tarih başlangç
+//sadece tarih döndürür.
 function tarih($ayirilacak)
 {
-$tarih=explode(" ",$ayirilacak);
-$ayBul =explode("-",$tarih[0]);
+    $tarih=explode(" ",$ayirilacak);
+    $ayBul =explode("-",$tarih[0]);
 
 
-if($ayBul[1]==1){$ay= "Ocak"; }
-else if($ayBul[1] ==2){$ay = "Şubat";}
-else if($ayBul[1] ==3){$ay = "Mart";}
-else if($ayBul[1] ==4){$ay = "Nisan";}
-else if($ayBul[1] ==5){$ay = "Mayıs";}
-else if($ayBul[1] ==6){$ay = "Haziran";}
-else if($ayBul[1] ==7){$ay = "Temmuz";}
-else if($ayBul[1] ==8){$ay = "Ağustos";}
-else if($ayBul[1] ==9){$ay = "Eylül";}
-else if($ayBul[1] ==10){$ay = "Ekim";}
-else if($ayBul[1] ==11){$ay = "Kasım";}
-else {$ay="Aralık";}
+    if($ayBul[1]==1){$ay= "Ocak"; }
+    else if($ayBul[1] ==2){$ay = "Şubat";}
+    else if($ayBul[1] ==3){$ay = "Mart";}
+    else if($ayBul[1] ==4){$ay = "Nisan";}
+    else if($ayBul[1] ==5){$ay = "Mayıs";}
+    else if($ayBul[1] ==6){$ay = "Haziran";}
+    else if($ayBul[1] ==7){$ay = "Temmuz";}
+    else if($ayBul[1] ==8){$ay = "Ağustos";}
+    else if($ayBul[1] ==9){$ay = "Eylül";}
+    else if($ayBul[1] ==10){$ay = "Ekim";}
+    else if($ayBul[1] ==11){$ay = "Kasım";}
+    else {$ay="Aralık";}
 
-$yazilacak =$ayBul[2] ." " .$ay . " ". $ayBul[0] ;
- return $yazilacak;
+    $yazilacak =$ayBul[2] ." " .$ay . " ". $ayBul[0] ;
+    return $yazilacak;
 
 }
 
+//tarih ve saat bilgisi döndürür
 function tarihSaat($ayirilacak)
 {
     $tarih=explode(" ",$ayirilacak);
@@ -721,176 +712,125 @@ function tarihSaat($ayirilacak)
     return $yazilacak;
 
 }
-
 //tarih bitis
+
 
 //GetIP baslangic
 function GetIP(){
- if(getenv("HTTP_CLIENT_IP")) {
- $ip = getenv("HTTP_CLIENT_IP");
- } elseif(getenv("HTTP_X_FORWARDED_FOR")) {
- $ip = getenv("HTTP_X_FORWARDED_FOR");
- if (strstr($ip, ',')) {
- $tmp = explode (',', $ip);
- $ip = trim($tmp[0]);
- }
- } else {
- $ip = getenv("REMOTE_ADDR");
- }
- return $ip;
+    if(getenv("HTTP_CLIENT_IP")) {
+        $ip = getenv("HTTP_CLIENT_IP");
+    } elseif(getenv("HTTP_X_FORWARDED_FOR")) {
+        $ip = getenv("HTTP_X_FORWARDED_FOR");
+        if (strstr($ip, ',')) {
+            $tmp = explode (',', $ip);
+            $ip = trim($tmp[0]);
+        }
+    } else {
+        $ip = getenv("REMOTE_ADDR");
+    }
+    return $ip;
 }
 //GetIP bitis
 
 
-//Dijital Müzel İşlemleri
+//Dijital Müzel İşlemleri başlangıç
 function dijitalMuzeYoneticicek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('yID')->from('yoneticiler')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('yID')->from('yoneticiler')
+        ->count_all_results();
+    return $sonuc;
 }
-
 
 function arkeologInActivecek()
 {
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('*')->from('arkeologlar')->where('aStatus','2')
-  ->count_all_results();
-  return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('*')->from('arkeologlar')->where('aStatus','2')
+        ->count_all_results();
+    return $sonuc;
 }
 
 function arkeologActivecek()
 {
- $ci =&get_instance();
- $sonuc=$ci->db->select('*')->from('arkeologlar')->where('aStatus','1')
- ->count_all_results();
- return $sonuc;
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('*')->from('arkeologlar')->where('aStatus','1')
+        ->count_all_results();
+    return $sonuc;
 }
 
+function kazilarInActivecek()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('kId,durum')->from('kazilar')->where('kDurum','2')
+        ->count_all_results();
+    return $sonuc;
+}
+
+function kazilarActivecek()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('kId,durum')->from('kazilar')->where('kDurum','1')
+        ->count_all_results();
+    return $sonuc;
+}
+
+function eserlerInActivecek()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('eId,durum')->from('eserler')->where('eDurum','0')
+        ->count_all_results();
+    return $sonuc;
+}
+
+function eserlerActivecek()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('eId,durum')->from('eserler')->where('eDurum','1')
+        ->count_all_results();
+    return $sonuc;
+}
+
+function arkeologresim($aId)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('aId,aPhoto')->from('arkeologlar')
+        ->where('aId',$aId)->get()->row();
+    return $sonuc->aPhoto;
+}
+
+function yoneticiresim($yId)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('yId,yFoto')->from('yoneticiler')
+        ->where('yId',$yId)->get()->row();
+    return $sonuc->yFoto;
+}
+
+function eserresim($eId)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('eId,eFoto')->from('eserler')
+        ->where('eId',$eId)->get()->row();
+    return $sonuc->eFoto;
+}
+
+function QRresim($eId)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('eId,eQR')->from('eserler')
+        ->where('eId',$eId)->get()->row();
+    return $sonuc->eQR;
+}
+//Dijital Müzel İşlemleri bitiş
+
+
+//Lisans türler proje başlangıç
 function turlerResim($id)
 {
     $ci =&get_instance();
     $sonuc=$ci->db->select('id,turResim')->from('turler')
         ->where('id',$id)->get()->row();
     return $sonuc->turResim;
-}
-
-
-
-function kazilarInActivecek()
-{
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('kId,durum')->from('kazilar')->where('kDurum','2')
-  ->count_all_results();
-  return $sonuc;
-}
-
-function kazilarActivecek()
-{
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('kId,durum')->from('kazilar')->where('kDurum','1')
-  ->count_all_results();
-  return $sonuc;
-}
-
-
-function eserlerInActivecek()
-{
- $ci =&get_instance();
- $sonuc=$ci->db->select('eId,durum')->from('eserler')->where('eDurum','0')
- ->count_all_results();
- return $sonuc;
-}
-
-function eserlerActivecek()
-{
- $ci =&get_instance();
- $sonuc=$ci->db->select('eId,durum')->from('eserler')->where('eDurum','1')
- ->count_all_results();
- return $sonuc;
-}
-
-
-function arkeologresim($aId)
-{
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('aId,aPhoto')->from('arkeologlar')
-  ->where('aId',$aId)->get()->row();
-  return $sonuc->aPhoto;
-}
-
-function yoneticiresim($yId)
-{
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('yId,yFoto')->from('yoneticiler')
-  ->where('yId',$yId)->get()->row();
-  return $sonuc->yFoto;
-}
-
-function eserresim($eId)
-{
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('eId,eFoto')->from('eserler')
-  ->where('eId',$eId)->get()->row();
-  return $sonuc->eFoto;
-}
-
-function QRresim($eId)
-{
-  $ci =&get_instance();
-  $sonuc=$ci->db->select('eId,eQR')->from('eserler')
-  ->where('eId',$eId)->get()->row();
-  return $sonuc->eQR;
-}
-
-function duyurularresim($id)
-{
-    $ci =&get_instance();
-    $sonuc=$ci->db->select('id,duyuruResim')->from('tblduyurular')
-        ->where('id',$id)->get()->row();
-    return $sonuc->duyuruResim;
-}
-
-function duyuruAktif()
-{
-    $ci =&get_instance();
-    $sonuc=$ci->db->select('id')->from('tblDuyurular')->where('durum',1)
-        ->count_all_results();
-    return $sonuc;
-}
-
-function duyuruPasif()
-{
-    $ci =&get_instance();
-    $sonuc=$ci->db->select('id')->from('tblDuyurular')->where('durum',0)
-        ->count_all_results();
-    return $sonuc;
-}
-
-function sonDuyurular()
-{
-    $ci =& get_instance();
-    $sonuc = $ci->db->select('id,duyuruBaslik,seobaslik,durum,duyuruTarih')->from('tblDuyurular')->where('durum','1')->order_by('duyuruTarih','desc')->limit(5)
-        ->get()->result_array();
-    return $sonuc;
-}
-
-
-function dilekSayi()
-{
-    $ci =&get_instance();
-    $sonuc=$ci->db->select('id')->from('tblistekler')->where('durum',1)
-        ->count_all_results();
-    return $sonuc;
-}
-
-function sikayetSayi()
-{
-    $ci =&get_instance();
-    $sonuc=$ci->db->select('id')->from('tblistekler')->where('durum',0)
-        ->count_all_results();
-    return $sonuc;
 }
 
 function aktifTurKullanici()
@@ -924,4 +864,72 @@ function pasifTur()
         ->count_all_results();
     return $sonuc;
 }
- ?>
+//Lisans türler proje bitiş
+
+
+//Akıllı yurt işlemleri başlangıç
+function ferelicek()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,durum')->from('tblduyurular')->where('durum','1')
+        ->count_all_results();
+    return $sonuc;
+}
+
+function istekdurum($id)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->set('durum','1')
+        ->where('id',$id)->update('tblistekler');
+
+}
+
+function duyurularresim($id)
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id,duyuruResim')->from('tblduyurular')
+        ->where('id',$id)->get()->row();
+    return $sonuc->duyuruResim;
+}
+
+function duyuruAktif()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblduyurular')->where('durum',1)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function duyuruPasif()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblduyurular')->where('durum',0)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function sonDuyurular()
+{
+    $ci =& get_instance();
+    $sonuc = $ci->db->select('id,duyuruBaslik,seobaslik,durum,duyuruTarih')->from('tblduyurular')->where('durum','1')->order_by('duyuruTarih','desc')->limit(5)
+        ->get()->result_array();
+    return $sonuc;
+}
+
+function dilekSayi()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblistekler')->where('durum',1)
+        ->count_all_results();
+    return $sonuc;
+}
+
+function sikayetSayi()
+{
+    $ci =&get_instance();
+    $sonuc=$ci->db->select('id')->from('tblistekler')->where('durum',0)
+        ->count_all_results();
+    return $sonuc;
+}
+//Akıllı yurt işlemleri bitiş
+?>
