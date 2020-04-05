@@ -1,54 +1,58 @@
 <section class="content">
-     <div class="row">
-       <div class="col-xs-12">
-<?php echo $this->session->flashdata('durum'); ?>
-         <div class="box">
-           <div class="box-header">
-             <h3 class="box-title">Okunacak Kitaplar Listesi</h3>
+    <div class="row">
+        <div class="col-xs-12">
+            <?php echo $this->session->flashdata('durum'); ?>
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Okunacak Kitaplar Listesi</h3>
 
-  <a href="<?php echo base_url('yonetim/okunacakekle'); ?>" class="btn btn-primary pull-right"  ><i class="fa fa-plus"> Ekle</i></a>
-           </div>
-           <!-- /.box-header -->
-           <div class="box-body">
-             <table id="example1" class="table table-bordered table-striped">
-               <thead>
-               <tr>
-                 <th>Sıra No </th>
-                 <th>Kitap Adı</th>
-                 <th>Yazar Adı</th>
+                    <a href="<?php echo base_url('yonetim/okunacakekle'); ?>" class="btn btn-primary pull-right"><i
+                                class="fa fa-plus">Ekle</i></a>
+                </div>
 
-                 <th style="width:105px">İşlemler</th>
-               </tr>
-               </thead>
-
-<?php $sayi=1; foreach ($bilgi as $bilgi) {?>
-               <tr>
-
-                    <td  style="font-weight:bold"><?php echo  $sayi++; ?></td>
-                  <td>  <?php echo word_limiter($bilgi['kitapadi'],5); ?></td>
-                  <td>  <?php echo $bilgi['yazaradi']; ?></td>
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">Sıra</th>
+                            <th style="text-align: center">Kitap Adı</th>
+                            <th style="text-align: center">Yazar Adı</th>
+                            <th style="text-align: center">İşlemler</th>
+                        </tr>
+                        </thead>
 
 
-                       <td style="">
-                           <a href="<?php echo base_url('yonetim/okunacakduzenle/'.$bilgi['id'].''); ?>">
-                           <button  type="button" name='button' class="btn btn-info">Düzenle</button></a>
+                        <?php $sayi = 1;
+                        foreach ($bilgi as $bilgi) { ?>
 
-                             <a href="<?php echo base_url('yonetim/okunacaksil/'.$bilgi['id'].'/id/tblokunacak'); ?>">
-                             <button  type="button" name='button' class="btn btn-danger ">Sil</button></a>
+                            <tr>
+                                <td style="font-weight:bold;text-align: center">
+                                    <?php echo $sayi++; ?>
+                                </td>
 
+                                <td style="text-align: center">
+                                    <?php echo word_limiter($bilgi['kitapadi'], 5); ?>
+                                </td>
 
-                         </td>
+                                <td style="text-align: center">
+                                    <?php echo $bilgi['yazaradi']; ?>
+                                </td>
 
+                                <td style="text-align: center">
+                                    <a href="<?php echo base_url('yonetim/okunacakduzenle/' . $bilgi['id'] . ''); ?>">
+                                        <button type="button" name='button' class="btn btn-info">Düzenle</button>
+                                    </a>
 
-               </tr>
-  <?php } ?>
-             </table>
-           </div>
-           <!-- /.box-body -->
-         </div>
-         <!-- /.box -->
-       </div>
-       <!-- /.col -->
-     </div>
-     <!-- /.row -->
-   </section>
+                                    <a href="<?php echo base_url('yonetim/okunacaksil/' . $bilgi['id'] . '/id/tblokunacak'); ?>">
+                                        <button type="button" name='button' class="btn btn-danger ">Sil</button>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

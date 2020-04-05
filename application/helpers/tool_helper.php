@@ -108,7 +108,7 @@ function adminhit()
   ')->
     union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
     ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
-    ')->limit('0','4')->where('durum','4')->orderBy('hit','desc')->all();
+    ')->limit('0','3')->where('durum','1')->orderBy('hit','desc')->all();
     return $sonuc;
 }
 //Basicdb kullanılanlar bitiş

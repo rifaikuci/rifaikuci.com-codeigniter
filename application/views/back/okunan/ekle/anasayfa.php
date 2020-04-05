@@ -1,42 +1,29 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
-<?php $this->load->view('back/include/head.php'); ?>
+    <?php $this->load->view('back/include/head.php'); ?>
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
-<title>Kitap Ekleme</title>
-<?php $this->load->view('back/include/header.php'); ?>
+    <title>Kitap Ekleme</title>
+    <?php $this->load->view('back/include/header.php'); ?>
+    <?php $this->load->view('back/include/sidebar.php'); ?>
 
-  <!-- =============================================== -->
+    <div class="content-wrapper">
+        <?php $this->load->view('back/okunan/ekle/breadcrumb.php'); ?>
+        <?php $this->load->view('back/okunan/ekle/main_content.php'); ?>
+    </div>
 
-  <!-- Left side column. contains the sidebar -->
-<?php $this->load->view('back/include/sidebar.php'); ?>
+    <?php $this->load->view('back/include/footer.php'); ?>
+    <?php $this->load->view('back/include/sidebarRight.php'); ?>
 
-  <!-- =============================================== -->
+    <div class="control-sidebar-bg"></div>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-<?php $this->load->view('back/okunan/ekle/breadcrumb.php'); ?>
-
-    <!-- Main content -->
-<?php $this->load->view('back/okunan/ekle/main_content.php'); ?>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-<?php $this->load->view('back/include/footer.php'); ?>
-
-  <!-- Control Sidebar -->
-  <?php $this->load->view('back/include/sidebarRight.php'); ?>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
 </div>
-<!-- ./wrapper -->
+
 <?php $this->load->view('back/include/script.php'); ?>
 
 </body>
