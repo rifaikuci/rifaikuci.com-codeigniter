@@ -1172,8 +1172,8 @@ class Yonetim extends CI_Controller
         $this->protect();
         $hit = 0;
 
-        $baslik = $this->input->post('baslik');
-        $icerik = $this->input->post('icerik');
+        $baslik = strip_tags($this->input->post('baslik'));
+        $icerik = strip_tags($this->input->post('icerik'));
         $keywords = $this->input->post('keywords');
         $seoicerik = seflink($icerik);
         $seobaslik = seflink($baslik);
@@ -1190,7 +1190,7 @@ class Yonetim extends CI_Controller
                 'resim' => $resimkayit,
                 'baslik' => $baslik,
                 'idkategori' => $idkategori = $this->input->post('idkategori'),
-                'aciklama' => $aciklama = $this->input->post('aciklama'),
+                'aciklama' => strip_tags($aciklama = $this->input->post('aciklama')),
                 'video' => $video = $this->input->post('video'),
                 'durum' => $durum = $this->input->post('durum'),
                 'seobaslik' => $seobaslik,
@@ -1238,8 +1238,8 @@ class Yonetim extends CI_Controller
         $this->protect();
         $id = $this->input->post('id');
 
-        $baslik = $this->input->post('baslik');
-        $icerik = $this->input->post('icerik');
+        $baslik = strip_tags($this->input->post('baslik'));
+        $icerik = strip_tags($this->input->post('icerik'));
         $keywords = $this->input->post('keywords');
         $seoicerik = seflink($icerik);
         $seobaslik = seflink($baslik);
@@ -1259,7 +1259,7 @@ class Yonetim extends CI_Controller
                 'resim' => $resimkayit,
                 'baslik' => $baslik,
                 'idkategori' => $idkategori = $this->input->post('idkategori'),
-                'aciklama' => $aciklama = $this->input->post('aciklama'),
+                'aciklama' => strip_tags($aciklama = $this->input->post('aciklama')),
                 'video' => $video = $this->input->post('video'),
                 'durum' => $durum = $this->input->post('durum'),
                 'seobaslik' => $seobaslik,
@@ -1283,7 +1283,7 @@ class Yonetim extends CI_Controller
             $data = array(
                 'baslik' => $baslik,
                 'idkategori' => $idkategori = $this->input->post('idkategori'),
-                'aciklama' => $aciklama = $this->input->post('aciklama'),
+                'aciklama' => strip_tags($aciklama = $this->input->post('aciklama')),
                 'video' => $video = $this->input->post('video'),
                 'durum' => $durum = $this->input->post('durum'),
                 'seobaslik' => $seobaslik,
@@ -1346,10 +1346,10 @@ class Yonetim extends CI_Controller
     {
         $this->protect();
         $hit = 0;
-        $baslik = $this->input->post('baslik');
-        $aciklama = $this->input->post('aciklama');
+        $baslik = strip_tags($this->input->post('baslik'));
+        $icerik = strip_tags($this->input->post('icerik'));
+        $aciklama = strip_tags($this->input->post('aciklama'));
         $keywords = $this->input->post('keywords');
-        $icerik = $this->input->post('icerik');
         $seoicerik = seflink($icerik);
         $seobaslik = seflink($baslik);
         $seogenel = $seoicerik . ' ';
@@ -1413,10 +1413,10 @@ class Yonetim extends CI_Controller
     {
         $this->protect();
         $id = $this->input->post('id');
-        $baslik = $this->input->post('baslik');
-        $aciklama = $this->input->post('aciklama');
+        $baslik = strip_tags($this->input->post('baslik'));
+        $icerik = strip_tags($this->input->post('icerik'));
+        $aciklama = strip_tags($this->input->post('aciklama'));
         $keywords = $this->input->post('keywords');
-        $icerik = $this->input->post('icerik');
         $seoicerik = seflink($icerik);
         $seobaslik = seflink($baslik);
         $seogenel = $seoicerik . ' ';

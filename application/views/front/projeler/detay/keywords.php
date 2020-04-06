@@ -1,25 +1,18 @@
 <div class="widget-sidebar widget-tags">
-  <h5 class="sidebar-title">Etiketler</h5>
-  <div class="sidebar-content">
-    <ul>
+    <h5 class="sidebar-title">Etiketler</h5>
+    <div class="sidebar-content">
 
-      <?php
+        <ul>
+            <?php $etiketler = $bilgi['keywords']; ?>
 
-       $etiketler=$bilgi['keywords']; ?>
-      <?php
+            <?php $etiket = explode(',', $etiketler);
 
-        $etiket=explode(',',$etiketler);
+            foreach ($etiket as $etiket) { ?>
+                <li>
+                    <a href=""><?php echo $etiket; ?></a>
 
-           foreach ($etiket as $etiket){ ?>
-
-
-
-      <li>
-        <a href=""><?php echo $etiket; ?></a>
-
-      </li>
-      <?php } ?>
-
-    </ul>
-  </div>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
 </div>

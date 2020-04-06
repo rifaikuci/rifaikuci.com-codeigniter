@@ -1,126 +1,91 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
 
-
-$bak=sayfahitcek();
-
-
+//gelen verinin sayısı
+$sayi = count($bilgi);
 
 
-?>
-<?php   $sayi= count($bilgi);
-if($sayi==0)
-{
-    ?>
-    <head>
-        <meta charset="utf-8">
-        <?php $icon=icon();?>
-        <link rel="shortcut icon" type="image/png" href="<?php echo base_url(); echo $icon; ?>">
-        <?php
-        $sitedurum=sitedurum();
-        if($sitedurum==0)
-        {?>
+$bak = sayfahitcek();
 
-            <img style="max-width: 100%;"  src="<?php echo base_url('assets/front/img/build.jpg'); ?>" alt="Sayfamız Teknik sebeplerden dolayı bakımdadır.">
-            <?php exit; ?>
-        <?php }?>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+if (@$_COOKIE['deneme']) {
+    @$_COOKIE['deneme'];
+} else {
+    set_cookie('deneme', 'deneme', time());
+    sayfahitarttir($bak);
+} ?>
+
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png"
+          href="<?php echo base_url();
+          echo icon(); ?>">
+
+    <?php if (sitedurum() == 0) { ?>
+
+        <img style="max-width: 100%;" src="<?php echo base_url('assets/front/img/build.jpg'); ?>"
+             alt="Sayfamız Teknik sebeplerden dolayı bakımdadır.">
+        <?php exit; ?>
+    <?php } ?>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <?php if ($sayi == 0) { ?>
         <meta conten="Rifai kuçi , Bilgisayar Mühendisliği" name="keywords">
-        <meta content="Yazılım Tutkusu Bilgisayar Mühendisi Rifai Kuçi. Hakkımda daha fazla bilgiyi web sayfamda bulabilirsiniz." name="description">
-        <?php $this->load->view('front/include/style.php'); ?>
+        <meta content="Yazılım Tutkusu Bilgisayar Mühendisi Rifai Kuçi. Hakkımda daha fazla bilgiyi web sayfamda bulabilirsiniz."
+              name="description">
 
-    </head>
-<?php }else {?>
-    <head>
-        <meta charset="utf-8">
-        <?php $icon=icon();?>
-        <link rel="shortcut icon" type="image/png" href="<?php echo base_url(); echo $icon; ?>">
-        <?php
-        $sitedurum=sitedurum();
-        if($sitedurum==0)
-        {?>
+    <?php } else {
+        // description ve keywords yazdırma seo ayaları
+        $aciklama = "";
+        $keywords = "";
 
-            <img style="max-width: 100%;"  src="<?php echo base_url('assets/front/img/build.jpg'); ?>" alt="">
-            <?php exit; ?>
-        <?php }?>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="
-        <?php $etiketler=etiketproje(); ?>
-      <?php foreach ($etiketler as $etiketler){
-
-
-
-            echo $etiketler['keywords'];
-            echo ",";
-
-
+        foreach ($bilgi as $bilgi) {
+            $aciklama = $aciklama . " " . $bilgi['aciklama'];
+            $keywords = $keywords . " " . $bilgi['keywords'];
         } ?>
-  " name="keywords">
-        <meta content="Yazılım Tutkusu Bilgisayar Mühendisi Rifai Kuçi. Hakkımda daha fazla bilgiyi web sayfamda bulabilirsiniz." name="description">
-        <?php $this->load->view('front/include/style.php'); ?>
 
-    </head>
-<?php   } ?>
+        <meta conten="<?php echo $keywords ?>" name="keywords">
+        <meta content="<?php echo $aciklama ?>" name="description">
+    <?php } ?>
+    <?php $this->load->view('front/include/style.php'); ?>
+</head>
+
 <body id="page-top">
-<?php date_default_timezone_set( "Europe/Istanbul" ) ?>
+<?php date_default_timezone_set("Europe/Istanbul") ?>
 <?php $this->load->view('front/include/headerpage.php'); ?>
-
 
 <title>Rifai Kuçi | Projelerim</title>
 
-
 <body>
 
-<!--/ Intro Skew Star /-->
 <?php $this->load->view('front/projeler/breadcrumb.php'); ?>
-<!--/ Intro Skew End /-->
-
-<!--/ Section Blog-Single Star /-->
 <section class="blog-wrapper sect-pt4" id="blog">
     <div class="container">
         <div class="row">
-            <?php   $sayi= count($bilgi);
-            if($sayi==0)
-            {
-                ?>
-                <?php $this->load->view('front/projeler/projebulunamadi.php'); ?>
-            <?php }else {
-                $this->load->view('front/projeler/projelerimliste.php');
-            } ?>
 
-
-
-
-
+            <?php $this->load->view('front/projeler/projelerimliste.php'); ?>
 
             <div class="col-md-4">
                 <?php $this->load->view('front/include/search.php'); ?>
                 <?php $this->load->view('front/include/cokokunansidebar.php'); ?>
                 <?php $this->load->view('front/include/sonyazilarsidebar.php'); ?>
-                <?php   $sayi= count($bilgi);
-                if($sayi==0)
-                {
+                <?php $sayi = count($bilgi);
+
+                if ($sayi == 0) {
                     ?>
                     <?php $this->load->view('front/hakkimda/keywords.php'); ?>
-                <?php }else {
+                <?php } else {
                     $this->load->view('front/projeler/keywords.php');
                 } ?>
-
-
 
             </div>
         </div>
     </div>
 </section>
-<!--/ Section Blog-Single End /-->
 
 <?php $this->load->view('front/include/contact-footer.php') ?>
-
-
-
-
 
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 <div id="preloader"></div>

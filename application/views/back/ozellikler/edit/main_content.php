@@ -17,7 +17,6 @@
                             <input required type="text" name="ozellik" class="form-control"
                                    value="<?php echo $bilgi['ozellik']; ?>" placeholder="Özellik Adı">
                             <input type="hidden" name="id" class="form-control" value="<?php echo $bilgi['id']; ?>">
-
                         </div>
                     </div>
 

@@ -6,36 +6,44 @@
                 <div class="box-header">
                     <h3 class="box-title">Kullanıcılar Listesi</h3>
 
-                    <a href="<?php echo base_url('yonetim/turKullaniciekle'); ?>" class="btn btn-primary pull-right"  ><i class="fa fa-plus"> Ekle</i></a>
+                    <a href="<?php echo base_url('yonetim/turKullaniciekle'); ?>" class="btn btn-primary pull-right"><i
+                                class="fa fa-plus"> Ekle</i></a>
                 </div>
-                <!-- /.box-header -->
+
                 <div class="box-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th width="30px" >Sıra No </th>
-                            <th>Ad Soyad</th>
-                            <th>Mail Adresi</th>
-                            <th>Kayıt Tarihi</th>
-                            <th>Durum</th>
-                            <th style="width:105px">İşlemler</th>
+                            <th style="text-align: center">Sıra</th>
+                            <th style="text-align: center">Ad Soyad</th>
+                            <th style="text-align: center">Mail</th>
+                            <th style="text-align: center">Kayıt Tarihi</th>
+                            <th style="text-align: center">Durum</th>
+                            <th style="text-align: center">İşlemler</th>
                         </tr>
                         </thead>
 
-                        <?php $sayi=1; foreach ($bilgi as $bilgi) {?>
+                        <?php $sayi = 1;
+                        foreach ($bilgi as $bilgi) { ?>
                             <tr>
 
-                                <td  style="font-weight:bold"><?php echo  $sayi++; ?></td>
-                                <td>  <?php echo $bilgi['adSoyad']; ?></td>
-                                <td>  <?php echo $bilgi['mail']; ?></td>
-                                <td>  <?php $tarih =$bilgi['kayitTarih'];
-                                    $tarih = explode(" ", $tarih);
+                                <td style="font-weight:bold;text-align: center">
+                                    <?php echo $sayi++; ?>
+                                </td>
 
+                                <td style="text-align: center">
+                                    <?php echo $bilgi['adSoyad']; ?>
+                                </td>
 
-                                    echo tarih($tarih[0]);
+                                <td style="text-align: center">
+                                    <?php echo $bilgi['mail']; ?>
+                                </td>
 
-                                    ?></td>
-                                <td>
+                                <td style="text-align: center">
+                                    <?php echo tarih($bilgi['kayitTarih']); ?>
+                                </td>
+
+                                <td style="text-align: center">
                                     <input
                                             class="toggle_check"
                                             data-on="Aktif"
@@ -45,29 +53,24 @@
                                             type="checkbox"
                                             dataID="<?php echo $bilgi['id']; ?>"
                                             dataURL="<?php echo base_url('yonetim/turKullaniciset'); ?>"
-                                        <?php echo ($bilgi['durum']==1) ? "checked" : ""; ?>
-
-                                    >
+                                        <?php echo ($bilgi['durum'] == 1) ? "checked" : ""; ?>>
                                 </td>
-                                <td>
-                                    <a href="<?php echo base_url('yonetim/turKullaniciduzenle/'.$bilgi['id'].''); ?>">
-                                        <button  type="button" name='button' class="btn btn-info">Düzenle</button></a>
 
-                                    <a href="<?php echo base_url('yonetim/turKullanicisil/'.$bilgi['id'].'/id/turKullanici'); ?>">
-                                        <button  type="button" name='button' class="btn btn-danger ">Sil</button></a>
+                                <td style="text-align: center">
+                                    <a href="<?php echo base_url('yonetim/turKullaniciduzenle/' . $bilgi['id'] . ''); ?>">
+                                        <button type="button" name='button' class="btn btn-info">Düzenle</button>
+                                    </a>
 
-
+                                    <a href="<?php echo base_url('yonetim/turKullanicisil/' . $bilgi['id'] . '/id/turKullanici'); ?>">
+                                        <button type="button" name='button' class="btn btn-danger ">Sil</button>
+                                    </a>
                                 </td>
 
                             </tr>
                         <?php } ?>
                     </table>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
-        <!-- /.col -->
     </div>
-    <!-- /.row -->
 </section>

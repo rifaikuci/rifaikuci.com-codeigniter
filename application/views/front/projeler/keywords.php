@@ -1,22 +1,25 @@
 <div class="widget-sidebar widget-tags">
-  <h5 class="sidebar-title">Etiketler</h5>
-  <div class="sidebar-content">
-    <ul>
-      <?php $etiketler=etiketproje(); ?>
-      <?php foreach ($etiketler as $etiketler){
 
-        $etiket=explode(',',$etiketler['keywords']);
+    <h5 class="sidebar-title">
+        Etiketler
+    </h5>
 
-           foreach ($etiket as $etiket){ ?>
+    <div class="sidebar-content">
+        <ul>
 
+           <?php foreach (etiketproje() as $etiketler) {
 
+                $etiket = explode(',', $etiketler['keywords']);
 
-      <li>
-        <a href="<?php echo base_url('anasayfa/projedetay/'); echo $etiketler['seobaslik']; ?>"><?php echo $etiket; ?></a>
+                foreach ($etiket as $etiket) { ?>
 
-      </li>
-      <?php } ?>
-    <?php } ?>
-    </ul>
-  </div>
+                    <li>
+                        <a href="<?php echo base_url('anasayfa/projedetay/');
+                        echo $etiketler['seobaslik']; ?>"><?php echo $etiket; ?></a>
+                    </li>
+
+                <?php } ?>
+            <?php } ?>
+        </ul>
+    </div>
 </div>

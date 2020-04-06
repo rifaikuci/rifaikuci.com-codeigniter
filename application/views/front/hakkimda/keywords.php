@@ -1,30 +1,27 @@
 <div class="widget-sidebar widget-tags">
-  <h2 class="sidebar-title">Etiketler</h2>
-  <div class="sidebar-content">
-    <ul>
+    <h2 class="sidebar-title">Etiketler</h2>
+    <div class="sidebar-content">
 
-      <?php
+        <ul>
+            <?php foreach (hakkimdakeywords() as $etiketler) {
+                $etiket = explode(',', $etiketler['keywords']);
 
-       $etiketler=hakkimdakeywords(); ?>
-      <?php
-      foreach ($etiketler as $etiketler) {
+                foreach ($etiket as $etiket) { ?>
 
-        $etiket=explode(',',$etiketler['keywords']);
+                    <li>
+                        <?php if ($etiketler['type'] == "proje") { ?>
+                            <a href="<?php echo base_url('anasayfa/projedetay/');
+                            echo $etiketler['seobaslik']; ?>"><?php echo $etiket; ?></a>
 
-           foreach ($etiket as $etiket){ ?>
+                        <?php } else { ?>
+                            <a href="<?php echo base_url('anasayfa/yazidetay/');
+                            echo $etiketler['seobaslik']; ?>"><?php echo $etiket; ?></a>
 
+                        <?php } ?>
+                    </li>
 
-
-      <li>
-        <?php if($etiketler['type']=="proje")
-        { ?>
-        <a href="<?php echo base_url('anasayfa/projedetay/'); echo $etiketler['seobaslik']; ?>"><?php echo $etiket; ?></a>
-      <?php }else {?>
-        <a href="<?php echo base_url('anasayfa/yazidetay/'); echo $etiketler['seobaslik']; ?>"><?php echo $etiket; ?></a>
-      <?php } ?>
-      </li>
-      <?php } ?>
-    <?php } ?>
-    </ul>
-  </div>
+                <?php } ?>
+            <?php } ?>
+        </ul>
+    </div>
 </div>

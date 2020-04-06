@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <?php $this->load->view('back/include/head.php'); ?>
 </head>
-
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">

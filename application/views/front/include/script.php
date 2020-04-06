@@ -16,7 +16,9 @@
 
 <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
 <script src="<?php echo base_url(''); ?>/ckeditor/ckeditor.js"></script>
-<script src="<?php echo base_url(''); ?>/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" type="text/javascript"></script>
-<script src="<?php echo base_url(''); ?>/ckeditor/plugins/prism/lib/prism/prism_patched.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(''); ?>/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"
+        type="text/javascript"></script>
+<script src="<?php echo base_url(''); ?>/ckeditor/plugins/prism/lib/prism/prism_patched.min.js"
+        type="text/javascript"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>

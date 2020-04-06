@@ -92,10 +92,10 @@ function aramalarimdetay($seobaslik)
     $dc=$this->databasename();
 
     $sonuc= $dc->from('tblyazilar')->
-    select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih
+    select('seogenel as seogenel , baslik as baslik , id as id, resim as resim,tarih as tarih,aciklama as aciklama, video as video
     ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type ,tur as idkategori
     ')->
-      union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih
+      union()->from('tblprojeler')->select('seogenel as seogenel , baslik as baslik, id as id, resim as resim, tarih as tarih,aciklama as aciklama, video as video
       ,seobaslik as seobaslik ,icerik as icerik, seoicerik as seoicerik ,keywords as keywords, durum as durum ,hit as hit , type as type , idkategori as idkategori
       ')->where('seobaslik',$seobaslik)->first();
     return $sonuc;
