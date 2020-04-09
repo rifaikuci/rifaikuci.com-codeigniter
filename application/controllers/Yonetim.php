@@ -41,7 +41,7 @@ class Yonetim extends CI_Controller
             redirect('yonetim/anasayfa');
 
         } else {
-            durum("Uyarı !", "Şifre veya mail bilgileri hatalı girilmiştir.", 0);
+            $this->durum("Uyarı !", "Şifre veya mail bilgileri hatalı girilmiştir.", 0);
             redirect('yonetim');
         }
     }
@@ -136,8 +136,8 @@ class Yonetim extends CI_Controller
     {
         $this->protect();
         $data = array(
-            'headAdi'   => $headAdi = $this->input->post('headAdi'),
-            'durum'     => $this->input->post('durum'),
+            'headAdi' => $headAdi = $this->input->post('headAdi'),
+            'durum' => $this->input->post('durum'),
             'headSeoAd' => seflink($headAdi)
         );
 
@@ -176,9 +176,9 @@ class Yonetim extends CI_Controller
         $id = $this->input->post('id');
 
         $data = array(
-            'headAdi'   =>   $headAdi = $this->input->post('headAdi'),
+            'headAdi' => $headAdi = $this->input->post('headAdi'),
             'headSeoAd' => seflink($headAdi),
-            'durum'     =>     $this->input->post('durum')
+            'durum' => $this->input->post('durum')
         );
 
         $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblheadmenu');
@@ -312,10 +312,10 @@ class Yonetim extends CI_Controller
 
         if ($resimkayit != '0') {
             $data = array('resim' => $resimkayit,
-                'adsoyad'      => $this->input->post('adsoyad'),
-                'durum'        => $this->input->post('durum'),
+                'adsoyad' => $this->input->post('adsoyad'),
+                'durum' => $this->input->post('durum'),
                 'seogununsozu' => $seogununsozu,
-                'gununsozu'    => $gununsozu
+                'gununsozu' => $gununsozu
             );
 
             $sonuc = $this->dtbs->ekle('tblgununsozu', $data);
@@ -365,10 +365,10 @@ class Yonetim extends CI_Controller
 
         if ($resimkayit != '0') {
             $data = array('resim' => $resimkayit,
-                          'adsoyad'      => $this->input->post('adsoyad'),
-                          'durum'        => $this->input->post('durum'),
-                          'seogununsozu' => $seogununsozu,
-                          'gununsozu'    => $gununsozu
+                'adsoyad' => $this->input->post('adsoyad'),
+                'durum' => $this->input->post('durum'),
+                'seogununsozu' => $seogununsozu,
+                'gununsozu' => $gununsozu
             );
 
             $resimsil = gununsozuresim($id);
@@ -1878,11 +1878,11 @@ class Yonetim extends CI_Controller
 
         if ($resimkayit != '0') {
 
-            $resimsil=arkaplanresim($id);
+            $resimsil = arkaplanresim($id);
             unlink($resimsil);
-            $data = array('resim'=>$resimkayit);
+            $data = array('resim' => $resimkayit);
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblarkaplan');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblarkaplan');
 
             if ($sonuc) {
 
@@ -1894,9 +1894,9 @@ class Yonetim extends CI_Controller
                 redirect('yonetim/arkaplan');
             }
         }
-        $data = array('id'=>$id);
+        $data = array('id' => $id);
 
-        $sonuc =$this->dtbs->guncelle($data,$id,'id','tblarkaplan');
+        $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblarkaplan');
 
         if ($sonuc) {
 
@@ -1909,10 +1909,10 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function arkaplansil($id,$where,$from)
+    public function arkaplansil($id, $where, $from)
     {
         $this->protect();
-        $resimsil=arkaplanresim($id);
+        $resimsil = arkaplanresim($id);
         unlink($resimsil);
 
         $sonuc = $this->dtbs->sil($id, $where, $from);
@@ -1933,9 +1933,9 @@ class Yonetim extends CI_Controller
     public function okunan()
     {
         $this->protect();
-        $sonuc =$this->dtbs->okunan('tblokunan');
+        $sonuc = $this->dtbs->okunan('tblokunan');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/okunan/anasayfa',$data);
+        $this->load->view('back/okunan/anasayfa', $data);
     }
 
     public function okunanekle()
@@ -1946,32 +1946,32 @@ class Yonetim extends CI_Controller
 
     public function okunanekleme()
     {
-        date_default_timezone_set( "Europe/Istanbul" ) ;
+        date_default_timezone_set("Europe/Istanbul");
         $this->protect();
-        $kitapadi =$this->input->post('kitapadi');
+        $kitapadi = $this->input->post('kitapadi');
 
-        $baslatarihi=$this->input->post('baslatarihi');
-        $tarih1=strtotime($baslatarihi);
-        $bitistarihi=$this->input->post('bitistarihi');
-        $tarih2=strtotime($bitistarihi);
-        $sure= ($tarih2-$tarih1)/86400 ;
+        $baslatarihi = $this->input->post('baslatarihi');
+        $tarih1 = strtotime($baslatarihi);
+        $bitistarihi = $this->input->post('bitistarihi');
+        $tarih2 = strtotime($bitistarihi);
+        $sure = ($tarih2 - $tarih1) / 86400;
 
         $resimkayit = $this->imageUpload('assets/front/img/kitaplar/okunan/', 'resim', 179, 281);
 
         if ($resimkayit != '0') {
 
             $data = array(
-                        'kitapadi'   =>$kitapadi,
-                        'yazaradi'   =>$yazaradi =$this->input->post('yazaradi'),
-                        'yayinevi'   =>$yayinevi =$this->input->post('yayinevi'),
-                        'sayfa'      =>$sayfa=$this->input->post('sayfa'),
-                        'baslatarihi'=>$baslatarihi,
-                        'bitistarihi'=>$bitistarihi,
-                        'sure'       =>$sure,
-                        'resim'      =>$resimkayit
+                'kitapadi' => $kitapadi,
+                'yazaradi' => $yazaradi = $this->input->post('yazaradi'),
+                'yayinevi' => $yayinevi = $this->input->post('yayinevi'),
+                'sayfa' => $sayfa = $this->input->post('sayfa'),
+                'baslatarihi' => $baslatarihi,
+                'bitistarihi' => $bitistarihi,
+                'sure' => $sure,
+                'resim' => $resimkayit
             );
 
-            $sonuc = $this->dtbs->ekle('tblokunan',$data);
+            $sonuc = $this->dtbs->ekle('tblokunan', $data);
 
             if ($sonuc) {
 
@@ -1991,44 +1991,44 @@ class Yonetim extends CI_Controller
 
     public function okunanduzenle($id)
     {
-        date_default_timezone_set( "Europe/Istanbul" ) ;
+        date_default_timezone_set("Europe/Istanbul");
         $this->protect();
-        $sonuc =$this->dtbs->cek($id,'tblokunan');
+        $sonuc = $this->dtbs->cek($id, 'tblokunan');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/okunan/edit/anasayfa',$data);
+        $this->load->view('back/okunan/edit/anasayfa', $data);
     }
 
     public function okunanguncelle()
     {
         $this->protect();
-        $id =$this->input->post('id');
-        $kitapadi =$this->input->post('kitapadi');
+        $id = $this->input->post('id');
+        $kitapadi = $this->input->post('kitapadi');
 
-        $baslatarihi=$this->input->post('baslatarihi');
-        $tarih1=strtotime($baslatarihi);
-        $bitistarihi=$this->input->post('bitistarihi');
-        $tarih2=strtotime($bitistarihi);
-        $sure= ($tarih2-$tarih1)/86400 ;
+        $baslatarihi = $this->input->post('baslatarihi');
+        $tarih1 = strtotime($baslatarihi);
+        $bitistarihi = $this->input->post('bitistarihi');
+        $tarih2 = strtotime($bitistarihi);
+        $sure = ($tarih2 - $tarih1) / 86400;
 
         $resimkayit = $this->imageUpload('assets/front/img/kitaplar/okunan/', 'resim', 179, 281);
 
         if ($resimkayit != '0') {
 
-            $resimsil=okunanresim($id);
+            $resimsil = okunanresim($id);
             unlink($resimsil);
 
             $data = array(
-                            'kitapadi'   =>$kitapadi,
-                            'yazaradi'   =>$yazaradi =$this->input->post('yazaradi'),
-                            'yayinevi'   =>$yayinevi =$this->input->post('yayinevi'),
-                            'sayfa'      =>$sayfa=$this->input->post('sayfa'),
-                            'baslatarihi'=>$baslatarihi,
-                            'bitistarihi'=>$bitistarihi,
-                            'sure'       =>$sure,
-                            'resim'      =>$resimkayit
+                'kitapadi' => $kitapadi,
+                'yazaradi' => $yazaradi = $this->input->post('yazaradi'),
+                'yayinevi' => $yayinevi = $this->input->post('yayinevi'),
+                'sayfa' => $sayfa = $this->input->post('sayfa'),
+                'baslatarihi' => $baslatarihi,
+                'bitistarihi' => $bitistarihi,
+                'sure' => $sure,
+                'resim' => $resimkayit
             );
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblokunan');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblokunan');
 
             if ($sonuc) {
 
@@ -2041,16 +2041,16 @@ class Yonetim extends CI_Controller
             }
         } else {
             $data = array(
-                            'kitapadi'   =>$kitapadi,
-                            'yazaradi'   =>$yazaradi =$this->input->post('yazaradi'),
-                            'yayinevi'   =>$yayinevi =$this->input->post('yayinevi'),
-                            'sayfa'      =>$sayfa=$this->input->post('sayfa'),
-                            'baslatarihi'=>$baslatarihi,
-                            'bitistarihi'=>$bitistarihi,
-                            'sure'       =>$sure
+                'kitapadi' => $kitapadi,
+                'yazaradi' => $yazaradi = $this->input->post('yazaradi'),
+                'yayinevi' => $yayinevi = $this->input->post('yayinevi'),
+                'sayfa' => $sayfa = $this->input->post('sayfa'),
+                'baslatarihi' => $baslatarihi,
+                'bitistarihi' => $bitistarihi,
+                'sure' => $sure
             );
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblokunan');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblokunan');
 
             if ($sonuc) {
 
@@ -2064,10 +2064,10 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function okunansil($id,$where,$from)
+    public function okunansil($id, $where, $from)
     {
         $this->protect();
-        $resimsil=okunanresim($id);
+        $resimsil = okunanresim($id);
         unlink($resimsil);
 
         $sonuc = $this->dtbs->sil($id, $where, $from);
@@ -2088,9 +2088,9 @@ class Yonetim extends CI_Controller
     public function okunacak()
     {
         $this->protect();
-        $sonuc =$this->dtbs->listele('tblokunacak');
+        $sonuc = $this->dtbs->listele('tblokunacak');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/okunacak/anasayfa',$data);
+        $this->load->view('back/okunacak/anasayfa', $data);
     }
 
     public function okunacakekle()
@@ -2104,11 +2104,11 @@ class Yonetim extends CI_Controller
         $this->protect();
 
         $data = array(
-            'kitapadi'=>$kitapadi =$this->input->post('kitapadi'),
-            'yazaradi'=>$yazaradi =$this->input->post('yazaradi')
-                     );
+            'kitapadi' => $kitapadi = $this->input->post('kitapadi'),
+            'yazaradi' => $yazaradi = $this->input->post('yazaradi')
+        );
 
-        $sonuc = $this->dtbs->ekle('tblokunacak',$data);
+        $sonuc = $this->dtbs->ekle('tblokunacak', $data);
         if ($sonuc) {
 
             $this->durum("Başarılı :)", "Kitap başarılı bir şekilde eklendi", 1);
@@ -2123,22 +2123,22 @@ class Yonetim extends CI_Controller
     public function okunacakduzenle($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->cek($id,'tblokunacak');
+        $sonuc = $this->dtbs->cek($id, 'tblokunacak');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/okunacak/edit/anasayfa',$data);
+        $this->load->view('back/okunacak/edit/anasayfa', $data);
     }
 
     public function okunacakguncelle()
     {
         $this->protect();
-        $id =$this->input->post('id');
+        $id = $this->input->post('id');
 
         $data = array(
-            'kitapadi'=>$kitapadi =$this->input->post('kitapadi'),
-            'yazaradi'=>$yazaradi =$this->input->post('yazaradi')
+            'kitapadi' => $kitapadi = $this->input->post('kitapadi'),
+            'yazaradi' => $yazaradi = $this->input->post('yazaradi')
         );
 
-        $sonuc =$this->dtbs->guncelle($data,$id,'id','tblokunacak');
+        $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblokunacak');
 
         if ($sonuc) {
 
@@ -2152,12 +2152,12 @@ class Yonetim extends CI_Controller
 
     }
 
-    public function okunacaksil($id,$where,$from)
+    public function okunacaksil($id, $where, $from)
     {
         $this->protect();
 
 
-        $sonuc = $this->dtbs->sil($id,$where,$from);
+        $sonuc = $this->dtbs->sil($id, $where, $from);
         if ($sonuc) {
 
             $this->durum("Başarılı :)", "Kitap başarılı bir şekilde silindi", 1);
@@ -2175,9 +2175,9 @@ class Yonetim extends CI_Controller
     public function resimler()
     {
         $this->protect();
-        $sonuc =$this->dtbs->listele('tblresimler');
+        $sonuc = $this->dtbs->listele('tblresimler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/resimler/anasayfa',$data);
+        $this->load->view('back/resimler/anasayfa', $data);
     }
 
     public function resimlerekle()
@@ -2196,7 +2196,7 @@ class Yonetim extends CI_Controller
 
             $data = array('resim' => $resimkayit);
 
-            $sonuc = $this->dtbs->ekle('tblresimler',$data);
+            $sonuc = $this->dtbs->ekle('tblresimler', $data);
 
             if ($sonuc) {
 
@@ -2216,25 +2216,25 @@ class Yonetim extends CI_Controller
     public function resimlerduzenle($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->cek($id,'tblresimler');
+        $sonuc = $this->dtbs->cek($id, 'tblresimler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/resimler/edit/anasayfa',$data);
+        $this->load->view('back/resimler/edit/anasayfa', $data);
     }
 
     public function resimlerguncelle()
     {
-        $id =$this->input->post('id');
+        $id = $this->input->post('id');
 
         $resimkayit = $this->imageUpload('assets/front/img/resimler/', 'resim', 0, 0);
 
         if ($resimkayit != '0') {
 
-            $resimsil=resimlerresim($id);
+            $resimsil = resimlerresim($id);
             unlink($resimsil);
 
-            $data = array('resim'=>$resimkayit);
+            $data = array('resim' => $resimkayit);
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblresimler');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblresimler');
 
             if ($sonuc) {
 
@@ -2248,7 +2248,7 @@ class Yonetim extends CI_Controller
         } else {
             $data = array('id' => $id);
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblresimler');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblresimler');
 
             if ($sonuc) {
 
@@ -2262,13 +2262,13 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function resimlersil($id,$where,$from)
+    public function resimlersil($id, $where, $from)
     {
         $this->protect();
-        $resimsil=resimlerresim($id);
+        $resimsil = resimlerresim($id);
         unlink($resimsil);
 
-        $sonuc = $this->dtbs->sil($id,$where,$from);
+        $sonuc = $this->dtbs->sil($id, $where, $from);
         if ($sonuc) {
 
             $this->durum("Başarılı :)", "Resim başarılı bir şekilde silindi", 1);
@@ -2288,39 +2288,39 @@ class Yonetim extends CI_Controller
     public function dijitalArkeolog()
     {
         $this->protect();
-        $sonuc =$this->dtbs->arkeologListele('arkeologlar');
+        $sonuc = $this->dtbs->arkeologListele('arkeologlar');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalArkeolog/anasayfa',$data);
+        $this->load->view('back/dijitalArkeolog/anasayfa', $data);
     }
 
     public function dijitalArkeologduzenle($aId)
     {
         $this->protect();
-        $sonuc =$this->dtbs->arkeologCek($aId,'arkeologlar');
+        $sonuc = $this->dtbs->arkeologCek($aId, 'arkeologlar');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalArkeolog/edit/anasayfa',$data);
+        $this->load->view('back/dijitalArkeolog/edit/anasayfa', $data);
     }
 
     public function dijitalArkeologguncelle()
     {
         $this->protect();
-        $aId =$this->input->post('aId');
+        $aId = $this->input->post('aId');
 
         $resimkayit = $this->imageUpload('assets/front/img/arkeolog/', 'aPhoto', 160, 160);
 
         if ($resimkayit != '0') {
 
-            $resimsil=arkeologresim($aId);
+            $resimsil = arkeologresim($aId);
             unlink($resimsil);
 
-            $data = array( 'aPhoto'=>$resimkayit,
-                           'aName'=>$aName =$this->input->post('aName'),
-                           'aStatus'=>$aStatus =$this->input->post('aStatus'),
-                           'aEmail'=>$aEmail =$this->input->post('aEmail'),
-                           'aPhone'=>$aPhone =$this->input->post('aPhone')
-                         );
+            $data = array('aPhoto' => $resimkayit,
+                'aName' => $aName = $this->input->post('aName'),
+                'aStatus' => $aStatus = $this->input->post('aStatus'),
+                'aEmail' => $aEmail = $this->input->post('aEmail'),
+                'aPhone' => $aPhone = $this->input->post('aPhone')
+            );
 
-            $sonuc =$this->dtbs->guncelle($data,$aId,'aId','arkeologlar');
+            $sonuc = $this->dtbs->guncelle($data, $aId, 'aId', 'arkeologlar');
 
             if ($sonuc) {
 
@@ -2333,12 +2333,12 @@ class Yonetim extends CI_Controller
             }
         } else {
             $data = array(
-                'aName'=>$aName =$this->input->post('aName'),
-                'aStatus'=>$aStatus =$this->input->post('aStatus'),
-                'aEmail'=>$aEmail =$this->input->post('aEmail'),
-                'aPhone'=>$aPhone =$this->input->post('aPhone'));
+                'aName' => $aName = $this->input->post('aName'),
+                'aStatus' => $aStatus = $this->input->post('aStatus'),
+                'aEmail' => $aEmail = $this->input->post('aEmail'),
+                'aPhone' => $aPhone = $this->input->post('aPhone'));
 
-            $sonuc =$this->dtbs->guncelle($data,$aId,'aId','arkeologlar');
+            $sonuc = $this->dtbs->guncelle($data, $aId, 'aId', 'arkeologlar');
 
             if ($sonuc) {
 
@@ -2352,14 +2352,14 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function dijitalArkeologsil($aId,$where,$from)
+    public function dijitalArkeologsil($aId, $where, $from)
     {
         $this->protect();
 
-        $resimsil=arkeologresim($aId);
+        $resimsil = arkeologresim($aId);
         unlink($resimsil);
 
-        $sonuc = $this->dtbs->sil($aId,$where,$from);
+        $sonuc = $this->dtbs->sil($aId, $where, $from);
 
         if ($sonuc) {
 
@@ -2378,38 +2378,38 @@ class Yonetim extends CI_Controller
     public function dijitalYonetici()
     {
         $this->protect();
-        $sonuc =$this->dtbs->yoneticilerListele('yoneticiler');
+        $sonuc = $this->dtbs->yoneticilerListele('yoneticiler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalYonetici/anasayfa',$data);
+        $this->load->view('back/dijitalYonetici/anasayfa', $data);
     }
 
     public function dijitalYoneticiduzenle($yId)
     {
         $this->protect();
-        $sonuc =$this->dtbs->yoneticilerCek($yId,'yoneticiler');
+        $sonuc = $this->dtbs->yoneticilerCek($yId, 'yoneticiler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalYonetici/edit/anasayfa',$data);
+        $this->load->view('back/dijitalYonetici/edit/anasayfa', $data);
     }
 
     public function dijitalYoneticiguncelle()
     {
         $this->protect();
 
-        $yId =$this->input->post('yId');
+        $yId = $this->input->post('yId');
 
         $resimkayit = $this->imageUpload('assets/front/img/yonetici/', 'yFoto', 150, 150);
 
         if ($resimkayit != '0') {
 
-            $resimsil=arkeologresim($yId);
+            $resimsil = arkeologresim($yId);
             unlink($resimsil);
 
-            $data = array('yFoto'=>$resimkayit,
-                          'yName'=>$yName =$this->input->post('yName'),
-                          'yEmail'=>$yEmail =$this->input->post('yEmail')
+            $data = array('yFoto' => $resimkayit,
+                'yName' => $yName = $this->input->post('yName'),
+                'yEmail' => $yEmail = $this->input->post('yEmail')
             );
 
-            $sonuc =$this->dtbs->guncelle($data,$yId,'yId','yoneticiler');
+            $sonuc = $this->dtbs->guncelle($data, $yId, 'yId', 'yoneticiler');
 
             if ($sonuc) {
 
@@ -2421,12 +2421,12 @@ class Yonetim extends CI_Controller
                 redirect('yonetim/dijitalYonetici');
             }
         } else {
-            $data = array('yFoto'=>$resimkayit,
-                          'yName'=>$yName =$this->input->post('yName'),
-                          'yEmail'=>$yEmail =$this->input->post('yEmail')
+            $data = array('yFoto' => $resimkayit,
+                'yName' => $yName = $this->input->post('yName'),
+                'yEmail' => $yEmail = $this->input->post('yEmail')
             );
 
-            $sonuc =$this->dtbs->guncelle($data,$yId,'yId','yoneticiler');
+            $sonuc = $this->dtbs->guncelle($data, $yId, 'yId', 'yoneticiler');
 
             if ($sonuc) {
 
@@ -2440,7 +2440,7 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function dijitalYoneticisil($yId,$where,$from)
+    public function dijitalYoneticisil($yId, $where, $from)
     {
         $this->protect();
 
@@ -2466,33 +2466,33 @@ class Yonetim extends CI_Controller
     public function dijitalKazi()
     {
         $this->protect();
-        $sonuc =$this->dtbs->kazilarListele('kazilar');
+        $sonuc = $this->dtbs->kazilarListele('kazilar');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalKazi/anasayfa',$data);
+        $this->load->view('back/dijitalKazi/anasayfa', $data);
     }
 
     public function dijitalKaziduzenle($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->kazilarCek($id,'kazilar');
+        $sonuc = $this->dtbs->kazilarCek($id, 'kazilar');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalKazi/edit/anasayfa',$data);
+        $this->load->view('back/dijitalKazi/edit/anasayfa', $data);
     }
 
     public function dijitalKaziguncelle()
     {
         $this->protect();
-        $kId= $this->input->post('kId');
+        $kId = $this->input->post('kId');
 
         $data = array(
-                        'kAdi' => $kAdi= $this->input->post('kAdi'),
-                        'kAdres' => $kAdres= $this->input->post('kAdres'),
-                        'kBasTarih' => $kBasTarih= $this->input->post('kBasTarih'),
-                        'kBitTarih' => $kBasTarih= $this->input->post('kBitTarih'),
-                        'kDurum' => $kDurum= $this->input->post('kDurum')
-                      );
+            'kAdi' => $kAdi = $this->input->post('kAdi'),
+            'kAdres' => $kAdres = $this->input->post('kAdres'),
+            'kBasTarih' => $kBasTarih = $this->input->post('kBasTarih'),
+            'kBitTarih' => $kBasTarih = $this->input->post('kBitTarih'),
+            'kDurum' => $kDurum = $this->input->post('kDurum')
+        );
 
-        $sonuc =$this->dtbs->guncelle($data,$kId,'kId','kazilar');
+        $sonuc = $this->dtbs->guncelle($data, $kId, 'kId', 'kazilar');
 
         if ($sonuc) {
 
@@ -2505,10 +2505,10 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function dijitalKazisil($id,$where,$from)
+    public function dijitalKazisil($id, $where, $from)
     {
         $this->protect();
-        $sonuc = $this->dtbs->sil($id,$where,$from);
+        $sonuc = $this->dtbs->sil($id, $where, $from);
 
         if ($sonuc) {
 
@@ -2519,39 +2519,39 @@ class Yonetim extends CI_Controller
             $this->durum("Hata!!!", "Kazı silinirken bir hata oluştu", 0);
             redirect('yonetim/dijitalKazi');
         }
-   }
+    }
     //Kazı işlemleri bitiş
 
     //Eser işlemleri başlangıç
     public function dijitalEser()
     {
         $this->protect();
-        $sonuc =$this->dtbs->eserlerListele('eserler');
+        $sonuc = $this->dtbs->eserlerListele('eserler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalEser/anasayfa',$data);
+        $this->load->view('back/dijitalEser/anasayfa', $data);
     }
 
     public function dijitalEserduzenle($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->eserlerCek($id,'eserler');
+        $sonuc = $this->dtbs->eserlerCek($id, 'eserler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/dijitalEser/edit/anasayfa',$data);
+        $this->load->view('back/dijitalEser/edit/anasayfa', $data);
     }
 
     public function dijitalEserguncelle()
     {
         $this->protect();
 
-        $eId= $this->input->post('eId');
+        $eId = $this->input->post('eId');
 
         $data = array(
-                    'eEnvanter' => $eEnvanter= $this->input->post('eEnvanter'),
-                    'eBaslik' => $eBaslik= $this->input->post('eBaslik'),
-                    'eBilgi' => strip_tags($eBilgi= $this->input->post('eBilgi')),
-                    'eDurum' => $eDurum= $this->input->post('eDurum')   );
+            'eEnvanter' => $eEnvanter = $this->input->post('eEnvanter'),
+            'eBaslik' => $eBaslik = $this->input->post('eBaslik'),
+            'eBilgi' => strip_tags($eBilgi = $this->input->post('eBilgi')),
+            'eDurum' => $eDurum = $this->input->post('eDurum'));
 
-        $sonuc =$this->dtbs->guncelle($data,$eId,'eId','eserler');
+        $sonuc = $this->dtbs->guncelle($data, $eId, 'eId', 'eserler');
         if ($sonuc) {
 
             $this->durum("Başarılı :)", "Eser başarılı bir şekilde güncellendi", 1);
@@ -2563,16 +2563,16 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function dijitalEsersil($eId,$where,$from)
+    public function dijitalEsersil($eId, $where, $from)
     {
         $this->protect();
 
-        $resimsil=eserresim($eId);
-        $resimsil2=QRresim($eId);
+        $resimsil = eserresim($eId);
+        $resimsil2 = QRresim($eId);
         unlink($resimsil);
         unlink($resimsil2);
 
-        $sonuc = $this->dtbs->sil($eId,$where,$from);
+        $sonuc = $this->dtbs->sil($eId, $where, $from);
 
         if ($sonuc) {
 
@@ -2588,22 +2588,22 @@ class Yonetim extends CI_Controller
 
 
     //Qr kod işlemleri başlangıç
-    public function dijitalQrKod($eId,$eRfid)
+    public function dijitalQrKod($eId, $eRfid)
     {
         $this->load->library('ciqrcode');
 
         $params['data'] = $eRfid;
         $params['level'] = 'H';
         $params['size'] = 10;
-        $resimAdi='assets/front/img/eserlerQR/'.$eRfid.'.png';
-        $params['savename'] = FCPATH.$resimAdi;
+        $resimAdi = 'assets/front/img/eserlerQR/' . $eRfid . '.png';
+        $params['savename'] = FCPATH . $resimAdi;
         $this->ciqrcode->generate($params);
 
-        $data = array('eQR'=>$resimAdi);
+        $data = array('eQR' => $resimAdi);
 
-        $sonuc =$this->dtbs->guncelle($data,$eId,'eId','eserler');
+        $sonuc = $this->dtbs->guncelle($data, $eId, 'eId', 'eserler');
 
-        redirect('yonetim/dijitalEserduzenle/'.$eId.'');
+        redirect('yonetim/dijitalEserduzenle/' . $eId . '');
     }
     //Qr kod işlemleri bitiş
 
@@ -2616,9 +2616,9 @@ class Yonetim extends CI_Controller
     public function turler()
     {
         $this->protect();
-        $sonuc =$this->dtbs->listele('turler');
+        $sonuc = $this->dtbs->listele('turler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/turler/anasayfa',$data);
+        $this->load->view('back/turler/anasayfa', $data);
     }
 
     public function turlerekle()
@@ -2630,24 +2630,24 @@ class Yonetim extends CI_Controller
     public function turlerekleme()
     {
         $this->protect();
-        $turDetay =$this->input->post('turDetay');
-        $turDetay =trim($turDetay);
+        $turDetay = $this->input->post('turDetay');
+        $turDetay = trim($turDetay);
 
         $resimkayit = $this->imageUpload('lisans/images/', 'turResim', 250, 200);
 
         if ($resimkayit != '0') {
 
             $data = array(
-                'turResim'=>$resimkayit,
-                'turAd'=>$this->input->post('turAd'),
-                'turDetay'=>$turDetay,
-                'turEnlem'=>$this->input->post('turEnlem'),
-                'turBoylam'=>$this->input->post('turBoylam'),
-                'tur'=>$this->input->post('tur'),
-                'durum'=>$durum =$this->input->post('durum')
+                'turResim' => $resimkayit,
+                'turAd' => $this->input->post('turAd'),
+                'turDetay' => $turDetay,
+                'turEnlem' => $this->input->post('turEnlem'),
+                'turBoylam' => $this->input->post('turBoylam'),
+                'tur' => $this->input->post('tur'),
+                'durum' => $durum = $this->input->post('durum')
             );
 
-            $sonuc = $this->dtbs->ekle('turler',$data);
+            $sonuc = $this->dtbs->ekle('turler', $data);
 
             if ($sonuc) {
 
@@ -2668,45 +2668,45 @@ class Yonetim extends CI_Controller
     {
         $this->protect();
         $id = $this->input->post('id');
-        $durum = ($this->input->post('durum')=="true")?1:0;
-        $this->db->where('id',$id)->update('turler',array('durum'=>$durum));
+        $durum = ($this->input->post('durum') == "true") ? 1 : 0;
+        $this->db->where('id', $id)->update('turler', array('durum' => $durum));
     }
 
     public function turlerduzenle($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->cek($id,'turler');
+        $sonuc = $this->dtbs->cek($id, 'turler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/turler/edit/anasayfa',$data);
+        $this->load->view('back/turler/edit/anasayfa', $data);
     }
 
     public function turlerguncelle()
     {
         $this->protect();
-        $id =$this->input->post('id');
-        $turDetay =$this->input->post('turDetay');
-        $turDetay =trim($turDetay);
+        $id = $this->input->post('id');
+        $turDetay = $this->input->post('turDetay');
+        $turDetay = trim($turDetay);
 
         $resimkayit = $this->imageUpload('lisans/images/', 'turResim', 250, 200);
 
         if ($resimkayit != '0') {
 
-            $resimsil=turlerResim($id);
+            $resimsil = turlerResim($id);
             $dilimler = explode("/", $resimsil);
-            $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
+            $silinecekResim = $dilimler[count($dilimler) - 3] . "/" . $dilimler[count($dilimler) - 2] . "/" . $dilimler[count($dilimler) - 1];
             unlink($silinecekResim);
 
             $data = array(
-                            'turResim'=>$resimkayit,
-                            'turAd'=>$this->input->post('turAd'),
-                            'turDetay'=>$turDetay,
-                            'turEnlem'=>$this->input->post('turEnlem'),
-                            'turBoylam'=>$this->input->post('turBoylam'),
-                            'tur'=>$this->input->post('tur'),
-                            'durum'=>$durum =$this->input->post('durum')
+                'turResim' => $resimkayit,
+                'turAd' => $this->input->post('turAd'),
+                'turDetay' => $turDetay,
+                'turEnlem' => $this->input->post('turEnlem'),
+                'turBoylam' => $this->input->post('turBoylam'),
+                'tur' => $this->input->post('tur'),
+                'durum' => $durum = $this->input->post('durum')
             );
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','turler');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turler');
 
             if ($sonuc) {
 
@@ -2719,15 +2719,15 @@ class Yonetim extends CI_Controller
             }
         } else {
             $data = array(
-                            'turAd'=>$this->input->post('turAd'),
-                            'turDetay'=>$turDetay,
-                            'turEnlem'=>$this->input->post('turEnlem'),
-                            'turBoylam'=>$this->input->post('turBoylam'),
-                            'tur'=>$this->input->post('tur'),
-                            'durum'=>$durum =$this->input->post('durum')
+                'turAd' => $this->input->post('turAd'),
+                'turDetay' => $turDetay,
+                'turEnlem' => $this->input->post('turEnlem'),
+                'turBoylam' => $this->input->post('turBoylam'),
+                'tur' => $this->input->post('tur'),
+                'durum' => $durum = $this->input->post('durum')
             );
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','turler');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turler');
 
             if ($sonuc) {
 
@@ -2741,7 +2741,7 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public function turlersil($id,$where,$from)
+    public function turlersil($id, $where, $from)
     {
         $this->protect();
         $resimsil = turlerResim($id);
@@ -2768,9 +2768,9 @@ class Yonetim extends CI_Controller
     public function turKullanici()
     {
         $this->protect();
-        $sonuc =$this->dtbs->listele('turKullanici');
+        $sonuc = $this->dtbs->listele('turKullanici');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/turKullanici/anasayfa',$data);
+        $this->load->view('back/turKullanici/anasayfa', $data);
     }
 
     public function turKullaniciekle()
@@ -2790,14 +2790,14 @@ class Yonetim extends CI_Controller
             'durum' => $durum = $this->input->post('durum')
         );
 
-        $sonuc = $this->dtbs->ekle('turKullanici',$data);
+        $sonuc = $this->dtbs->ekle('turKullanici', $data);
 
         if ($sonuc) {
 
-            $this->durum("Başarılı :) ", "Kullanıcı başarılı bir şekilde eklendi",1);
+            $this->durum("Başarılı :) ", "Kullanıcı başarılı bir şekilde eklendi", 1);
             redirect('yonetim/turKullanici');
-        }else {
-            $this->durum("Hata !!! ", "Kullanıcı Eklenirken bir hata oluştu",0);
+        } else {
+            $this->durum("Hata !!! ", "Kullanıcı Eklenirken bir hata oluştu", 0);
             redirect('yonetim/turKullanici');
         }
     }
@@ -2805,9 +2805,9 @@ class Yonetim extends CI_Controller
     public function turKullaniciduzenle($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->cek($id,'turKullanici');
+        $sonuc = $this->dtbs->cek($id, 'turKullanici');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/turKullanici/edit/anasayfa',$data);
+        $this->load->view('back/turKullanici/edit/anasayfa', $data);
     }
 
     public function turKullaniciguncelle()
@@ -2815,38 +2815,38 @@ class Yonetim extends CI_Controller
         $this->protect();
 
         $data = array(
-            'id' => $id= $this->input->post('id'),
+            'id' => $id = $this->input->post('id'),
             'adSoyad' => $adSoyad = $this->input->post('adSoyad'),
             'mail' => $mail = $this->input->post('mail'),
             'sifre' => $sifre = $this->input->post('sifre'),
             'durum' => $durum = $this->input->post('durum')
         );
 
-        $sonuc =$this->dtbs->guncelle($data,$id,'id','turKullanici');
+        $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turKullanici');
 
         if ($sonuc) {
 
-            $this->durum("Başarılı :)", "Kullanıcı başarılı bir şekilde güncellendi",1);
+            $this->durum("Başarılı :)", "Kullanıcı başarılı bir şekilde güncellendi", 1);
+            redirect('yonetim/turKullanici');
+        } else {
+
+            $this->durum("Hata !!!", "Kullanıcı güncellenirken bir hata oluştu", 0);
             redirect('yonetim/turKullanici');
         }
-        else {
-
-            $this->durum("Hata !!!", "Kullanıcı güncellenirken bir hata oluştu",0);
-            redirect('yonetim/turKullanici');}
     }
 
     public function turKullaniciset()
     {
         $this->protect();
         $id = $this->input->post('id');
-        $durum = ($this->input->post('durum')=="true")?1:0;
-        $this->db->where('id',$id)->update('turKullanici',array('durum'=>$durum));
+        $durum = ($this->input->post('durum') == "true") ? 1 : 0;
+        $this->db->where('id', $id)->update('turKullanici', array('durum' => $durum));
     }
 
-    public function turKullanicisil($id,$where,$from)
+    public function turKullanicisil($id, $where, $from)
     {
         $this->protect();
-        $sonuc = $this->dtbs->sil($id,$where,$from);
+        $sonuc = $this->dtbs->sil($id, $where, $from);
         if ($sonuc) {
 
             $this->durum("Başarılı :)", "Kullanıcı başarılı bir şekilde silindi", 1);
@@ -2868,9 +2868,9 @@ class Yonetim extends CI_Controller
     public function duyurular()
     {
         $this->protect();
-        $sonuc =$this->dtbs->listele('tblduyurular');
+        $sonuc = $this->dtbs->listele('tblduyurular');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/yurtDuyurular/anasayfa',$data);
+        $this->load->view('back/yurtDuyurular/anasayfa', $data);
     }
 
     public function duyurularekle()
@@ -2882,76 +2882,76 @@ class Yonetim extends CI_Controller
     public function duyurularekleme()
     {
         $this->protect();
-        $duyuruBaslik =$this->input->post('duyuruBaslik');
-        $duyuruDetay =$this->input->post('duyuruDetay');
-        $duyuruDetay =trim($duyuruDetay);
-        $seoBaslik =seflink($duyuruBaslik);
-        $duyuruVideo =$this->input->post('duyuruVideo');
-        $durum =$this->input->post('durum');
+        $duyuruBaslik = $this->input->post('duyuruBaslik');
+        $duyuruDetay = $this->input->post('duyuruDetay');
+        $duyuruDetay = trim($duyuruDetay);
+        $seoBaslik = seflink($duyuruBaslik);
+        $duyuruVideo = $this->input->post('duyuruVideo');
+        $durum = $this->input->post('durum');
 
         $resimkayit = $this->imageUpload('akilliYurt/images/', 'duyuruResim', 0, 0);
 
         if ($resimkayit != '0') {
 
+            $resimkayit = base_url() . $resimkayit;
+
             $data = array(
-                'duyuruResim'=>$resimkayit,
-                'duyuruBaslik'=>$duyuruBaslik,
-                'duyuruDetay'=>$duyuruDetay,
-                'duyuruVideo'=>$duyuruVideo,
-                'seobaslik' =>$seoBaslik,
-                'durum'=>$durum
+                'duyuruResim' => $resimkayit,
+                'duyuruBaslik' => $duyuruBaslik,
+                'duyuruDetay' => $duyuruDetay,
+                'duyuruVideo' => $duyuruVideo,
+                'seobaslik' => $seoBaslik,
+                'durum' => $durum
             );
 
-            $sonuc = $this->dtbs->ekle('tblduyurular',$data);
+            $sonuc = $this->dtbs->ekle('tblduyurular', $data);
 
             if ($sonuc) {
-                if($durum==1){
+                if ($durum == 1) {
                     $to = "/topics/dispositivos";
                     $dataNotif = array(
-                        'duyuruResim'=>$resimkayit,
-                        'duyuruBaslik'=>$duyuruBaslik,
-                        'duyuruDetay'=>strip_tags($duyuruDetay),
-                        'duyuruVideo'=>$duyuruVideo
+                        'duyuruResim' => $resimkayit,
+                        'duyuruBaslik' => $duyuruBaslik,
+                        'duyuruDetay' => strip_tags($duyuruDetay),
+                        'duyuruVideo' => $duyuruVideo
                     );
-                //    sendPushNotification($to,  $dataNotif);
+                    //    sendPushNotification($to,  $dataNotif);
                 }
 
-                $this->durum("Başarılı :) ", "Duyuru başarılı bir şekilde eklendi",1);
+                $this->durum("Başarılı :) ", "Duyuru başarılı bir şekilde eklendi", 1);
                 redirect('yonetim/duyurular');
-            }else {
-                $this->durum("Hata !!! ", "Duyuru Eklenirken bir hata oluştu",0);
+            } else {
+                $this->durum("Hata !!! ", "Duyuru Eklenirken bir hata oluştu", 0);
                 redirect('yonetim/duyurular');
             }
-        }
-
-        else {
+        } else {
             $resimkayit = base_url("/akilliYurt/images/default.png");
 
             $data = array(
-                'duyuruResim'=>$resimkayit,
-                'duyuruBaslik'=>$duyuruBaslik,
-                'duyuruDetay'=>$duyuruDetay,
-                'duyuruVideo'=>$duyuruVideo,
-                'seobaslik' =>$seoBaslik,
-                'durum'=>$durum );
+                'duyuruResim' => $resimkayit,
+                'duyuruBaslik' => $duyuruBaslik,
+                'duyuruDetay' => $duyuruDetay,
+                'duyuruVideo' => $duyuruVideo,
+                'seobaslik' => $seoBaslik,
+                'durum' => $durum);
 
-            $sonuc = $this->dtbs->ekle('tblduyurular',$data);
+            $sonuc = $this->dtbs->ekle('tblduyurular', $data);
             if ($sonuc) {
-                if($durum==1){
+                if ($durum == 1) {
                     $to = "/topics/dispositivos";
                     $dataNotif = array(
-                        'duyuruResim'=>$resimkayit,
-                        'duyuruBaslik'=>$duyuruBaslik,
-                        'duyuruDetay'=>strip_tags($duyuruDetay),
-                        'duyuruVideo'=>$duyuruVideo
+                        'duyuruResim' => $resimkayit,
+                        'duyuruBaslik' => $duyuruBaslik,
+                        'duyuruDetay' => strip_tags($duyuruDetay),
+                        'duyuruVideo' => $duyuruVideo
                     );
-               //     sendPushNotification($to,  $dataNotif);
+                    //     sendPushNotification($to,  $dataNotif);
                 }
 
-                $this->durum("Başarılı :) ", "Duyuru başarılı bir şekilde eklendi resim default olarak seçildi",1);
+                $this->durum("Başarılı :) ", "Duyuru başarılı bir şekilde eklendi resim default olarak seçildi", 1);
                 redirect('yonetim/duyurular');
-            }else {
-                $this->durum("Hata !!! ", "Duyuru Eklenirken bir hata oluştu",0);
+            } else {
+                $this->durum("Hata !!! ", "Duyuru Eklenirken bir hata oluştu", 0);
                 redirect('yonetim/duyurular');
             }
         }
@@ -2960,64 +2960,65 @@ class Yonetim extends CI_Controller
     public function duyurularduzenle($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->cek($id,'tblduyurular');
+        $sonuc = $this->dtbs->cek($id, 'tblduyurular');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/yurtDuyurular/edit/anasayfa',$data);
+        $this->load->view('back/yurtDuyurular/edit/anasayfa', $data);
     }
 
     public function duyurularguncelle()
     {
         $this->protect();
-        $id =$this->input->post('id');
-        $duyuruBaslik =$this->input->post('duyuruBaslik');
-        $duyuruVideo =$this->input->post('duyuruVideo');
-        $duyuruDetay =$this->input->post('duyuruDetay');
-        $duyuruDetay =trim($duyuruDetay);
+        $id = $this->input->post('id');
+        $duyuruBaslik = $this->input->post('duyuruBaslik');
+        $duyuruVideo = $this->input->post('duyuruVideo');
+        $duyuruDetay = $this->input->post('duyuruDetay');
+        $duyuruDetay = trim($duyuruDetay);
         $seoBaslik = seflink($duyuruBaslik);
-        $durum =$this->input->post('durum');
+        $durum = $this->input->post('durum');
 
         $resimkayit = $this->imageUpload('akilliYurt/images/', 'duyuruResim', 0, 0);
         if ($resimkayit != '0') {
-            $resim = explode("/",duyurularresim($id));
-            $resim = $resim[count($resim)-1];
+            $resim = explode("/", duyurularresim($id));
+            $resim = $resim[count($resim) - 1];
 
-            if($resim!= "default.png"){
-                $resimsil=duyurularresim($id);
+            if ($resim != "default.png") {
+                $resimsil = duyurularresim($id);
                 $dilimler = explode("/", $resimsil);
-                $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
+                $silinecekResim = $dilimler[count($dilimler) - 3] . "/" . $dilimler[count($dilimler) - 2] . "/" . $dilimler[count($dilimler) - 1];
                 unlink($silinecekResim);
-                                    }
+            }
 
-        $data = array(
-            'duyuruResim'=>$resimkayit,
-            'duyuruBaslik'=>$duyuruBaslik,
-            'duyuruVideo'=>$duyuruVideo,
-            'duyuruDetay'=>$duyuruDetay,
-            'seobaslik' =>$seoBaslik,
-            'durum'=>$durum
-        );
-
-        $sonuc =$this->dtbs->guncelle($data,$id,'id','tblduyurular');
-
-        if ($sonuc) {
-
-            $this->durum("Başarılı :)", "Duyuru başarılı bir şekilde Güncellendi", 1);
-            redirect('yonetim/duyurular');
-        } else {
-
-            $this->durum("Hata!!!", "Duyuru güncellenirken bir hata oluştu", 0);
-            redirect('yonetim/duyurular');
-        }
-    } else {
+            $resimkayit = base_url() . $resimkayit;
             $data = array(
-                'duyuruBaslik'=>$duyuruBaslik,
-                'duyuruVideo'=>$duyuruVideo,
-                'duyuruDetay'=>$duyuruDetay,
-                'seobaslik' =>$seoBaslik,
-                'durum'=>$durum
+                'duyuruResim' => $resimkayit,
+                'duyuruBaslik' => $duyuruBaslik,
+                'duyuruVideo' => $duyuruVideo,
+                'duyuruDetay' => $duyuruDetay,
+                'seobaslik' => $seoBaslik,
+                'durum' => $durum
             );
 
-            $sonuc =$this->dtbs->guncelle($data,$id,'id','tblduyurular');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblduyurular');
+
+            if ($sonuc) {
+
+                $this->durum("Başarılı :)", "Duyuru başarılı bir şekilde Güncellendi", 1);
+                redirect('yonetim/duyurular');
+            } else {
+
+                $this->durum("Hata!!!", "Duyuru güncellenirken bir hata oluştu", 0);
+                redirect('yonetim/duyurular');
+            }
+        } else {
+            $data = array(
+                'duyuruBaslik' => $duyuruBaslik,
+                'duyuruVideo' => $duyuruVideo,
+                'duyuruDetay' => $duyuruDetay,
+                'seobaslik' => $seoBaslik,
+                'durum' => $durum
+            );
+
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'tblduyurular');
 
             if ($sonuc) {
 
@@ -3035,20 +3036,20 @@ class Yonetim extends CI_Controller
     {
         $this->protect();
         $id = $this->input->post('id');
-        $durum = ($this->input->post('durum')=="true")?1:0;
-        $this->db->where('id',$id)->update('tblduyurular',array('durum'=>$durum));
+        $durum = ($this->input->post('durum') == "true") ? 1 : 0;
+        $this->db->where('id', $id)->update('tblduyurular', array('durum' => $durum));
 
     }
 
-    public function duyurularsil($id,$where,$from)
+    public function duyurularsil($id, $where, $from)
     {
         $this->protect();
-        $resim = explode("/",duyurularresim($id));
-        $resim = $resim[count($resim)-1];
-        if($resim!= "default.png"){
-            $resimsil=duyurularresim($id);
+        $resim = explode("/", duyurularresim($id));
+        $resim = $resim[count($resim) - 1];
+        if ($resim != "default.png") {
+            $resimsil = duyurularresim($id);
             $dilimler = explode("/", $resimsil);
-            $silinecekResim = $dilimler[count($dilimler)-3]."/".$dilimler[count($dilimler)-2]."/".$dilimler[count($dilimler)-1];
+            $silinecekResim = $dilimler[count($dilimler) - 3] . "/" . $dilimler[count($dilimler) - 2] . "/" . $dilimler[count($dilimler) - 1];
             unlink($silinecekResim);
         }
 
@@ -3071,23 +3072,23 @@ class Yonetim extends CI_Controller
     public function istekler()
     {
         $this->protect();
-        $sonuc =$this->dtbs->listele('tblistekler');
+        $sonuc = $this->dtbs->listele('tblistekler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/yurtistekler/anasayfa',$data);
+        $this->load->view('back/yurtistekler/anasayfa', $data);
     }
 
     public function istekleroku($id)
     {
         $this->protect();
-        $sonuc =$this->dtbs->cek($id,'tblistekler');
+        $sonuc = $this->dtbs->cek($id, 'tblistekler');
         $data['bilgi'] = $sonuc;
-        $this->load->view('back/yurtistekler/oku/anasayfa',$data);
+        $this->load->view('back/yurtistekler/oku/anasayfa', $data);
     }
 
-    public function isteklersil($id,$where,$from)
+    public function isteklersil($id, $where, $from)
     {
         $this->protect();
-        $sonuc = $this->dtbs->sil($id,$where,$from);
+        $sonuc = $this->dtbs->sil($id, $where, $from);
         if ($sonuc) {
 
             $this->durum("Başarılı :)", "Dilek ve şikayet başarılı bir şekilde silindi", 1);
@@ -3098,11 +3099,29 @@ class Yonetim extends CI_Controller
             redirect('yonetim/istekler');
         }
     }
+
+    public  function istekYazdir(){
+        $this->protect();
+
+        $this->load->view('back/yurtistekler/istekler.php');
+
+        $html = $this->output->get_output();
+
+        $this->load->library('pdf');
+
+        $this->dompdf->loadHtml($html);
+
+        $this->dompdf->setPaper('A4','landscape');
+
+        $this->dompdf->render();
+
+        $this->dompdf->stream('istekler.pdf',array('Attachment' =>0));
+    }
     // istek ve şikayet işlemleri bitiş
 
     // Dijital yurt bitiş
 
-    function imageUpload($resimPath,$resimname,$width=0,$height=0)
+    function imageUpload($resimPath, $resimname, $width = 0, $height = 0)
     {
         $config['upload_path'] = FCPATH . $resimPath;
         $config['allowed_types'] = 'gif|jpg|jgep|png';
@@ -3123,7 +3142,7 @@ class Yonetim extends CI_Controller
             $config['height'] = $height;
             $this->load->library('image_lib', $config);
             $this->image_lib->initialize($config);
-            if($width!=0 && $height !=0){
+            if ($width != 0 && $height != 0) {
                 $this->image_lib->resize();
             }
             $this->image_lib->clear();
@@ -3155,7 +3174,8 @@ class Yonetim extends CI_Controller
 
 
 //Bildirim gönderme işlemleri
-function sendPushNotification($to = '', $data = array()) {
+function sendPushNotification($to = '', $data = array())
+{
 
     $apiKey = 'AAAA1ku8mGM:APA91bGsUYr9ksKP_eSmRQImuAZgdFkNv1Cld0IYU9RH7Xflh2B1N6R4xWkFMdIPwjGsBCQUmxRL2SGJ85DQ5gAax9XNG8MxEnY77YaYM1E-PopRJXWGwSp1ROwroqX0U43dptWL8Wl2';
 
@@ -3164,7 +3184,7 @@ function sendPushNotification($to = '', $data = array()) {
         'data' => $data,
     );
 
-    $headers = array('Authorization: key='.$apiKey, 'Content-Type: application/json');
+    $headers = array('Authorization: key=' . $apiKey, 'Content-Type: application/json');
 
     $url = 'https://fcm.googleapis.com/fcm/send';
 

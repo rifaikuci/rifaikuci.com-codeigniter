@@ -64,13 +64,15 @@
 
 
               <!-- /.box-body -->
-              <div class="box-footer">
-              <a href="<?php echo base_url('yonetim/istekler'); ?>" type="submit" class="btn btn-primary pull-right fa fa-edit"> Dilek ve Şikayete Geri Dön </a>
 
-              </div>
               <!-- /.box-footer -->
             </form>
-          </div>
-        </div>
 
+          </div>
+
+        </div>
+        <div class="box-footer">
+            <a href="<?php echo base_url('yonetim/istekler'); ?>" type="submit" class="btn btn-primary pull-left fa fa-edit"> Dilek ve Şikayete Geri Dön </a>
+
+        </div>
     </section>

@@ -35,7 +35,7 @@
                         <label class="col-sm-2 control-label"> Mevcud Resim</label>
                         <div class="col-sm-4">
                             <img style="width:160px; height:160px; margin-left:50px;"
-                                 src="<?php echo $bilgi['duyuruResim']; ?>" alt="Duyuru Resmi" name="duyuruResim">
+                                 src="<?php echo  $bilgi['duyuruResim']; ?>" alt="Duyuru Resmi" name="duyuruResim">
                         </div>
                         <div class="" style="margin-top: 50px ;">
                             <label class="col-sm-2 control-label"> Yeni Resim</label>

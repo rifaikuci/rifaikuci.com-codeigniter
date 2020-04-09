@@ -81,13 +81,15 @@
 
                             </tr>
                         <?php } ?>
+
                     </table>
+                    <div style="text-align: center">
+                        <a class="btn btn-primary fa fa-print" target="_blank" href="<?php echo base_url('yonetim/istekYazdir') ?>">
+                            Dilek ve şikayetleri yazdır
+                        </a>
+                    </div>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
-        <!-- /.col -->
     </div>
-    <!-- /.row -->
 </section>
