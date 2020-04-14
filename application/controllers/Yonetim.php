@@ -3121,6 +3121,14 @@ class Yonetim extends CI_Controller
 
     // Dijital yurt bitiş
 
+
+    // Bulanık Mantık işlemleri giriş
+    public function bulanik()
+    {
+        $this->protect();
+        $this->load->view('back/bulanik/anasayfa');
+    }
+
     function imageUpload($resimPath, $resimname, $width = 0, $height = 0)
     {
         $config['upload_path'] = FCPATH . $resimPath;

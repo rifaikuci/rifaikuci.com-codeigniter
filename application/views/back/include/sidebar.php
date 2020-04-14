@@ -355,6 +355,17 @@
             </li>
 
 
+            <li>
+                <a href="<?php echo base_url('yonetim/bulanik'); ?>">
+                    <i class="fa fa-terminal"></i> <span>Bulanık Mantık</span>
+                    <span class="pull-right-container">
+                        <span class="label label-success pull-right"></span>
+                    </span>
+                </a>
+            </li>
+
+
+
             <li class="header text-red">
                 İşlemler
             </li>

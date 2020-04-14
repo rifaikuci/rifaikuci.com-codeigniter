@@ -12,7 +12,7 @@ new Vue({
             if(value==this.sayi1+this.sayi2){this.game_is_on = true}
 
             else {this.game_is_on =false;} }
-            }
+    }
 });
 
 new Vue({
@@ -22,7 +22,7 @@ new Vue({
         fsayi2 : Math.floor(Math.random() * (10 - 1 + 1)) + 1,
         fsonuc : '',
         fgame_is_on : false
-    },});
+    },
     watch : {
         fsonuc : function(value){
             if(value==this.fsayi1+this.fsayi2){ this.fgame_is_on = true}
@@ -30,3 +30,4 @@ new Vue({
             else {this.fgame_is_on =false;}
         }
     }
+});
