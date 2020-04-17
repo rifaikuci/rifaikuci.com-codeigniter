@@ -6,6 +6,13 @@
                href="<?php echo base_url(); ?>"><?php echo $anaayar['logotitle']; ?></a>
         <?php } ?>
 
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+                aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
 
             <ul class="navbar-nav">
