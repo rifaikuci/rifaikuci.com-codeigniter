@@ -3100,7 +3100,8 @@ class Yonetim extends CI_Controller
         }
     }
 
-    public  function istekYazdir(){
+    public function istekYazdir()
+    {
         $this->protect();
 
         $this->load->view('back/yurtistekler/istekler.php');
@@ -3111,11 +3112,11 @@ class Yonetim extends CI_Controller
 
         $this->dompdf->loadHtml($html);
 
-        $this->dompdf->setPaper('A4','landscape');
+        $this->dompdf->setPaper('A4', 'landscape');
 
         $this->dompdf->render();
 
-        $this->dompdf->stream('istekler.pdf',array('Attachment' =>0));
+        $this->dompdf->stream('istekler.pdf', array('Attachment' => 0));
     }
     // istek ve şikayet işlemleri bitiş
 
@@ -3127,6 +3128,59 @@ class Yonetim extends CI_Controller
     {
         $this->protect();
         $this->load->view('back/bulanik/anasayfa');
+    }
+
+    public function bulanikVeri()
+    {
+        $this->protect();
+
+        $secenek = $this->input->post('secenek');
+        $secenekDizi = explode(",", $secenek);
+
+        $kriter = $this->input->post('kriter');
+        $kriterDizi = explode(",", $kriter);
+
+        $ac = fopen(__DIR__ . "/bulanik/tablo1.csv", "w+");
+
+        if (!$ac) { echo "Dosya açılmadı "; exit(); }
+
+
+        $deger = "," . $kriter . "\n";
+
+        foreach ($secenekDizi as $s) {
+
+            $deger = $deger .trim($s);
+
+            for ($i = 0; $i < count($kriterDizi); $i++) { $deger = $deger . ","; }
+
+            $deger = $deger . "\n";
+        }
+
+        fwrite($ac, $deger);
+        fclose($ac);
+        $data['kriter'] = $kriterDizi;
+        $data['secenek'] = $secenekDizi;
+        $this->load->view('back/bulanik/bulanikVeri/anasayfa', $data);
+    }
+
+    public function bulanikVeriGirisi($secenek,$kriter)
+    {
+        $this->protect();
+
+        for ($i=0; $i<$secenek;$i++)
+        {
+            for ($j=0;$j<$kriter;$j++) {
+
+                $deneme[$i][$j] = $this->input->post($i.'-'.$j);
+                echo $deneme[$i][$j] ;
+
+            }
+            echo  "<br>";
+        }
+
+
+
+        exit();
     }
 
     function imageUpload($resimPath, $resimname, $width = 0, $height = 0)
