@@ -112,7 +112,7 @@ class Anasayfa extends CI_Controller
             'mail' => $mail = $this->input->post('mail'),
             'odaNumara' => $odaNumara = $this->input->post('odaNumara'),
             'tur' => $tur = $this->input->post('tur'),
-            'durum' => 2,
+            'durum' => 0,
             'istek' => $mesaj = $this->input->post('mesaj')
         );
 

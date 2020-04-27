@@ -3142,16 +3142,21 @@ class Yonetim extends CI_Controller
 
         $ac = fopen(__DIR__ . "/bulanik/tablo1.csv", "w+");
 
-        if (!$ac) { echo "Dosya açılmadı "; exit(); }
+        if (!$ac) {
+            echo "Dosya açılmadı ";
+            exit();
+        }
 
 
-        $deger = "," . $kriter . "\n";
+        $deger = "#," . $kriter . "\n";
 
         foreach ($secenekDizi as $s) {
 
-            $deger = $deger .trim($s);
+            $deger = $deger . trim($s);
 
-            for ($i = 0; $i < count($kriterDizi); $i++) { $deger = $deger . ","; }
+            for ($i = 0; $i < count($kriterDizi); $i++) {
+                $deger = $deger . ",";
+            }
 
             $deger = $deger . "\n";
         }
@@ -3163,25 +3168,60 @@ class Yonetim extends CI_Controller
         $this->load->view('back/bulanik/bulanikVeri/anasayfa', $data);
     }
 
-    public function bulanikVeriGirisi($secenek,$kriter)
+    public function bulanikVeriGirisi($secenek, $kriter)
     {
         $this->protect();
 
-        for ($i=0; $i<$secenek;$i++)
-        {
-            for ($j=0;$j<$kriter;$j++) {
-
-                $deneme[$i][$j] = $this->input->post($i.'-'.$j);
-                echo $deneme[$i][$j] ;
-
+        for ($i = 0; $i < $secenek; $i++) {
+            for ($j = 0; $j < $kriter; $j++) {
+                $deneme[$i][$j] = $this->input->post($i . '-' . $j);
             }
-            echo  "<br>";
         }
 
+        if (($h = fopen(__DIR__ . "/bulanik/tablo1.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($h, 1000, ",")) !== FALSE) {
+                $the_big_array[] = $data;
+            }
+            fclose($h);
+        }
+
+        for ($i = 1; $i < count($the_big_array); $i++) {
+            for ($j = 1; $j < $kriter + 1; $j++) {
+                $the_big_array[$i][$j] = $deneme[$i - 1][$j - 1];
+            }
+        }
+
+        $aktarilacak = "";
+        for ($i = 0; $i < count($the_big_array); $i++) {
+
+            for ($j = 0; $j < $kriter + 1; $j++) {
+
+                if ($j == $kriter) {
+                    $aktarilacak = $aktarilacak . $the_big_array[$i][$j];
+                } else {
+                    $aktarilacak = $aktarilacak . $the_big_array[$i][$j] . ",";
+                }
+
+            }
+            $aktarilacak = $aktarilacak . "\n";
+        }
+
+        $ac = fopen(__DIR__ . "/bulanik/tablo2.csv", "w+");
+
+        if (!$ac) {
+            echo "Dosya açılmadı ";
+            exit();
+        }
+
+        fwrite($ac, $aktarilacak);
+        fclose($ac);
 
 
-        exit();
+
+        $this->load->view('back/bulanik/bulanikTablo/anasayfa');
+
     }
+
 
     function imageUpload($resimPath, $resimname, $width = 0, $height = 0)
     {
