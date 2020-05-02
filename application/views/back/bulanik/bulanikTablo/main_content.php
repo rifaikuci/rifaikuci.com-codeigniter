@@ -37,7 +37,6 @@
                     </ul>
                 </div>
 
-
                 <div class="col-sm-6"><br><br>
                     <u><strong>Kriterler</strong></u>
                     <ul><br>
@@ -124,8 +123,8 @@
                                         }
                                     }
                                 } else {
-                                    $sonuc = $the_big_array[1][$i];
 
+                                    $sonuc = $the_big_array[1][$i];
                                     for ($k = 1; $k < $secenek; $k++) {
                                         if ($sonuc > $the_big_array[$k][$i]) {
                                             $sonuc = $the_big_array[$k][$i];
@@ -133,22 +132,23 @@
                                     }
 
                                 }
+
                                 $a = $i - 1;
                                 $referansSerisi[$a] = $sonuc;
-                            } ?>
-                            <?php
+                            }
                             for ($i = 0; $i < count($referansSerisi); $i++) { ?>
+
                                 <td style="text-align: center">
                                     <?php echo $referansSerisi[$i]; ?>
                                 </td>
+
                             <?php } ?>
                         </tr>
-
                     </table>
-
                 </div>
             </div>
         </div>
+
 
         <div class="col-xs-12">
             <div class="box">
@@ -190,17 +190,12 @@
                             for ($i = 1; $i < $kriter; $i++) {
                                 $maxm = $the_big_array[1][$i];
 
-                                // Run the inner loop for rows
                                 for ($j = 1; $j < $secenek; $j++) {
-                                    // check if any element is greater
-                                    // than the maximum element
-                                    // of the column and replace it
+
                                     if ($the_big_array[$j][$i] > $maxm)
                                         $maxm = $the_big_array[$j][$i];
                                 }
 
-                                // print the largest element
-                                // of the column
                                 array_push($maxs, $maxm);
                             }
                             return $maxs;
@@ -224,8 +219,11 @@
 
                         <?php for ($j = 1; $j < $secenek; $j++) {
                             $a = 0; ?>
+
                             <tr>
-                                <td style="text-align: center"><?php echo "S" . $j; ?></td>
+                                <td style="text-align: center">
+                                    <?php echo "S" . $j; ?>
+                                </td>
 
                                 <?php for ($i = 1; $i < $kriter; $i++) {
 
@@ -267,13 +265,15 @@
                                         <td style="text-align: center">
                                             <?php echo number_format($islem, 2); ?>
                                         </td>
+
                                     <?php } ?>
                                     <?php $a++;
+
                                     $the_big_array[$j][$i] = number_format($islem, 2);
                                 } ?>
                             </tr>
-                        <?php } ?>
 
+                        <?php } ?>
                     </table>
 
 
@@ -294,9 +294,9 @@
                         }
                         $aktarilacak = $aktarilacak . "\n";
                     }
+
                     fwrite($ac, $aktarilacak);
                     fclose($ac); ?>
-
                 </div>
             </div>
         </div>
@@ -343,8 +343,8 @@
                         <?php } ?>
                     </table>
 
-                    <?php
 
+                    <?php
                     $ac = fopen(__DIR__ . "/../../../../controllers/bulanik/tablo3.csv", "w+");
 
                     $aktarilacak = "";
@@ -361,6 +361,7 @@
                         }
                         $aktarilacak = $aktarilacak . "\n";
                     }
+
                     fwrite($ac, $aktarilacak);
                     fclose($ac); ?>
 
@@ -433,6 +434,7 @@
 
                         $minFark = minFark($the_big_array, $secenek, $kriter); ?>
 
+
                         <?php for ($j = 1; $j < $secenek; $j++) {
                             $a = 0; ?>
 
@@ -460,10 +462,10 @@
                                         <?php echo number_format($islem, 2); ?>
                                     </td>
 
-                                    <?php  $the_big_array[$j][$i] = number_format($islem, 2); } ?>
+                                    <?php $the_big_array[$j][$i] = number_format($islem, 2);
+                                } ?>
                             </tr>
                         <?php } ?>
-
                     </table>
 
                     <?php
@@ -485,6 +487,7 @@
                         }
                         $aktarilacak = $aktarilacak . "\n";
                     }
+
                     fwrite($ac, $aktarilacak);
                     fclose($ac); ?>
 
@@ -493,8 +496,9 @@
 
             <br>
             <div class="box-footer">
-                <a class="btn btn-warning fa fa-close" href="#"> Vazgeç</a>
-                <button type="submit" class="btn btn-primary pull-right fa fa-plus"> Ekle</button>
+                <a class="btn btn-warning fa fa-close" href="<?php echo base_url('yonetim/bulanik') ?>"> Vazgeç</a>
+                <a href="<?php echo base_url('yonetim/bulanikAgirlik') ?>"
+                   class="btn btn-primary pull-right fa fa-send"> İlerle</a>
             </div>
         </div>
 

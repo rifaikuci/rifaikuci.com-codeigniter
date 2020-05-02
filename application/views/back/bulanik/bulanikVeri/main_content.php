@@ -7,7 +7,8 @@
                     <h3 class="box-title">GRA Veri Girişi</h3>
                     <div class="box-body">
 
-                        <form action="<?php echo base_url('yonetim/bulanikVeriGirisi/'.count($secenek).'/'.count($kriter)) ?>" method="post"
+                        <form action="<?php echo base_url('yonetim/bulanikVeriGirisi/' . count($secenek) . '/' . count($kriter)) ?>"
+                              method="post"
                               class="form-horizontal">
 
                             <div class="form-group">
@@ -86,13 +87,14 @@
                                 <?php } ?>
                             </table>
                     </div>
-
                 </div>
 
                 <br>
                 <div class="box-footer">
-                    <a class="btn btn-warning fa fa-close" href="<?php echo base_url('yonetim/bulanikVeriGirisi/'.count($kriter).'/'.count($secenek)) ?>"> Vazgeç</a>
-                    <button type="submit" class="btn btn-primary pull-right fa fa-plus"> Ekle</button>
+                    <a class="btn btn-warning fa fa-close"
+                       href="<?php echo base_url('yonetim/bulanik'); ?>">
+                        Vazgeç</a>
+                    <button type="submit" class="btn btn-primary pull-right fa fa-send"> İlerle</button>
                 </div>
                 </form>
             </div>

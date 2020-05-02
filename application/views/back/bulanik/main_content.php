@@ -99,7 +99,7 @@
                 <div class="box-footer">
                     <a class="btn btn-warning fa fa-close" href="<?php echo base_url('yonetim/anasayfa') ?>"> Vazgeç</a>
                     <button type="submit" class="btn btn-primary pull-right fa fa-send">
-                        &nbsp;&nbsp;&nbsp;&nbsp; Devam Et&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp; İlerle&nbsp;&nbsp;&nbsp;
                     </button>
                 </div>
             </form>

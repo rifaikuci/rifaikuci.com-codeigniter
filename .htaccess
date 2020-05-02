@@ -3,4 +3,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
 
-RewriteRule ^sitemap.xml sitemap.php [L,NC]
+RewriteRule ^sitemap.xml$ sitemap.php [L,NC]
