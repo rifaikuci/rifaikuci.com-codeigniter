@@ -11,5 +11,7 @@ echo $icon; ?>">
 <meta content="" name="keywords">
 <meta content="" name="description">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 
 <?php $this->load->view('back/include/style'); ?>

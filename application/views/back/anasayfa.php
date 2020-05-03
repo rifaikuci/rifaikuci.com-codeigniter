@@ -6,6 +6,7 @@
     <link rel="shortcut icon" type="image/png" href="<?php echo base_url();
     echo $icon; ?>">
     <?php $this->load->view('back/include/head.php'); ?>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -17,6 +18,7 @@
 
     <div class="content-wrapper">
         <?php $this->load->view('back/breadcrumb.php'); ?>
+
         <?php $this->load->view('back/main_content.php'); ?>
     </div>
 

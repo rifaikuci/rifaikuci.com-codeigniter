@@ -9,6 +9,7 @@
 <div class="wrapper">
     <title>RifaiKuçi | GRA Tablolar</title>
     <?php $this->load->view('back/include/header.php'); ?>
+
     <?php $this->load->view('back/include/sidebar.php'); ?>
 
     <div class="content-wrapper">
