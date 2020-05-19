@@ -3,19 +3,19 @@
 
 <head>
     <?php $this->load->view('back/include/head.php'); ?>
-
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 
+
 <div class="wrapper">
-    <title>Rifai Kuçi | Türler</title>
+    <title>Keşfet Güncelleme</title>
     <?php $this->load->view('back/include/header.php'); ?>
     <?php $this->load->view('back/include/sidebar.php'); ?>
 
     <div class="content-wrapper">
-        <?php $this->load->view('back/turler/breadcrumb.php'); ?>
-        <?php $this->load->view('back/turler/main_content.php'); ?>
+        <?php $this->load->view('back/turKesfet/edit/breadcrumb.php'); ?>
+        <?php $this->load->view('back/turKesfet/edit/main_content.php'); ?>
     </div>
 
     <?php $this->load->view('back/include/footer.php'); ?>

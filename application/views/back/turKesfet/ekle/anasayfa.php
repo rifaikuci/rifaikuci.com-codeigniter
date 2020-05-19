@@ -8,13 +8,13 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
-    <title>Türler Güncelleme</title>
+    <title>Keşfet Ekleme</title>
     <?php $this->load->view('back/include/header.php'); ?>
     <?php $this->load->view('back/include/sidebar.php'); ?>
 
     <div class="content-wrapper">
-        <?php $this->load->view('back/turler/edit/breadcrumb.php'); ?>
-        <?php $this->load->view('back/turler/edit/main_content.php'); ?>
+        <?php $this->load->view('back/turKesfet/ekle/breadcrumb.php'); ?>
+        <?php $this->load->view('back/turKesfet/ekle/main_content.php'); ?>
     </div>
 
     <?php $this->load->view('back/include/footer.php'); ?>

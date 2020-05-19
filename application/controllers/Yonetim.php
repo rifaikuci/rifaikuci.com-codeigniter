@@ -2612,158 +2612,6 @@ class Yonetim extends CI_Controller
 
     // lisan projesi başlangıç
 
-    // Tür işlemleri başlangıç
-    public function turler()
-    {
-        $this->protect();
-        $sonuc = $this->dtbs->listele('turler');
-        $data['bilgi'] = $sonuc;
-        $this->load->view('back/turler/anasayfa', $data);
-    }
-
-    public function turlerekle()
-    {
-        $this->protect();
-        $this->load->view('back/turler/ekle/anasayfa');
-    }
-
-    public function turlerekleme()
-    {
-        $this->protect();
-        $turDetay = $this->input->post('turDetay');
-        $turDetay = trim($turDetay);
-
-        $resimkayit = $this->imageUpload('lisans/images/', 'turResim', 250, 200);
-
-        if ($resimkayit != '0') {
-
-            $data = array(
-                'turResim' => $resimkayit,
-                'turAd' => $this->input->post('turAd'),
-                'turDetay' => $turDetay,
-                'turEnlem' => $this->input->post('turEnlem'),
-                'turBoylam' => $this->input->post('turBoylam'),
-                'tur' => $this->input->post('tur'),
-                'durum' => $durum = $this->input->post('durum')
-            );
-
-            $sonuc = $this->dtbs->ekle('turler', $data);
-
-            if ($sonuc) {
-
-                $this->durum("Başarılı :)", "Tür başarılı bir şekilde eklendi", 1);
-                redirect('yonetim/turler');
-            } else {
-
-                $this->durum("Hata!!!", "Tür eklenirken bir hata oluştu", 0);
-                redirect('yonetim/turler');
-            }
-        } else {
-            $this->durum("Hata!!!", "Resim eklenirken bir hata oluştu", 0);
-            redirect('yonetim/turler');
-        }
-    }
-
-    public function turlerset()
-    {
-        $this->protect();
-        $id = $this->input->post('id');
-        $durum = ($this->input->post('durum') == "true") ? 1 : 0;
-        $this->db->where('id', $id)->update('turler', array('durum' => $durum));
-    }
-
-    public function turlerduzenle($id)
-    {
-        $this->protect();
-        $sonuc = $this->dtbs->cek($id, 'turler');
-        $data['bilgi'] = $sonuc;
-        $this->load->view('back/turler/edit/anasayfa', $data);
-    }
-
-    public function turlerguncelle()
-    {
-        $this->protect();
-        $id = $this->input->post('id');
-        $turDetay = $this->input->post('turDetay');
-        $turDetay = trim($turDetay);
-
-        $resimkayit = $this->imageUpload('lisans/images/', 'turResim', 250, 200);
-
-        if ($resimkayit != '0') {
-
-            $resimsil = turlerResim($id);
-            $dilimler = explode("/", $resimsil);
-            $silinecekResim = $dilimler[count($dilimler) - 3] . "/" . $dilimler[count($dilimler) - 2] . "/" . $dilimler[count($dilimler) - 1];
-            unlink($silinecekResim);
-
-            $data = array(
-                'turResim' => $resimkayit,
-                'turAd' => $this->input->post('turAd'),
-                'turDetay' => $turDetay,
-                'turEnlem' => $this->input->post('turEnlem'),
-                'turBoylam' => $this->input->post('turBoylam'),
-                'tur' => $this->input->post('tur'),
-                'durum' => $durum = $this->input->post('durum')
-            );
-
-            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turler');
-
-            if ($sonuc) {
-
-                $this->durum("Başarılı :)", "Tür başarılı bir şekilde Güncellendi", 1);
-                redirect('yonetim/turler');
-            } else {
-
-                $this->durum("Hata!!!", "Tür güncellenirken bir hata oluştu", 0);
-                redirect('yonetim/turler');
-            }
-        } else {
-            $data = array(
-                'turAd' => $this->input->post('turAd'),
-                'turDetay' => $turDetay,
-                'turEnlem' => $this->input->post('turEnlem'),
-                'turBoylam' => $this->input->post('turBoylam'),
-                'tur' => $this->input->post('tur'),
-                'durum' => $durum = $this->input->post('durum')
-            );
-
-            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turler');
-
-            if ($sonuc) {
-
-                $this->durum("Başarılı :)", "Tür başarılı bir şekilde Güncellendi", 1);
-                redirect('yonetim/turler');
-            } else {
-
-                $this->durum("Hata!!!", "Tür güncellenirken bir hata oluştu", 0);
-                redirect('yonetim/turler');
-            }
-        }
-    }
-
-    public function turlersil($id, $where, $from)
-    {
-        $this->protect();
-        $resimsil = turlerResim($id);
-        $dilimler = explode("/", $resimsil);
-        $silinecekResim = $dilimler[count($dilimler) - 3] . "/" . $dilimler[count($dilimler) - 2] . "/" . $dilimler[count($dilimler) - 1];
-        unlink($silinecekResim);
-
-        $sonuc = $this->dtbs->sil($id, $where, $from);
-
-        if ($sonuc) {
-
-            $this->durum("Başarılı :)", "Tür başarılı bir şekilde silindi", 1);
-            redirect('yonetim/turler');
-        } else {
-
-            $this->durum("Hata!!!", "Tür silinirken bir hata oluştu", 0);
-            redirect('yonetim/turler');
-        }
-    }
-    // Tür işlemleri bitiş
-
-
     // Kullanıcı işlemleri başlangıç
     public function turKullanici()
     {
@@ -2782,12 +2630,20 @@ class Yonetim extends CI_Controller
     public function turKullaniciekleme()
     {
         $this->protect();
+        $adSoyad = $this->input->post('adSoyad');
+        $mail = $this->input->post('mail');
+        $sifre = $this->input->post('sifre');
+        $resim = $this->input->post('resim');
+        $durum = $this->input->post('durum');
 
+        $resimkayit = $this->imageUpload('lisans/images/kullanicilar/', 'resim');
+        $resimkayit = "https://rifaikuci.com/".$resimkayit;
         $data = array(
-            'adSoyad' => $adSoyad = $this->input->post('adSoyad'),
-            'mail' => $mail = $this->input->post('mail'),
-            'sifre' => $sifre = $this->input->post('sifre'),
-            'durum' => $durum = $this->input->post('durum')
+            'adSoyad' => $adSoyad,
+            'mail' => $mail,
+            'sifre' => $sifre,
+            'resim' => $resimkayit,
+            'durum' => $durum
         );
 
         $sonuc = $this->dtbs->ekle('turKullanici', $data);
@@ -2813,25 +2669,61 @@ class Yonetim extends CI_Controller
     public function turKullaniciguncelle()
     {
         $this->protect();
+        $id = $this->input->post('id');
+        $adSoyad = $this->input->post('adSoyad');
+        $mail = $this->input->post('mail');
+        $sifre = $this->input->post('sifre');
+        $resim = $this->input->post('resim');
+        $durum = $this->input->post('durum');
 
-        $data = array(
-            'id' => $id = $this->input->post('id'),
-            'adSoyad' => $adSoyad = $this->input->post('adSoyad'),
-            'mail' => $mail = $this->input->post('mail'),
-            'sifre' => $sifre = $this->input->post('sifre'),
-            'durum' => $durum = $this->input->post('durum')
-        );
 
-        $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turKullanici');
+        $resimkayit = $this->imageUpload('lisans/images/kullanicilar/', 'resim');
+        if ($resimkayit != '0') {
 
-        if ($sonuc) {
+            $resimkayit = "https://rifaikuci.com/".$resimkayit;
 
-            $this->durum("Başarılı :)", "Kullanıcı başarılı bir şekilde güncellendi", 1);
-            redirect('yonetim/turKullanici');
+            $data = array('resim' => $resimkayit,
+                'adSoyad' => $adSoyad,
+                'mail' => $mail,
+                'sifre' => $sifre,
+                'resim' => $resimkayit,
+                'durum' => $durum
+            );
+
+            $resimsil = turKullaniciResim($id);
+            unlink($resimsil);
+
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turKullanici');
+
+            if ($sonuc) {
+
+                $this->durum("Başarılı :)", "Kullanıcı başarılı bir şekilde güncellendi", 1);
+                redirect('yonetim/turKullanici');
+            } else {
+
+                $this->durum("Hata !!!", "Kullanıcı güncellenirken bir hata oluştu", 0);
+                redirect('yonetim/turKullanici');
+            }
         } else {
+            $data = array(
+                'id' => $id,
+                'adSoyad' => $adSoyad,
+                'mail' => $mail,
+                'sifre' => $sifre,
+                'durum' => $durum
+            );
 
-            $this->durum("Hata !!!", "Kullanıcı güncellenirken bir hata oluştu", 0);
-            redirect('yonetim/turKullanici');
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'turKullanici');
+
+            if ($sonuc) {
+
+                $this->durum("Başarılı :)", "Kullanıcı başarılı bir şekilde güncellendi", 1);
+                redirect('yonetim/turKullanici');
+            } else {
+
+                $this->durum("Hata !!!", "Kullanıcı güncellenirken bir hata oluştu", 0);
+                redirect('yonetim/turKullanici');
+            }
         }
     }
 
@@ -2846,6 +2738,8 @@ class Yonetim extends CI_Controller
     public function turKullanicisil($id, $where, $from)
     {
         $this->protect();
+        $resimsil = turKullaniciResim($id);
+        unlink($resimsil);
         $sonuc = $this->dtbs->sil($id, $where, $from);
         if ($sonuc) {
 
@@ -2858,6 +2752,191 @@ class Yonetim extends CI_Controller
         }
     }
     // Kullanıcı işlemleri bitiş
+
+    //Türler işlemleri başlangıç
+    public function turTurler()
+    {
+        $this->protect();
+        $sonuc = $this->dtbs->listele('turler');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/turTurler/anasayfa', $data);
+    }
+
+    public function turgoruntule($id)
+    {
+        $this->protect();
+        $sonuc = $this->dtbs->cek($id, 'turler');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/turTurler/goruntule/anasayfa', $data);
+    }
+
+
+    //Türler işlemleri bitiş
+
+    //Kesfet islemleri baslangıc
+    public function turKesfet()
+    {
+        $this->protect();
+        $sonuc = $this->dtbs->listele('kesfet');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/turKesfet/anasayfa', $data);
+    }
+
+    public function turKesfetekle()
+    {
+        $this->protect();
+        $this->load->view('back/turKesfet/ekle/anasayfa');
+    }
+
+    public function turKesfetekleme()
+    {
+        $this->protect();
+        $turAd = $this->input->post('turAd');
+        $turDetay = $this->input->post('turDetay');
+        $paylasanKullanici = $this->input->post('paylasanKullanici');
+        $turEnlem = $this->input->post('turEnlem');
+        $turBoylam = $this->input->post('turBoylam');
+        $durum = $this->input->post('durum');
+        $tur = $this->input->post('tur');
+
+        if($tur==1){
+            $tur ="Bitki";
+        }else{
+            $tur = "Kuş";
+        }
+
+        $resimkayit = $this->imageUpload('lisans/images/kesfet/', 'turResim');
+        $resimkayit = "https://rifaikuci.com/".$resimkayit;
+        $data = array(
+            'turAd' => $turAd,
+            'turDetay' => $turDetay,
+            'paylasanKullanici' => $paylasanKullanici,
+            'turEnlem' => $turEnlem,
+            'turBoylam' => $turBoylam,
+            'turResim' => $resimkayit,
+            'durum' => $durum,
+            'tur' => $tur
+        );
+
+        $sonuc = $this->dtbs->ekle('kesfet', $data);
+
+        if ($sonuc) {
+
+            $this->durum("Başarılı :) ", "Keşfet listesine tür başarılı bir şekilde eklendi", 1);
+            redirect('yonetim/turKesfet');
+        } else {
+            $this->durum("Hata !!! ", "Keşfet listesine tür Eklenirken bir hata oluştu", 0);
+            redirect('yonetim/turKesfet');
+        }
+    }
+
+    public function turKesfetduzenle($id)
+    {
+        $this->protect();
+        $sonuc = $this->dtbs->cek($id, 'kesfet');
+        $data['bilgi'] = $sonuc;
+        $this->load->view('back/turKesfet/edit/anasayfa', $data);
+    }
+
+    public function turKesfetguncelle()
+    {
+        $this->protect();
+        $id = $this->input->post('id');
+        $turAd = $this->input->post('turAd');
+        $turDetay = $this->input->post('turDetay');
+        $paylasanKullanici = $this->input->post('paylasanKullanici');
+        $turEnlem = $this->input->post('turEnlem');
+        $turBoylam = $this->input->post('turBoylam');
+        $durum = $this->input->post('durum');
+        $tur = $this->input->post('tur');
+
+        if($tur==1){
+            $tur ="Bitki";
+        }else{
+            $tur = "Kuş";
+        }
+
+        $resimkayit = $this->imageUpload('lisans/images/kesfet/', 'turResim');
+        if ($resimkayit != '0') {
+
+            $resimkayit = "https://rifaikuci.com/".$resimkayit;
+
+            $data = array(
+                'turAd' => $turAd,
+                'turDetay' => $turDetay,
+                'paylasanKullanici' => $paylasanKullanici,
+                'turEnlem' => $turEnlem,
+                'turBoylam' => $turBoylam,
+                'turResim' => $resimkayit,
+                'durum' => $durum,
+                'tur' => $tur
+            );
+
+            $resimsil = turKesfetResim($id);
+            unlink($resimsil);
+
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'kesfet');
+
+            if ($sonuc) {
+
+                $this->durum("Başarılı :)", "Keşfet bilgisi başarılı bir şekilde güncellendi", 1);
+                redirect('yonetim/turKesfet');
+            } else {
+
+                $this->durum("Hata !!!", "Keşfet bilgisi güncellenirken bir hata oluştu", 0);
+                redirect('yonetim/turKesfet');
+            }
+        } else {
+            $data = array(
+                'turAd' => $turAd,
+                'turDetay' => $turDetay,
+                'paylasanKullanici' => $paylasanKullanici,
+                'turEnlem' => $turEnlem,
+                'turBoylam' => $turBoylam,
+                'durum' => $durum,
+                'tur' => $tur
+            );
+
+            $sonuc = $this->dtbs->guncelle($data, $id, 'id', 'kesfet');
+
+            if ($sonuc) {
+
+                $this->durum("Başarılı :)", "Keşfet bilgisi başarılı bir şekilde güncellendi", 1);
+                redirect('yonetim/turKesfet');
+            } else {
+
+                $this->durum("Hata !!!", "Keşfet bilgisi güncellenirken bir hata oluştu", 0);
+                redirect('yonetim/turKesfet');
+            }
+        }
+    }
+
+    public function turKesfetset()
+    {
+        $this->protect();
+        $id = $this->input->post('id');
+        $durum = ($this->input->post('durum') == "true") ? 1 : 0;
+        $this->db->where('id', $id)->update('kesfet', array('durum' => $durum));
+    }
+
+    public function turKesfetsil($id, $where, $from)
+    {
+        $this->protect();
+        $resimsil = turKesfetResim($id);
+        unlink($resimsil);
+        $sonuc = $this->dtbs->sil($id, $where, $from);
+        if ($sonuc) {
+
+            $this->durum("Başarılı :)", "Keşfet başarılı bir şekilde silindi", 1);
+            redirect('yonetim/turKesfet');
+        } else {
+
+            $this->durum("Hata!!!", "Keşfet silinirken bir hata oluştu", 0);
+            redirect('yonetim/turKesfet');
+        }
+    }
+
+    //Kesfet islemleri bitis
 
     // lisan projesi bitiş
 
@@ -2893,7 +2972,7 @@ class Yonetim extends CI_Controller
 
         if ($resimkayit != '0') {
 
-            $resimkayit = base_url() . $resimkayit;
+            $resimkayit = "https://rifaikuci.com/".$resimkayit;
 
             $data = array(
                 'duyuruResim' => $resimkayit,
@@ -2925,7 +3004,8 @@ class Yonetim extends CI_Controller
                 redirect('yonetim/duyurular');
             }
         } else {
-            $resimkayit = base_url("/akilliYurt/images/default.png");
+
+            $resimkayit =  "https://rifaikuci.com/akilliYurt/images/default.png";
 
             $data = array(
                 'duyuruResim' => $resimkayit,
@@ -2982,10 +3062,10 @@ class Yonetim extends CI_Controller
             $resim = $resim[count($resim) - 1];
 
             if ($resim != "default.png") {
-                $resimsil = duyurularresim($id);
-                $dilimler = explode("/", $resimsil);
-                $silinecekResim = $dilimler[count($dilimler) - 3] . "/" . $dilimler[count($dilimler) - 2] . "/" . $dilimler[count($dilimler) - 1];
-                unlink($silinecekResim);
+                $resimsil = duyuruResim($id);
+                echo  $resimsil;
+                exit();
+                unlink($resimsil);
             }
 
             $resimkayit = base_url() . $resimkayit;
@@ -3047,10 +3127,10 @@ class Yonetim extends CI_Controller
         $resim = explode("/", duyurularresim($id));
         $resim = $resim[count($resim) - 1];
         if ($resim != "default.png") {
-            $resimsil = duyurularresim($id);
-            $dilimler = explode("/", $resimsil);
-            $silinecekResim = $dilimler[count($dilimler) - 3] . "/" . $dilimler[count($dilimler) - 2] . "/" . $dilimler[count($dilimler) - 1];
-            unlink($silinecekResim);
+            $resimsil = duyuruResim($id);
+            unlink($resimsil);
+            echo $resim;
+            exit();
         }
 
         $sonuc = $this->dtbs->sil($id, $where, $from);

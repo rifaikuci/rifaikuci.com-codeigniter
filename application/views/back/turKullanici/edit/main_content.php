@@ -7,6 +7,7 @@
             </div>
 
             <form action="<?php echo base_url('yonetim/turKullaniciguncelle'); ?>" method="post"
+                  enctype="multipart/form-data"
                   class="form-horizontal">
 
                 <div class="box-body">
@@ -37,15 +38,31 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label"> Mevcud Resim</label>
+                        <div class="col-sm-4">
+                            <img style="width:160px; height:160px; margin-left:50px;"
+                                 src="<?php echo $bilgi['resim']; ?>" alt="Kullanıcı Resmi" name="resim">
+                        </div>
+                        <div class="" style="margin-top: 50px ;">
+                            <label class="col-sm-2 control-label"> Yeni Resim</label>
+                            <div class="col-sm-4">
+                                <input type="file" name="resim">
+                                <p class="text-blue" style="font-weight:bold; margin-left: -100px; padding-top:25px;">
+                                    Yeni Resim Seçmeyecekseniz Resim Seçmeyin Lütfen !!!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">Durum </label>
                         <div class="col-sm-6">
                             <select class="form-control" required name="durum">
                                 <?php if (($bilgi['durum']) == 1) { ?>
                                     <option selected value="1">Aktif</option>
-                                    <option value="2">Pasif</option>
+                                    <option value="0">Pasif</option>
                                 <?php } else { ?>
                                     <option value="1">Aktif</option>
-                                    <option selected value="2">Pasif</option>
+                                    <option selected value="0">Pasif</option>
                                 <?php } ?>
                             </select>
                         </div>

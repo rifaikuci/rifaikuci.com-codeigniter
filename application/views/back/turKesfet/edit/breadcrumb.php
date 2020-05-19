@@ -1,7 +1,5 @@
 <section class="content-header">
-
-    <h1> Türler Güncelleme</h1>
-
+    <h1> Kesfet Bilgileri Güncelleme</h1>
     <ol class="breadcrumb">
 
         <li>
@@ -9,11 +7,11 @@
         </li>
 
         <li>
-            <a href="<?php echo base_url('yonetim/turler'); ?>"><i class="fa fa-file-text"></i>Türler </a>
+            <a href="<?php echo base_url('yonetim/turKesfet'); ?>"><i class="glyphicon glyphicon-education"></i>Kesfet Bilgileri </a>
         </li>
 
         <li>
-            <a href="#"><i class="fa fa-edit"></i>Türler Güncelleme </a>
+            <a href="#"><i class="fa fa-edit"></i>Kesfet Bilgileri Güncelleme </a>
         </li>
 
     </ol>

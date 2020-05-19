@@ -17,7 +17,7 @@
                             <th style="text-align: center">Sıra</th>
                             <th style="text-align: center">Ad Soyad</th>
                             <th style="text-align: center">Mail</th>
-                            <th style="text-align: center">Kayıt Tarihi</th>
+                            <th style="text-align: center">Resim</th>
                             <th style="text-align: center">Durum</th>
                             <th style="text-align: center">İşlemler</th>
                         </tr>
@@ -39,8 +39,9 @@
                                     <?php echo $bilgi['mail']; ?>
                                 </td>
 
-                                <td style="text-align: center">
-                                    <?php echo tarih($bilgi['kayitTarih']); ?>
+                                <td style="padding-left:40px;text-align: center">
+                                    <img src="<?php echo $bilgi['resim']; ?>"
+                                         alt="<?php echo $bilgi['adSoyad']; ?>" height="75" width="75">
                                 </td>
 
                                 <td style="text-align: center">

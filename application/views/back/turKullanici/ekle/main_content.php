@@ -6,7 +6,7 @@
                 <h3 class="box-title">Kullanıcı Ekleme Formu</h3>
             </div>
 
-            <form action="<?php echo base_url('yonetim/turKullaniciekleme'); ?>" method="post" class="form-horizontal">
+            <form action="<?php echo base_url('yonetim/turKullaniciekleme'); ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
                 <div class="box-body">
 
                     <div class="form-group">
@@ -34,11 +34,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Resim</label>
+                        <div class="col-sm-6">
+                            <input type="file" name="resim" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">Durum </label>
                         <div class="col-sm-6">
                             <select class="form-control" required name="durum">
                                 <option value="1">Aktif</option>
-                                <option value="2">Pasif</option>
+                                <option value="0">Pasif</option>
                             </select>
                         </div>
                     </div>

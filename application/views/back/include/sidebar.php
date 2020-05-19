@@ -289,17 +289,25 @@
                 </a>
 
                 <ul class="treeview-menu">
-                    <li>
-                        <a href="<?php echo base_url('yonetim/turler'); ?>"><i class="fa fa-circle-o"></i>
-                            <span class="label label-success pull-right"><?php echo aktifTur(); ?></span>Türler
-                            <span class="label label-danger pull-right"><?php echo pasifTur(); ?></span>
-                        </a>
-                    </li>
-
+                    
                     <li>
                         <a href="<?php echo base_url('yonetim/turKullanici'); ?>"><i class="fa fa-circle-o"></i>
                             <span class="label label-success pull-right"><?php echo aktifTurKullanici(); ?></span>
                             <span class="label label-danger pull-right"><?php echo pasifTurKullanici(); ?></span>Kullanıcılar
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?php echo base_url('yonetim/turTurler'); ?>"><i class="fa fa-circle-o"></i>
+                            <span class="label label-success pull-right"><?php echo bitkiSayi(); ?></span>
+                            <span class="label label-danger pull-right"><?php echo hayvanSayisi(); ?></span>Türler
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?php echo base_url('yonetim/turKesfet'); ?>"><i class="fa fa-circle-o"></i>
+                            <span class="label label-success pull-right"><?php echo aktifKesfet(); ?></span>
+                            <span class="label label-danger pull-right"><?php echo pasifKesfet(); ?></span>Keşfet
                         </a>
                     </li>
                 </ul>
