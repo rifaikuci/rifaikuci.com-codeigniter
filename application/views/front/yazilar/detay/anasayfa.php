@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $bak = sayfahitcek(); ?>
+<?php $bak = sayfahitcek();
+sayfahitarttir($bak);
+
+?>
 
 <head>
     <meta charset="utf-8">

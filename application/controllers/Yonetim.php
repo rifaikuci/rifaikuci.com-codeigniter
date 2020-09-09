@@ -3204,11 +3204,11 @@ class Yonetim extends CI_Controller
 
 
     // Bulanık Mantık işlemleri giriş
-    public function bulanik()
-    {
-        $this->protect();
-        $this->load->view('back/bulanik/anasayfa');
-    }
+        public function bulanik()
+        {
+            $this->protect();
+            $this->load->view('back/bulanik/anasayfa');
+        }
 
     public function bulanikVeri()
     {

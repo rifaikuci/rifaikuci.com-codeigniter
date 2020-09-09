@@ -6,6 +6,14 @@
             echo $bilgi['resim']; ?>" class="img-fluid" alt="">
         </div>
 
+        <?php $cookie = $bilgi['seobaslik'];
+
+        if (@$_COOKIE[$cookie]) {
+            @$_COOKIE[$cookie];
+
+        } else {
+            yazihitarttir($bilgi['id'], $bilgi['hit']);
+        } ?>
 
         <div class="post-meta">
             <h1 class="article-title">

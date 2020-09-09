@@ -23,6 +23,12 @@
                 </p>
 
                 <p class="pt-3">
+                    <a class="btn btn-primary btn js-scroll px-4" target="_blank"
+                       href="<?php echo base_url('cv.pdf'); ?>" role="button">Özgeçmiş
+                    </a>
+                </p>
+
+                <p class="pt-3">
                     <a class="btn btn-primary btn js-scroll px-4"
                        href="<?php echo base_url('anasayfa/fereli'); ?>" role="button">Burdur Fereli Sinan Efendi KYK
                     </a>
