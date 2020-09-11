@@ -1173,7 +1173,7 @@ class Yonetim extends CI_Controller
         $hit = 0;
 
         $baslik = strip_tags($this->input->post('baslik'));
-        $icerik = strip_tags($this->input->post('icerik'));
+        $icerik = $this->input->post('icerik');
         $keywords = $this->input->post('keywords');
         $seoicerik = seflink($icerik);
         $seobaslik = seflink($baslik);
@@ -1239,7 +1239,7 @@ class Yonetim extends CI_Controller
         $id = $this->input->post('id');
 
         $baslik = strip_tags($this->input->post('baslik'));
-        $icerik = strip_tags($this->input->post('icerik'));
+        $icerik = $this->input->post('icerik');
         $keywords = $this->input->post('keywords');
         $seoicerik = seflink($icerik);
         $seobaslik = seflink($baslik);
@@ -1347,7 +1347,7 @@ class Yonetim extends CI_Controller
         $this->protect();
         $hit = 0;
         $baslik = strip_tags($this->input->post('baslik'));
-        $icerik = strip_tags($this->input->post('icerik'));
+        $icerik = $this->input->post('icerik');
         $aciklama = strip_tags($this->input->post('aciklama'));
         $keywords = $this->input->post('keywords');
         $seoicerik = seflink($icerik);
@@ -1414,7 +1414,7 @@ class Yonetim extends CI_Controller
         $this->protect();
         $id = $this->input->post('id');
         $baslik = strip_tags($this->input->post('baslik'));
-        $icerik = strip_tags($this->input->post('icerik'));
+        $icerik = $this->input->post('icerik');
         $aciklama = strip_tags($this->input->post('aciklama'));
         $keywords = $this->input->post('keywords');
         $seoicerik = seflink($icerik);
@@ -2190,7 +2190,7 @@ class Yonetim extends CI_Controller
     {
         $this->protect();
 
-        $resimkayit = $this->imageUpload('assets/front/img/resimler/', 'resim', 0, 0);
+        $resimkayit = $this->imageUploadSameName('assets/front/img/resimler/', 'resim', 0, 0);
 
         if ($resimkayit != '0') {
 
@@ -2225,7 +2225,7 @@ class Yonetim extends CI_Controller
     {
         $id = $this->input->post('id');
 
-        $resimkayit = $this->imageUpload('assets/front/img/resimler/', 'resim', 0, 0);
+        $resimkayit = $this->imageUploadSameName('assets/front/img/resimler/', 'resim', 0, 0);
 
         if ($resimkayit != '0') {
 
@@ -2637,7 +2637,7 @@ class Yonetim extends CI_Controller
         $durum = $this->input->post('durum');
 
         $resimkayit = $this->imageUpload('lisans/images/kullanicilar/', 'resim');
-        $resimkayit = "https://rifaikuci.com/".$resimkayit;
+        $resimkayit = "https://rifaikuci.com/" . $resimkayit;
         $data = array(
             'adSoyad' => $adSoyad,
             'mail' => $mail,
@@ -2680,7 +2680,7 @@ class Yonetim extends CI_Controller
         $resimkayit = $this->imageUpload('lisans/images/kullanicilar/', 'resim');
         if ($resimkayit != '0') {
 
-            $resimkayit = "https://rifaikuci.com/".$resimkayit;
+            $resimkayit = "https://rifaikuci.com/" . $resimkayit;
 
             $data = array('resim' => $resimkayit,
                 'adSoyad' => $adSoyad,
@@ -2799,14 +2799,14 @@ class Yonetim extends CI_Controller
         $durum = $this->input->post('durum');
         $tur = $this->input->post('tur');
 
-        if($tur==1){
-            $tur ="Bitki";
-        }else{
+        if ($tur == 1) {
+            $tur = "Bitki";
+        } else {
             $tur = "Kuş";
         }
 
         $resimkayit = $this->imageUpload('lisans/images/kesfet/', 'turResim');
-        $resimkayit = "https://rifaikuci.com/".$resimkayit;
+        $resimkayit = "https://rifaikuci.com/" . $resimkayit;
         $data = array(
             'turAd' => $turAd,
             'turDetay' => $turDetay,
@@ -2850,16 +2850,16 @@ class Yonetim extends CI_Controller
         $durum = $this->input->post('durum');
         $tur = $this->input->post('tur');
 
-        if($tur==1){
-            $tur ="Bitki";
-        }else{
+        if ($tur == 1) {
+            $tur = "Bitki";
+        } else {
             $tur = "Kuş";
         }
 
         $resimkayit = $this->imageUpload('lisans/images/kesfet/', 'turResim');
         if ($resimkayit != '0') {
 
-            $resimkayit = "https://rifaikuci.com/".$resimkayit;
+            $resimkayit = "https://rifaikuci.com/" . $resimkayit;
 
             $data = array(
                 'turAd' => $turAd,
@@ -2972,7 +2972,7 @@ class Yonetim extends CI_Controller
 
         if ($resimkayit != '0') {
 
-            $resimkayit = "https://rifaikuci.com/".$resimkayit;
+            $resimkayit = "https://rifaikuci.com/" . $resimkayit;
 
             $data = array(
                 'duyuruResim' => $resimkayit,
@@ -3005,7 +3005,7 @@ class Yonetim extends CI_Controller
             }
         } else {
 
-            $resimkayit =  "https://rifaikuci.com/akilliYurt/images/default.png";
+            $resimkayit = "https://rifaikuci.com/akilliYurt/images/default.png";
 
             $data = array(
                 'duyuruResim' => $resimkayit,
@@ -3063,7 +3063,7 @@ class Yonetim extends CI_Controller
 
             if ($resim != "default.png") {
                 $resimsil = duyuruResim($id);
-                echo  $resimsil;
+                echo $resimsil;
                 exit();
                 unlink($resimsil);
             }
@@ -3204,11 +3204,11 @@ class Yonetim extends CI_Controller
 
 
     // Bulanık Mantık işlemleri giriş
-        public function bulanik()
-        {
-            $this->protect();
-            $this->load->view('back/bulanik/anasayfa');
-        }
+    public function bulanik()
+    {
+        $this->protect();
+        $this->load->view('back/bulanik/anasayfa');
+    }
 
     public function bulanikVeri()
     {
@@ -3301,7 +3301,7 @@ class Yonetim extends CI_Controller
         $this->protect();
 
         for ($j = 0; $j < $kriter; $j++) {
-             $deneme[$j] = $this->input->post($j);
+            $deneme[$j] = $this->input->post($j);
         }
 
         if (($h = fopen(__DIR__ . "/bulanik/tablo4.csv", "r")) !== FALSE) {
@@ -3357,6 +3357,42 @@ class Yonetim extends CI_Controller
 
     // Bulanık Mantık işlemleri bitiş
 
+    function imageUploadSameName($resimPath, $resimname, $width = 0, $height = 0)
+    {
+
+        $config['upload_path'] = FCPATH . $resimPath;
+        $config['allowed_types'] = 'gif|jpg|jgep|png';
+        $config['encrypt_name'] = false;
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload($resimname)) {
+
+            $resim = $this->upload->data();
+            $resimyolu = $resim['file_name'];
+            $resimkayit = 'assets/front/img/resimler/' . $resimyolu . '';
+            $config['image_library'] = 'gd2';
+            $config['source_image'] = 'assets/front/img/resimler/' . $resimyolu . '';
+            $config['new_image'] = 'assets/front/img/resimler/' . $resimyolu . '';
+            $config['create_thumb'] = false;
+            $config['maintain_ratio'] = false;
+            $config['quality'] = '100%';
+
+            $this->load->library('image_lib', $config);
+            $this->image_lib->initialize($config);
+            $this->image_lib->resize();
+
+            if ($width != 0 && $height != 0) {
+                $this->image_lib->resize();
+            }
+
+            $this->image_lib->clear();
+
+            return $resimkayit;
+        } else {
+            return 0;
+        }
+
+    }
 
     function imageUpload($resimPath, $resimname, $width = 0, $height = 0)
     {
